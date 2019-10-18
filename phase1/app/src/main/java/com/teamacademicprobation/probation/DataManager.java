@@ -1,6 +1,10 @@
 package com.teamacademicprobation.probation;
 
-public class SaveManager {
+public class DataManager {
     public void save(){
+    }
+
+    public void getInfo(String username){
+
     }
 }
