@@ -1,8 +1,9 @@
 package com.teamacademicprobation.probation;
 
-public class PlayerManager {
+class PlayerManager {
 
     // public Player createNewPlayer()
+
     // Should we pass in the "username" and "login" of new player here?
 
     // public Player getPlayer(String username, String password)
