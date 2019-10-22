@@ -1,5 +1,8 @@
 package com.teamacademicprobation.probation;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /** A player for the game. */
 public class Player {
 
@@ -47,4 +50,12 @@ public class Player {
       playerStats.updateScore(newScore, gameID);
     }
 
+    // == TODO: Complete these methods!
+    public Map<String, Object> getData() {
+    return new HashMap<>();
+    }
+
+  public String getID() {
+    return "";
+  }
 }
