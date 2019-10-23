@@ -11,109 +11,138 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
  * A class that is responsible for reading and writing files.
  *
- * Each player is stored in a .txt file containing a JSON Object with the following structure:
+ * <p>Each player is stored in a .txt file containing a JSON Object with the following structure:
  *
- * {"PlayerUsername" : {"Password": String "Preference1": String, "Game1Stat1": int,
- * "PlayerStat1": int}
+ * <p>{"PlayerID": {"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1:
+ * int}, "PlayerStat1" : int}}
  *
- * OR:
- *
- * {"PlayerID": {"Username": String, "Password": String, "Preference1": String, "Game1Stat1" int,
- * "PlayerStat1" : int}}
- *
+ * <p>PlayerID can be the player's username.
  */
 public class DataManager {
+  /** The DataFile for reading and writing. */
+  private static File DataFile;
+
+  public static void setDataFile(File dataFile) {
+    DataManager.DataFile = dataFile;
+  }
+
+  /**
+   * Saves the username, password, stats, preferences of the given player.
+   *
+   * @param player The player object that we want to save.
+   */
+  public static void save(Player player) {
+    Map<String, Object> playerDataMap = player.getData();
+    JSONObject playerData = new JSONObject(playerDataMap);
+    DataManager.updateFile(playerData, player.getPlayerID());
+  }
+
+  /**
+   * Overwrites the JSON data file to include the changes to playerID
+   *
+   * @param playerData The new JSONObject that describes the player.
+   * @param playerID The playerID of the player being updated.
+   */
+  private static void updateFile(JSONObject playerData, String playerID) {
+    try {
+      FileWriter file = new FileWriter(DataFile);
+      JSONObject JSONdata = readJSON(); // Get the old JSON.
+      JSONdata.put(playerID, playerData); // Replaces data for playerID
+      file.write(JSONdata.toString());
+    } catch (IOException e) {
+      Log.e("JSON", "File not found.");
+    } catch (JSONException e) {
+      Log.e("JSON", "JSON reading failed.");
+    }
+  }
+
+  /**
+   * Returns a JSONObject specified from the file.
+   *
+   * @return JSONObject.
+   */
+  private static JSONObject readJSON() {
+    String oldData = readFile();
+    JSONObject result = null;
+    try {
+      result = new JSONObject(oldData);
+    } catch (JSONException e) {
+      Log.e("JSON", "No data found.");
+    }
+    return result;
+  }
+
+  /**
+   * Returns a string from the file specified in DataFile.
+   *
+   * @return String representation of the file.
+   */
+  private static String readFile() {
+    StringBuffer result = new StringBuffer();
+    try (BufferedReader br = new BufferedReader(new FileReader(DataFile))) {
+      String newLine;
+      while ((newLine = br.readLine()) != null) {
+        result.append(newLine);
+      }
+    } catch (FileNotFoundException e) {
+      Log.e("JSON", "File not found,");
+    } catch (IOException e) {
+      Log.e("JSON", "Something wrong happened.");
+    }
+    return result.toString();
+  }
+
+
     /**
-     * The DataFile for reading and writing.
+     * Returns a player object with their playerID.
+     * @param playerID The playerID to find.
+     * @return A player with all the data specified in the JSON of the player with playerID.
      */
-    private static File DataFile;
+  public static Player getPlayer(String playerID) {
+    JSONObject allPlayersData = readJSON();
+    try {
+      JSONObject playerData = allPlayersData.getJSONObject(playerID);
+      PlayerBuilder playerBuilder = new PlayerBuilder();
+      playerBuilder.buildPlayerStats(playerData);
+      playerBuilder.buildPlayerPreferences(playerData);
+      playerBuilder.buildUserAndPassword(playerData);
 
-    public static void setDataFile(File dataFile){
-        DataManager.DataFile = dataFile;
+      return playerBuilder.getPlayer();
+
+    } catch (JSONException e) {
+      Log.e("JSON", "No player with this playerID");
     }
+
+    return null;
+  }
 
     /**
-     * Saves the username, password, stats, preferences of the given player.
-     * @param player
+     * Returns the username of a player given their playerID.
+     * @param username Username of the player we want to find.
+     * @return The playerID of the player with the given username.
      */
-    public static void save(Player player){
-        Map<String, Object> playerDataMap = player.getData();
-        JSONObject playerData = new JSONObject(playerDataMap);
-        DataManager.updateFile(playerData, player.getID());
+  public static String getIDfromUsername(String username) {
+    JSONObject allPlayersData = readJSON();
+    Iterator<String> keys = allPlayersData.keys();
 
+    try {
+      while (keys.hasNext()) {
+        String curr_gameID = keys.next();
+        String curr_username = allPlayersData.getJSONObject(curr_gameID).getString("Username");
+        if (curr_username.equals(username)) {
+          return curr_gameID;
+        }
+      }
+    } catch (JSONException e) {
+      Log.e("JSON", "Error during parsing JSON");
     }
 
-
-    // Citation: Code example from
-    // https://stackoverflow.com/questions/38041893/json-file-java-editing-updating-fields-values
-
-    /**
-     * Overwrites the JSON data file to include the changes to playerID
-     * @param playerData The new JSONObject that describes the player.
-     * @param playerID The playerID of the player being updated.
-     */
-    private static void updateFile(JSONObject playerData, String playerID) {
-        try{
-            FileWriter file = new FileWriter(DataFile);
-            JSONObject JSONdata = readJSON(); // Get the old JSON.
-            JSONdata.put(playerID, playerData); // Replaces data for playerID
-            file.write(JSONdata.toString());
-        }
-        catch(IOException e){
-            Log.e("JSON", "File not found.");
-        }
-        catch (JSONException e) {
-            Log.e("JSON", "JSON reading failed.");
-        }
-
-    }
-
-    /**
-     * Returns a JSONObject specified from the file.
-     * @return JSONObject
-     */
-    private static JSONObject readJSON() {
-        String oldData = readFile();
-        JSONObject result = null;
-        try {
-            result = new JSONObject(oldData);
-        } catch (JSONException e) {
-            Log.e("JSON", "No data found.");
-        }
-        return result;
-    }
-
-    /**
-     * Returns a string from the file specified in DataFile.
-     * @return
-     */
-    private static String readFile() {
-        StringBuffer result = new StringBuffer();
-        try (BufferedReader br = new BufferedReader(new FileReader(DataFile))) {
-            String newLine;
-            while((newLine = br.readLine()) != null){
-                result.append(newLine);
-            }
-        }
-        catch(FileNotFoundException e){
-            Log.e("JSON", "File not found,");
-        }
-        catch(IOException e){
-            Log.e("JSON", "Something wrong happened.");
-        }
-        return result.toString();
-    }
-
-
-    // TODO: Loading player data.
-
-
-    public void getInfo(String username){
-
-    }
+    return null;
+  }
 }

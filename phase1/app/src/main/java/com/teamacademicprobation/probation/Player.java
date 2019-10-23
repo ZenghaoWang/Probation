@@ -14,11 +14,15 @@ public class Player {
   // TODO: Can we just use a map for playerPreferences? Hmm..
   private PlayerPreferences playerPreferences;
 
-  /** The username of this player.*/
+  /** The username of this player. */
   private String username;
 
   /** The password of this player. */
   private String password;
+
+  public Player() {
+    this("defaultUser", "defaultPass");
+  }
 
   public Player(String username, String password) {
     this.username = username;
@@ -46,16 +50,32 @@ public class Player {
 
   // ==== END OF SETTER/GETTER METHODS ====
 
-    public void updateScore(int newScore, String gameID){
-      playerStats.updateScore(newScore, gameID);
-    }
-
-    // == TODO: Complete these methods!
-    public Map<String, Object> getData() {
+  // == TODO: Complete these methods!
+  public Map<String, Object> getData() {
     return new HashMap<>();
-    }
+  }
 
-  public String getID() {
+  /**
+   * Returns the playerID of this player.
+   *
+   * @return PlayerID.
+   */
+  public String getPlayerID() {
     return "";
   }
+
+  /**
+   * Updates PlayerPreferences.
+   *
+   * @param playerPreferences A map with the following format: {"Preference1": String}
+   */
+  public void updatePreferences(Map<String, String> playerPreferences) {}
+
+  /**
+   * Updates the PlayerStats.
+   *
+   * @param gameID The gameID to update.
+   * @param gameStatsMap A map with the following format: {"Stat1": int}
+   */
+  public void updateStats(String gameID, Map<String, Integer> gameStatsMap) {}
 }
