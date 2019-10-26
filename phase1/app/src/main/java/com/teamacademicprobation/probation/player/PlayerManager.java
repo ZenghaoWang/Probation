@@ -30,6 +30,8 @@ public class PlayerManager {
 
     } catch (JSONException e) {
       Log.e(TAG, "No player with this playerID");
+    } catch(NullPointerException e){
+      Log.e(TAG, "Null players.");
     }
 
     return null;
@@ -37,8 +39,7 @@ public class PlayerManager {
 
   public static boolean login(String username, String password) {
     Player currPlayer = getPlayer(DataManager.getIDfromUsername(username));
-    assert currPlayer != null;
-    if (currPlayer.getPassword().equals(password)) {
+    if (currPlayer != null && currPlayer.getPassword().equals(password)) {
       PlayerManager.currentLoggedInPlayer = currPlayer;
       return true;
     } else {

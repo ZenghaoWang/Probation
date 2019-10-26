@@ -7,17 +7,23 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.teamacademicprobation.probation.R;
+import com.teamacademicprobation.probation.player.DataManager;
 import com.teamacademicprobation.probation.player.PlayerManager;
+
+import java.io.File;
 
 public class LoginActivity extends AppCompatActivity {
   EditText username;
   EditText password;
   TextView error;
+  final String FILE_PATH = "PlayerData.txt";
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
+    DataManager.setDataFile(new File(FILE_PATH));
 
     username = findViewById(R.id.editUsername);
     password = findViewById(R.id.editPassword);
