@@ -5,7 +5,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-class PlayerManager {
+public class PlayerManager {
 
   private static final String TAG = "PlayerManager";
   public static Player currentLoggedInPlayer;
