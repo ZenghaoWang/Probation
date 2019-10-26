@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation;
+package com.teamacademicprobation.probation.Game;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time

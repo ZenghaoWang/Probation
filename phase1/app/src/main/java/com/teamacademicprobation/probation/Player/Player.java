@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation;
+package com.teamacademicprobation.probation.Player;
 
 import java.util.HashMap;
 import java.util.Map;

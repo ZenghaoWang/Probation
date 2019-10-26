@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation;
+package com.teamacademicprobation.probation.Game;
 /*The first level of our game; Tapping targets that pop up.*/
 public class TappingGame extends Game {
 

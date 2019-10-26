@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation;
+package com.teamacademicprobation.probation.Game;
 
 public abstract class Game {
   /* Game ideas to subclass
