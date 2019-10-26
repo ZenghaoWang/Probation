@@ -51,8 +51,17 @@ public class Player {
   // ==== END OF SETTER/GETTER METHODS ====
 
   // == TODO: Complete these methods!
-  public Map<String, Object> getData() {
-    return new HashMap<>();
+  public Map<String, Object> getData(){
+    Map<String, Object> result = new HashMap<>();
+
+    // Add username and password
+    result.put("Username", this.username);
+    result.put("Password", this.password);
+    for(String preferenceKey : this.playerPreferences.getPreferences().keySet()){
+      result.put(preferenceKey, this.playerPreferences.getPreference(preferenceKey));
+    }
+
+    return result;
   }
 
   /**
@@ -69,7 +78,11 @@ public class Player {
    *
    * @param playerPreferences A map with the following format: {"Preference1": String}
    */
-  public void updatePreferences(Map<String, String> playerPreferences) {}
+  public void updatePreferences(Map<String, String> playerPreferences) {
+    for(String preferenceKey : playerPreferences.keySet()){
+      this.playerPreferences.updatePreference(preferenceKey, playerPreferences.get(preferenceKey));
+    }
+  }
 
   /**
    * Updates the PlayerStats.

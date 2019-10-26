@@ -129,9 +129,9 @@ public class DataManager {
    */
   public static String getIDfromUsername(String username) {
     JSONObject allPlayersData = readJSON();
-    Iterator<String> keys = allPlayersData.keys();
 
     try {
+      Iterator<String> keys = allPlayersData.keys();
       while (keys.hasNext()) {
         String curr_gameID = keys.next();
         String curr_username = allPlayersData.getJSONObject(curr_gameID).getString("Username");
@@ -141,6 +141,9 @@ public class DataManager {
       }
     } catch (JSONException e) {
       Log.e(TAG, "Error during parsing JSON");
+    }
+    catch(NullPointerException e){
+      Log.e(TAG, "No Data.");
     }
 
     return null;
