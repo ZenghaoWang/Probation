@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.Player;
+package com.teamacademicprobation.probation.player;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class PlayerStats {
   private final GameStats bestGame = new GameStats();
 
   /** Instantiates a PlayerStats object. */
-  PlayerStats() {}
+  public PlayerStats() {}
 
   /**
    * Adds a game's stats to the player's history of games played

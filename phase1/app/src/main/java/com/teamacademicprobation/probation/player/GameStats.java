@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.Player;
+package com.teamacademicprobation.probation.player;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class GameStats {
   private final Map<String, Integer> statsMap = new HashMap<>();
 
   /** Instantiates a GameStats object with statistics time, score, and items set to 0. */
-  GameStats() {
+  public GameStats() {
     statsMap.put("time", 0);
     statsMap.put("score", 0);
     statsMap.put("items", 0);

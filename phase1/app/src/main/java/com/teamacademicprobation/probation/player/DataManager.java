@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.Player;
+package com.teamacademicprobation.probation.player;
 
 import android.util.Log;
 

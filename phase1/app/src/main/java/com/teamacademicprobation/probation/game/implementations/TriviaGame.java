@@ -1,4 +1,6 @@
-package com.teamacademicprobation.probation.Game;
+package com.teamacademicprobation.probation.game.implementations;
+
+import com.teamacademicprobation.probation.game.Game;
 
 import java.util.HashMap;
 import java.util.ArrayList;
