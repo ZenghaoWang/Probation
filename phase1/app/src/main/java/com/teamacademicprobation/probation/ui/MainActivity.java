@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation;
+package com.teamacademicprobation.probation.ui;
 
 import android.os.Bundle;
 
@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.teamacademicprobation.probation.R;
 
 public class MainActivity extends AppCompatActivity {
 
