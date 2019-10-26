@@ -24,6 +24,9 @@ import java.util.Map;
  *
  * <p>PlayerID can be the player's username.
  */
+
+// TODO: What is we separated PlayerPreferences and PlayerStats data files?
+
 public class DataManager {
   /** The DataFile for reading and writing. */
   private static File DataFile;
@@ -98,12 +101,12 @@ public class DataManager {
     return result.toString();
   }
 
-
-    /**
-     * Returns a player object with their playerID.
-     * @param playerID The playerID to find.
-     * @return A player with all the data specified in the JSON of the player with playerID.
-     */
+  /**
+   * Returns a player object with their playerID.
+   *
+   * @param playerID The playerID to find.
+   * @return A player with all the data specified in the JSON of the player with playerID.
+   */
   public static Player getPlayer(String playerID) {
     JSONObject allPlayersData = readJSON();
     try {
@@ -122,11 +125,12 @@ public class DataManager {
     return null;
   }
 
-    /**
-     * Returns the username of a player given their playerID.
-     * @param username Username of the player we want to find.
-     * @return The playerID of the player with the given username.
-     */
+  /**
+   * Returns the username of a player given their playerID.
+   *
+   * @param username Username of the player we want to find.
+   * @return The playerID of the player with the given username.
+   */
   public static String getIDfromUsername(String username) {
     JSONObject allPlayersData = readJSON();
     Iterator<String> keys = allPlayersData.keys();

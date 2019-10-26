@@ -12,106 +12,102 @@ import java.util.Map;
  * A builder class that uses takes in JSONObjects and creates a player with the data in the
  * JSONObject.
  *
- * The player data is in the following format:
+ * <p>The player data is in the following format:
  *
- * {"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1: int},
+ * <p>{"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1: int},
  * "PlayerStat1" : int}
- *
- *
  */
 class PlayerBuilder {
 
-    /**
-     * The player this player builder is building.
-     */
-    private Player player;
+  /** The player this player builder is building. */
+  private Player player;
 
-    /**
-     * Initializes the player builder with a default player.
-     */
-    public PlayerBuilder(){
-        this.player = new Player();
+  /** Initializes the player builder with a default player. */
+  public PlayerBuilder() {
+    this.player = new Player();
+  }
+
+  /**
+   * Updates the player stats according to the player data.
+   *
+   * @param playerData The data of this player.
+   */
+  public void buildPlayerStats(JSONObject playerData) {
+    Map<String, JSONObject> gameIDtoGameStats = new HashMap<>();
+    String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once implemented
+    try {
+      for (int i = 0; i < gameIDs.length; i++) {
+        String gameID = gameIDs[i];
+        JSONObject gameStatistics = playerData.getJSONObject(gameID);
+        Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
+        this.player.updateStats(gameID, gameStatsMap);
+      }
+    } catch (JSONException e) {
+      Log.e("PlayerBuilder", "Error in getting player statistics");
+    }
+  }
+
+  /**
+   * Builds a map where the key values are the names of each statistic in GameStats and the values
+   * are the corresponding integer.
+   *
+   * @param gameStatistics The statistics of this player. It is in the format: {"Stat1": int,
+   *     "Stat2": int}
+   * @return Map<String, Integer> </String,> specified above.
+   */
+  private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
+    Map<String, Integer> gameStatsMap = new HashMap<>();
+    String[] statIDs = {"time", "score", "items"};
+    try {
+      for (String statID : statIDs) {
+        gameStatsMap.put(statID, gameStatistics.getInt(statID));
+      }
+    } catch (JSONException e) {
+      Log.e("PlayerBuilder", "Error in getting game statistics");
+    }
+    return gameStatsMap;
+  }
+
+  /**
+   * Updates the player preferences according to the player data.
+   *
+   * @param playerData The data of this player.
+   */
+  public void buildPlayerPreferences(JSONObject playerData) {
+    Map<String, String> playerPreferences = new HashMap<>();
+    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"};
+    try {
+      for (String preferenceKey : preferenceKeys) {
+        playerPreferences.put(preferenceKey, playerData.getString(preferenceKey));
+      }
+    } catch (JSONException e) {
+      Log.e("PlayerBuilder", "Error in getting player preferences.");
     }
 
-    /**
-     * Updates the player stats according to the player data.
-     * @param playerData The data of this player.
-     */
-    public void buildPlayerStats(JSONObject playerData) {
-        Map<String, JSONObject> gameIDtoGameStats = new HashMap<>();
-        String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once implemented
-        try{
-            for(int i =0; i < gameIDs.length; i++){
-                String gameID = gameIDs[i];
-                JSONObject gameStatistics = playerData.getJSONObject(gameID);
-                Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
-                this.player.updateStats(gameID, gameStatsMap);
-            }
-        } catch (JSONException e) {
-            Log.e("PlayerBuilder", "Error in getting player statistics");
-        }
+    this.player.updatePreferences(playerPreferences);
+  }
 
+  /**
+   * Updates the player's username and password.
+   *
+   * @param playerData The data of this player.
+   */
+  public void buildUserAndPassword(JSONObject playerData) {
+
+    try {
+      this.player.setUsername(playerData.getString("Username"));
+      this.player.setPassword(playerData.getString("Password"));
+    } catch (JSONException e) {
+      Log.e("PlayerBuilder", "Error in getting player data.");
     }
+  }
 
-    /**
-     * Builds a map where the key values are the names of each statistic in GameStats and the
-     * values are the corresponding integer.
-     *
-     * @param gameStatistics The statistics of this player. It is in the format:
-     *                       {"Stat1": int, "Stat2": int}
-     * @return Map<String, Integer> </String,> specified above.
-     */
-    private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
-        Map<String, Integer> gameStatsMap = new HashMap<>();
-        String[] statIDs = {"time", "score", "items"};
-        try{
-            for (String statID : statIDs) {
-                gameStatsMap.put(statID, gameStatistics.getInt(statID));
-            }
-        } catch (JSONException e) {
-            Log.e("PlayerBuilder", "Error in getting game statistics");
-        }
-        return gameStatsMap;
-
-    }
-
-    /**
-     * Updates the player preferences according to the player data.
-     * @param playerData The data of this player.
-     */
-    public void buildPlayerPreferences(JSONObject playerData) {
-        Map<String, String> playerPreferences = new HashMap<>();
-        String[] preferenceKeys = {"Difficulty", "Color", "Avatar"};
-        try{
-            for (String preferenceKey : preferenceKeys) {
-                playerPreferences.put(preferenceKey, playerData.getString(preferenceKey));
-            }
-        } catch (JSONException e) {
-            Log.e("PlayerBuilder", "Error in getting player preferences.");
-        }
-
-        this.player.updatePreferences(playerPreferences);
-    }
-
-    /**
-     * Updates the player's username and password.
-     * @param playerData The data of this player.
-     */
-    public void buildUserAndPassword(JSONObject playerData) {
-
-        try {
-            this.player.setUsername(playerData.getString("Username"));
-            this.player.setPassword(playerData.getString("Password"));
-        } catch (JSONException e) {
-            Log.e("PlayerBuilder", "Error in getting player data.");
-        }
-    }
-
-    /**
-     * Returns the player this player builder is building.
-     * @return Player
-     */
-    public Player getPlayer() {
-        return player;
-    }
+  /**
+   * Returns the player this player builder is building.
+   *
+   * @return Player
+   */
+  public Player getPlayer() {
+    return player;
+  }
 }
