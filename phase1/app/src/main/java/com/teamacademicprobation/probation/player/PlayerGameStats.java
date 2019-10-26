@@ -7,7 +7,7 @@ import java.util.HashMap;
  * The statistics of a single game, keeping time, items, and score. Each instance of a game has its
  * own instance of StatsMap.
  */
-public class GameStats {
+public class PlayerGameStats {
 
   // The status of the game (whether it is ongoing or complete).
   private boolean complete;
@@ -15,8 +15,8 @@ public class GameStats {
   // A map of all recorded stats for one instance of a game.
   private final Map<String, Integer> statsMap = new HashMap<>();
 
-  /** Instantiates a GameStats object with statistics time, score, and items set to 0. */
-  public GameStats() {
+  /** Instantiates a PlayerGameStats object with statistics time, score, and items set to 0. */
+  public PlayerGameStats() {
     statsMap.put("time", 0);
     statsMap.put("score", 0);
     statsMap.put("items", 0);

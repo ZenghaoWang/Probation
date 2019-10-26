@@ -48,7 +48,7 @@ class PlayerBuilder {
   }
 
   /**
-   * Builds a map where the key values are the names of each statistic in GameStats and the values
+   * Builds a map where the key values are the names of each statistic in PlayerGameStats and the values
    * are the corresponding integer.
    *
    * @param gameStatistics The statistics of this player. It is in the format: {"Stat1": int,
