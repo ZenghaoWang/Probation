@@ -22,6 +22,8 @@ class PlayerBuilder {
   /** The player this player builder is building. */
   private Player player;
 
+  private static final String TAG = "PlayerBuilder";
+
   /** Initializes the player builder with a default player. */
   public PlayerBuilder() {
     this.player = new Player();
@@ -33,17 +35,15 @@ class PlayerBuilder {
    * @param playerData The data of this player.
    */
   public void buildPlayerStats(JSONObject playerData) {
-    Map<String, JSONObject> gameIDtoGameStats = new HashMap<>();
     String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once implemented
     try {
-      for (int i = 0; i < gameIDs.length; i++) {
-        String gameID = gameIDs[i];
+      for (String gameID : gameIDs) {
         JSONObject gameStatistics = playerData.getJSONObject(gameID);
         Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
         this.player.updateStats(gameID, gameStatsMap);
       }
     } catch (JSONException e) {
-      Log.e("PlayerBuilder", "Error in getting player statistics");
+      Log.e(TAG, "Error in getting player statistics");
     }
   }
 
@@ -63,7 +63,7 @@ class PlayerBuilder {
         gameStatsMap.put(statID, gameStatistics.getInt(statID));
       }
     } catch (JSONException e) {
-      Log.e("PlayerBuilder", "Error in getting game statistics");
+      Log.e(TAG, "Error in getting game statistics");
     }
     return gameStatsMap;
   }
@@ -81,7 +81,7 @@ class PlayerBuilder {
         playerPreferences.put(preferenceKey, playerData.getString(preferenceKey));
       }
     } catch (JSONException e) {
-      Log.e("PlayerBuilder", "Error in getting player preferences.");
+      Log.e(TAG, "Error in getting player preferences.");
     }
 
     this.player.updatePreferences(playerPreferences);
@@ -98,7 +98,7 @@ class PlayerBuilder {
       this.player.setUsername(playerData.getString("Username"));
       this.player.setPassword(playerData.getString("Password"));
     } catch (JSONException e) {
-      Log.e("PlayerBuilder", "Error in getting player data.");
+      Log.e(TAG, "Error in getting player data.");
     }
   }
 
