@@ -1,15 +1,38 @@
 package com.teamacademicprobation.probation.Player;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 class PlayerManager {
 
-    // public Player createNewPlayer()
+    private static final String TAG = "PlayerManager";
 
-    // Should we pass in the "username" and "login" of new player here?
+    public static Player createNewPlayer(String username, String password){
+        PlayerBuilder playerBuilder = new PlayerBuilder();
+        playerBuilder.buildUserAndPassword(username, password);
+        return playerBuilder.getPlayer();
+    }
 
-    // public Player getPlayer(String username, String password)
+    public static Player getPlayer(String playerID) {
+        JSONObject allPlayersData = DataManager.readJSON();
+        try {
+            JSONObject playerData = allPlayersData.getJSONObject(playerID);
+            PlayerBuilder playerBuilder = new PlayerBuilder();
+            playerBuilder.buildPlayerStats(playerData);
+            playerBuilder.buildPlayerPreferences(playerData);
+            playerBuilder.buildUserAndPassword(playerData);
 
-    // public void login()
+            return playerBuilder.getPlayer();
 
-    // public void save(Player player)
+        } catch (JSONException e) {
+            Log.e(TAG, "No player with this playerID");
+        }
+
+        return null;
+    }
+
+    public static Player login(){}
 
 }

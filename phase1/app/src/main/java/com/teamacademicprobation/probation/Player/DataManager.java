@@ -66,7 +66,7 @@ public class DataManager {
    *
    * @return JSONObject.
    */
-  private static JSONObject readJSON() {
+  public static JSONObject readJSON() {
     String oldData = readFile();
     JSONObject result = null;
     try {

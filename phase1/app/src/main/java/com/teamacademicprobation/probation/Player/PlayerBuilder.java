@@ -102,6 +102,11 @@ class PlayerBuilder {
     }
   }
 
+  public void buildUserAndPassword(String username, String password){
+    this.player.setUsername(username);
+    this.player.setPassword(password);
+  }
+
   /**
    * Returns the player this player builder is building.
    *
