@@ -21,15 +21,12 @@ import java.util.Map;
  *
  * <p>{"PlayerID": {"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1:
  * int}, "PlayerStat1" : int}}
- *
- * <p>PlayerID can be the player's username.
  */
-
-// TODO: What is we separated PlayerPreferences and PlayerStats data files?
-
 public class DataManager {
   /** The DataFile for reading and writing. */
   private static File DataFile;
+
+  private static final String TAG = "DataManager";
 
   public static void setDataFile(File dataFile) {
     DataManager.DataFile = dataFile;
@@ -53,15 +50,14 @@ public class DataManager {
    * @param playerID The playerID of the player being updated.
    */
   private static void updateFile(JSONObject playerData, String playerID) {
-    try {
-      FileWriter file = new FileWriter(DataFile);
+    try (FileWriter file = new FileWriter(DataFile)) {
       JSONObject JSONdata = readJSON(); // Get the old JSON.
       JSONdata.put(playerID, playerData); // Replaces data for playerID
       file.write(JSONdata.toString());
     } catch (IOException e) {
-      Log.e("JSON", "File not found.");
+      Log.e(TAG, "File not found.");
     } catch (JSONException e) {
-      Log.e("JSON", "JSON reading failed.");
+      Log.e(TAG, "JSON reading failed.");
     }
   }
 
@@ -76,7 +72,7 @@ public class DataManager {
     try {
       result = new JSONObject(oldData);
     } catch (JSONException e) {
-      Log.e("JSON", "No data found.");
+      Log.e(TAG, "No data found.");
     }
     return result;
   }
@@ -87,16 +83,16 @@ public class DataManager {
    * @return String representation of the file.
    */
   private static String readFile() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
     try (BufferedReader br = new BufferedReader(new FileReader(DataFile))) {
       String newLine;
       while ((newLine = br.readLine()) != null) {
         result.append(newLine);
       }
     } catch (FileNotFoundException e) {
-      Log.e("JSON", "File not found,");
+      Log.e(TAG, "File not found,");
     } catch (IOException e) {
-      Log.e("JSON", "Something wrong happened.");
+      Log.e(TAG, "Something wrong happened.");
     }
     return result.toString();
   }
@@ -119,7 +115,7 @@ public class DataManager {
       return playerBuilder.getPlayer();
 
     } catch (JSONException e) {
-      Log.e("JSON", "No player with this playerID");
+      Log.e(TAG, "No player with this playerID");
     }
 
     return null;
@@ -144,9 +140,14 @@ public class DataManager {
         }
       }
     } catch (JSONException e) {
-      Log.e("JSON", "Error during parsing JSON");
+      Log.e(TAG, "Error during parsing JSON");
     }
 
     return null;
+  }
+
+  public static <T> String getMapToJSONString(Map<String, T> map) {
+    JSONObject result = new JSONObject(map);
+    return result.toString();
   }
 }
