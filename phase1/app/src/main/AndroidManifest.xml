@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".game.implementations.triviagame.TriviaGameActivity"
-            android:exported="true"></activity>
+        <activity android:name=".game.implementations.triviagame.TriviaScoreScreenActivity"></activity>
+        <activity
+            android:name=".game.implementations.triviagame.TriviaGameActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.LoginActivity"
             android:label="Log In">

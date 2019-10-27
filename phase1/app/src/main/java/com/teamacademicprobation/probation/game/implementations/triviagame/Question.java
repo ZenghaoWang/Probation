@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Represents a single multiple-choice trivia question.
  * A questions has 4 possible answers, one of which is correct.
  */
+//TODO: Documentation
 class Question {
     private String question;
     private ArrayList<String> potentialAnswers;
@@ -13,30 +14,43 @@ class Question {
     /**
      * The index of the correct answer in potentialAnswers
      */
-    private int correctAnswerID;
+    private int correctAnswerIndex;
 
     /**
      * Constructs a question.
      *
      * @param question         The question.
      * @param potentialAnswers 4 potential answers.
-     * @param correctAnswerID  The index of the correct answer.
+     * @param correctAnswerIndex  The index of the correct answer.
      */
-    Question(String question, ArrayList<String> potentialAnswers, int correctAnswerID) {
+    Question(String question, ArrayList<String> potentialAnswers, int correctAnswerIndex) {
         this.question = question;
         this.potentialAnswers = potentialAnswers;
-        this.correctAnswerID = correctAnswerID;
+        this.correctAnswerIndex = correctAnswerIndex;
     }
+
 
     public String getQuestion() {
         return this.question;
     }
 
-    public ArrayList<String> getPotentialAnswers() {
-        return potentialAnswers;
+    public String getAnswer1() {
+        return this.potentialAnswers.get(0);
     }
 
-    public boolean isAnswerCorrect(int guess) {
-        return guess == correctAnswerID;
+    public String getAnswer2() {
+        return this.potentialAnswers.get(1);
+    }
+
+    public String getAnswer3() {
+        return this.potentialAnswers.get(2);
+    }
+
+    public String getAnswer4() {
+        return this.potentialAnswers.get(3);
+    }
+
+    public boolean isAnswerCorrect(String guess) {
+        return guess.equals(potentialAnswers.get(correctAnswerIndex));
     }
 }

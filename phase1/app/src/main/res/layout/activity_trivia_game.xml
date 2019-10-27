@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button  " />
+                android:onClick="onClick"
+                android:text="@string/potential_answer" />
 
             <Button
                 android:id="@+id/answer2"
@@ -50,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:onClick="onClick"
+                android:text="@string/potential_answer" />
         </TableRow>
 
         <TableRow
@@ -64,7 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:onClick="onClick"
+                android:text="@string/potential_answer" />
 
             <Button
                 android:id="@+id/answer4"
@@ -72,7 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:onClick="onClick"
+                android:text="@string/potential_answer" />
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
