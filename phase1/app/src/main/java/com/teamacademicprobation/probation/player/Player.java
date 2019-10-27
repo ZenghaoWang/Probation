@@ -2,6 +2,7 @@ package com.teamacademicprobation.probation.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /** A player for the game. */
 public class Player {
@@ -20,8 +21,14 @@ public class Player {
   /** The password of this player. */
   private String password;
 
+  /** The random playerID of this player */
+  private String playerID;
+
+  private static final int playerIDlen = 5;
+
   public Player() {
     this("defaultUser", "defaultPass");
+
   }
 
   public Player(String username, String password) {
@@ -29,6 +36,7 @@ public class Player {
     this.password = password;
     this.playerStats = new PlayerStats();
     this.playerPreferences = new PlayerPreferences();
+    this.playerID = generateRandomID();
   }
 
   // ==== SETTER/GETTER METHODS ====
@@ -50,6 +58,19 @@ public class Player {
 
   // ==== END OF SETTER/GETTER METHODS ====
 
+  private String generateRandomID() {
+    String lowercase = "abcdefghijklmnopqrstuvwxyz";
+    String uppercase = lowercase.toUpperCase();
+    String data = uppercase + lowercase;
+    StringBuilder result = new StringBuilder();
+    for(int i = 0; i < playerIDlen; i++){
+      result.append(data.charAt(ThreadLocalRandom.current().nextInt(data.length())));
+
+    }
+    return result.toString();
+  }
+
+
   // == TODO: Complete these methods!
   public Map<String, Object> getData(){
     Map<String, Object> result = new HashMap<>();
@@ -60,7 +81,7 @@ public class Player {
     for(String preferenceKey : this.playerPreferences.getPreferences().keySet()){
       result.put(preferenceKey, this.playerPreferences.getPreference(preferenceKey));
     }
-
+    
     return result;
   }
 
@@ -70,7 +91,7 @@ public class Player {
    * @return PlayerID.
    */
   public String getPlayerID() {
-    return "";
+    return this.playerID;
   }
 
   /**

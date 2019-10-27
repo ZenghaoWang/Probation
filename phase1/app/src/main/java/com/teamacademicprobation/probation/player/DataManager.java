@@ -97,29 +97,6 @@ public class DataManager {
     return result.toString();
   }
 
-  /**
-   * Returns a player object with their playerID.
-   *
-   * @param playerID The playerID to find.
-   * @return A player with all the data specified in the JSON of the player with playerID.
-   */
-  public static Player getPlayer(String playerID) {
-    JSONObject allPlayersData = readJSON();
-    try {
-      JSONObject playerData = allPlayersData.getJSONObject(playerID);
-      PlayerBuilder playerBuilder = new PlayerBuilder();
-      playerBuilder.buildPlayerStats(playerData);
-      playerBuilder.buildPlayerPreferences(playerData);
-      playerBuilder.buildUserAndPassword(playerData);
-
-      return playerBuilder.getPlayer();
-
-    } catch (JSONException e) {
-      Log.e(TAG, "No player with this playerID");
-    }
-
-    return null;
-  }
 
   /**
    * Returns the username of a player given their playerID.

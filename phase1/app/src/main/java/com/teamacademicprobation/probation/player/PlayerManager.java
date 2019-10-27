@@ -17,6 +17,13 @@ public class PlayerManager {
     return true;
   }
 
+/**
+ * Returns a player object with their playerID.
+ *
+ * @param playerID The playerID to find.
+ * @return A player with all the data specified in the JSON of the player with playerID.
+ */
+
   public static Player getPlayer(String playerID) {
     JSONObject allPlayersData = DataManager.readJSON();
     try {
