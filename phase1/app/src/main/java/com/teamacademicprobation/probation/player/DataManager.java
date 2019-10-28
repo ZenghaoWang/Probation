@@ -20,8 +20,9 @@ import java.util.Map;
  *
  * <p>Each player is stored in a .txt file containing a JSON Object with the following structure:
  *
- * <p>{"PlayerID": {"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1:
- * int}, "PlayerStat1" : int}}
+ * <p>{"PlayerID": {"Username": "playerUsername, "Password": "playerPassword", "Preferences" : {"PreferenceKey" : "thisPreference"},
+ * "CurrentSession" : {"GameID" : { "StatID" : "statistic" }}, "BestSession": {"GameID": {"StatID" : "statistic"}}}
+ *
  */
 public class DataManager {
   /** The DataFile for reading and writing. */

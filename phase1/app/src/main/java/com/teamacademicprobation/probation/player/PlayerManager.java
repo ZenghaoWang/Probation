@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class PlayerManager {
 
   private static final String TAG = "PlayerManager";
-  public static Player currentLoggedInPlayer;
+  private static Player currentLoggedInPlayer;
 
   public static boolean createNewPlayer(String username, String password) {
     if(DataManager.usernameTaken(username)){
@@ -28,7 +28,7 @@ public class PlayerManager {
  * @return A player with all the data specified in the JSON of the player with playerID.
  */
 
-  public static Player getPlayer(String playerID) {
+  private static Player getPlayer(String playerID) {
     JSONObject allPlayersData = DataManager.readJSON();
     try {
       JSONObject playerData = allPlayersData.getJSONObject(playerID);
@@ -58,4 +58,7 @@ public class PlayerManager {
       return false;
     }
   }
+
+  public static Player getCurrentLoggedInPlayer(){ return currentLoggedInPlayer;}
+
 }

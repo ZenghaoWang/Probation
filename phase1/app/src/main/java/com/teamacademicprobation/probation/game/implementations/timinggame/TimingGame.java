@@ -44,8 +44,9 @@ public class TimingGame implements Playable {
 
   /** Updates the game. */
   public void update() {
-
-    this.slidingLine.update();
+    if (!this.completed) {
+      this.slidingLine.update();
+      }
   }
 
   /**

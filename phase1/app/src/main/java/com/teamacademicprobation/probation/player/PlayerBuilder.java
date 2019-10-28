@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -14,8 +15,10 @@ import java.util.Map;
  *
  * <p>The player data is in the following format:
  *
- * <p>{"Username": String, "Password": String, "Preference1": String, "Game1": {Stat1: int},
- * "PlayerStat1" : int}
+ * <p>{"Username": "playerUsername, "Password": "playerPassword",
+ * "Preferences" : {"PreferenceKey" : "thisPreference"},
+ * "CurrentSession" : {"GameID" : { "StatID" : "statistic"}},
+ * "BestSession": {"GameID": {"StatID" : "statistic"}}
  */
 class PlayerBuilder {
 
@@ -34,16 +37,59 @@ class PlayerBuilder {
    *
    * @param playerData The data of this player.
    */
-  public void buildPlayerStats(JSONObject playerData) {
-    String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once implemented
-    try {
-      for (String gameID : gameIDs) {
-        JSONObject gameStatistics = playerData.getJSONObject(gameID);
-        Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
-        this.player.updateStats(gameID, gameStatsMap);
+//  public void buildPlayerStats(JSONObject playerData) {
+//    String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once implemented
+//    try {
+//      for (String gameID : gameIDs) {
+//        JSONObject gameStatistics = playerData.getJSONObject(gameID);
+//        Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
+//        this.player.updateStats(gameID, gameStatsMap);
+//      }
+//    } catch (JSONException e) {
+//      Log.e(TAG, "Error in getting player statistics");
+//    }
+//  }
+
+  public void buildPlayerStats(JSONObject playerData){
+    try{
+
+    JSONObject currGameStats = playerData.getJSONObject("CurrentSession");
+    JSONObject bestGameStats = playerData.getJSONObject("BestSession");
+
+    buildCurrGameStats(currGameStats);
+    buildBestGameStats(bestGameStats);
+    }
+    catch(Exception e){}
+
+  }
+
+  // TODO: FIX
+  private void buildBestGameStats(JSONObject bestGameStats) {
+    Iterator<String> gameIDs = bestGameStats.keys();
+    while(gameIDs.hasNext()){
+      String currGameID = gameIDs.next();
+      Map<String, Integer> currGameStatsMap = null;
+      try {
+        currGameStatsMap = buildGameStatMap(bestGameStats.getJSONObject(currGameID));
+      } catch (JSONException e) {
+        e.printStackTrace();
       }
-    } catch (JSONException e) {
-      Log.e(TAG, "Error in getting player statistics");
+      this.player.updateBestSession(currGameID, currGameStatsMap);
+    }
+  }
+
+  // TODO: FIX
+  private void buildCurrGameStats(JSONObject currGameStats) {
+    Iterator<String> gameIDs = currGameStats.keys();
+    while(gameIDs.hasNext()){
+      String currGameID = gameIDs.next();
+      Map<String, Integer> currGameStatsMap = null;
+      try {
+        currGameStatsMap = buildGameStatMap(currGameStats.getJSONObject(currGameID));
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      this.player.updateCurrentSession(currGameID, currGameStatsMap);
     }
   }
 
@@ -51,16 +97,16 @@ class PlayerBuilder {
    * Builds a map where the key values are the names of each statistic in PlayerGameStats and the values
    * are the corresponding integer.
    *
-   * @param gameStatistics The statistics of this player. It is in the format: {"Stat1": int,
+   * @param gameStatistics The statistics of this player. It is in the format: {"StatID1": "S,
    *     "Stat2": int}
    * @return Map<String, Integer> </String,> specified above.
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
     Map<String, Integer> gameStatsMap = new HashMap<>();
-    String[] statIDs = {"time", "score", "items"};
+    String[] statIDs = {"time", "score", "items"}; // Player.getStatIDs();
     try {
       for (String statID : statIDs) {
-        gameStatsMap.put(statID, gameStatistics.getInt(statID));
+        gameStatsMap.put(statID, Integer.valueOf(gameStatistics.getString(statID)));
       }
     } catch (JSONException e) {
       Log.e(TAG, "Error in getting game statistics");
@@ -74,17 +120,18 @@ class PlayerBuilder {
    * @param playerData The data of this player.
    */
   public void buildPlayerPreferences(JSONObject playerData) {
-    Map<String, String> playerPreferences = new HashMap<>();
-    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"};
+    Map<String, String> playerPreferencesMap = new HashMap<>();
+    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"}; // Player.getPreferenceKeys();
     try {
+      JSONObject playerPreferences = playerData.getJSONObject("Preferences");
       for (String preferenceKey : preferenceKeys) {
-        playerPreferences.put(preferenceKey, playerData.getString(preferenceKey));
+        playerPreferences.put(preferenceKey, playerPreferences.getString(preferenceKey));
       }
     } catch (JSONException e) {
       Log.e(TAG, "Error in getting player preferences.");
     }
 
-    this.player.updatePreferences(playerPreferences);
+    this.player.updatePreferences(playerPreferencesMap);
   }
 
   /**

@@ -108,12 +108,8 @@ public class Player {
       this.playerPreferences.updatePreference(preferenceKey, playerPreferences.get(preferenceKey));
     }
   }
+  public void updateBestSession(String GameID, Map<String, Integer> gameStatsMap) {}
 
-  /**
-   * Updates the PlayerStats.
-   *
-   * @param gameID The gameID to update.
-   * @param gameStatsMap A map with the following format: {"Stat1": int}
-   */
-  public void updateStats(String gameID, Map<String, Integer> gameStatsMap) {}
+  public void updateCurrentSession(String GameID, Map<String, Integer> gameStatsMap) {}
+
 }

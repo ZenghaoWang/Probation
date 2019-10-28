@@ -84,7 +84,7 @@ public class TimingGameView extends SurfaceView implements Runnable {
             canvas = surfaceHolder.lockCanvas();
             this.timingGame.draw(canvas);
             surfaceHolder.unlockCanvasAndPost(canvas);
-            this.pause();
+//            this.pause();
             return true;
         }
         return false;
