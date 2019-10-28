@@ -11,31 +11,50 @@ import com.teamacademicprobation.probation.game.Playable;
  * their taps so the line ends up inside the target box.
  */
 public class TimingGame implements Playable {
-  
+
+  /** The box and the target zone. */
   private HitBox hitBox;
+  /** The line that moves left and right across the box. */
   private SlidingLine slidingLine;
+  /** Represents if the game is completed. */
   private boolean completed;
-  private static int gameColour = Color.CYAN;
+  /** The color of the game. In phase 2, can be updated to change based on user preferences. */
+  private static int gameColor = Color.CYAN;
+  /** The score of the game. */
+  // TODO: Implement PlayerManager and PlayerGameStats once implemented correctly!
   private int score;
 
+  /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   public TimingGame(int screenWidth, int screenHeight) {
 
     hitBox = new HitBox(screenWidth, screenHeight);
     slidingLine = new SlidingLine(screenWidth, screenHeight, hitBox);
+    this.score = 0;
+    this.completed = false;
   }
 
-  public static int getGameColour() {
-    return gameColour;
+  /**
+   * Returns the Color of the game.
+   *
+   * @return color of the game
+   */
+  public static int getGameColor() {
+    return gameColor;
   }
 
+  /** Updates the game. */
   public void update() {
 
     this.slidingLine.update();
-
   }
 
+  /**
+   * Draws the game.
+   *
+   * @param canvas The canvas to be drawn on.
+   */
   public void draw(Canvas canvas) {
-    if(this.completed){
+    if (this.completed) {
       drawScore(canvas);
       return;
     }
@@ -44,25 +63,39 @@ public class TimingGame implements Playable {
     this.slidingLine.draw(canvas);
   }
 
+  /**
+   * Draws the score of the current game.
+   *
+   * @param canvas The canvas to be drawn on.
+   */
   private void drawScore(Canvas canvas) {
     Paint paint = new Paint();
-    paint.setColor(gameColour);
+    paint.setColor(gameColor);
     paint.setTextSize(50);
     canvas.drawText(String.valueOf(this.score), 100, 100, paint);
   }
 
+  /** Sets this game as completed. */
   public void setCompleted() {
     this.completed = true;
   }
 
-  public boolean isCompleted(){
+  /**
+   * Returns if this game is completed or not.
+   *
+   * @return
+   */
+  public boolean isCompleted() {
     return this.completed;
   }
 
+  /** Updates the score of the game, if and only if the game is completed. */
   public void updateScore() {
     if (this.completed) {
 
-      this.score = Math.max(0, 100 - Math.abs((this.slidingLine.getActualPosition() - this.hitBox.getTargetCenter())));
+      int distance =
+          Math.abs((this.slidingLine.getActualPosition() - this.hitBox.getTargetCenter()));
+      this.score = Math.max(0, 100 - distance);
     }
   }
 }
