@@ -16,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
   EditText username;
   EditText password;
   TextView error;
+  TextView registerError;
   final String FILE_PATH = "PlayerData.txt";
 
 
@@ -23,11 +24,13 @@ public class LoginActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
-    DataManager.setDataFile(new File(FILE_PATH));
+    DataManager.setDataFile(new File(getFilesDir(), FILE_PATH));
 
     username = findViewById(R.id.editUsername);
     password = findViewById(R.id.editPassword);
     error = findViewById(R.id.txtErrorMsg);
+    registerError = findViewById(R.id.txtRegisterError);
+
   }
 
   public void loginClick(View view) {
@@ -36,6 +39,16 @@ public class LoginActivity extends AppCompatActivity {
       startActivity(main);
     } else {
       error.setVisibility(View.VISIBLE);
+    }
+  }
+
+  public void registerClick(View view){
+    if (PlayerManager.createNewPlayer(username.getText().toString(), password.getText().toString())){
+      Intent main = new Intent(this, MainActivity.class);
+      startActivity(main);
+    }
+    else{
+      registerError.setVisibility(View.VISIBLE);
     }
   }
 }

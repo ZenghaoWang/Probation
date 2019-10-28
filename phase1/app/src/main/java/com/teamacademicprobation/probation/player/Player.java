@@ -2,6 +2,7 @@ package com.teamacademicprobation.probation.player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /** A player for the game. */
@@ -56,15 +57,18 @@ public class Player {
     this.password = password;
   }
 
+  public void setPlayerID(String playerID) { this.playerID = playerID;}
+
   // ==== END OF SETTER/GETTER METHODS ====
 
   private String generateRandomID() {
     String lowercase = "abcdefghijklmnopqrstuvwxyz";
     String uppercase = lowercase.toUpperCase();
     String data = uppercase + lowercase;
+    Random random = new Random();
     StringBuilder result = new StringBuilder();
     for(int i = 0; i < playerIDlen; i++){
-      result.append(data.charAt(ThreadLocalRandom.current().nextInt(data.length())));
+      result.append(data.charAt(random.nextInt(data.length())));
 
     }
     return result.toString();

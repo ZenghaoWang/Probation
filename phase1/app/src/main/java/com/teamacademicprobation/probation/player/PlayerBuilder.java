@@ -115,4 +115,8 @@ class PlayerBuilder {
   public Player getPlayer() {
     return player;
   }
+
+    public void buildPlayerID(String playerID) {
+        this.player.setPlayerID(playerID);
+    }
 }

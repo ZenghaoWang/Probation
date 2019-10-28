@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -50,10 +51,14 @@ public class DataManager {
    * @param playerID The playerID of the player being updated.
    */
   private static void updateFile(JSONObject playerData, String playerID) {
-    try (FileWriter file = new FileWriter(DataFile)) {
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {
       JSONObject JSONdata = readJSON(); // Get the old JSON.
+      if(JSONdata == null){
+        JSONdata = new JSONObject();
+      }
       JSONdata.put(playerID, playerData); // Replaces data for playerID
-      file.write(JSONdata.toString());
+      writer.write(JSONdata.toString());
     } catch (IOException e) {
       Log.e(TAG, "File not found.");
     } catch (JSONException e) {
@@ -97,7 +102,6 @@ public class DataManager {
     return result.toString();
   }
 
-
   /**
    * Returns the username of a player given their playerID.
    *
@@ -118,8 +122,7 @@ public class DataManager {
       }
     } catch (JSONException e) {
       Log.e(TAG, "Error during parsing JSON");
-    }
-    catch(NullPointerException e){
+    } catch (NullPointerException e) {
       Log.e(TAG, "No Data.");
     }
 
@@ -129,5 +132,41 @@ public class DataManager {
   public static <T> String getMapToJSONString(Map<String, T> map) {
     JSONObject result = new JSONObject(map);
     return result.toString();
+  }
+
+  public static boolean isNewPlayer(String playerID){
+    JSONObject allPlayersData = readJSON();
+    if(allPlayersData == null){
+      return true;
+    }
+      Iterator<String> keys = allPlayersData.keys();
+      while(keys.hasNext()){
+        String currPlayerID = keys.next();
+        if(currPlayerID.equals(playerID)){
+          return false;
+        }
+      }
+    return true;
+
+  }
+
+  public static boolean usernameTaken(String username) {
+    JSONObject allPlayersData = readJSON();
+    if(allPlayersData == null){
+      return false;
+    }
+    try {
+      Iterator<String> keys = allPlayersData.keys();
+      while (keys.hasNext()) {
+        String curr_gameID = keys.next();
+        String curr_username = allPlayersData.getJSONObject(curr_gameID).getString("Username");
+        if (curr_username.equals(username)) {
+          return true;
+        }
+      }
+    } catch (JSONException e) {
+      Log.e(TAG, "Error during parsing JSON");
+    }
+    return false;
   }
 }

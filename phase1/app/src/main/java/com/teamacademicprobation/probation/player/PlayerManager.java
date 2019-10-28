@@ -11,9 +11,13 @@ public class PlayerManager {
   public static Player currentLoggedInPlayer;
 
   public static boolean createNewPlayer(String username, String password) {
+    if(DataManager.usernameTaken(username)){
+      return false;
+    }
     PlayerBuilder playerBuilder = new PlayerBuilder();
     playerBuilder.buildUserAndPassword(username, password);
     PlayerManager.currentLoggedInPlayer = playerBuilder.getPlayer();
+    DataManager.save(currentLoggedInPlayer);
     return true;
   }
 
@@ -32,6 +36,7 @@ public class PlayerManager {
       playerBuilder.buildPlayerStats(playerData);
       playerBuilder.buildPlayerPreferences(playerData);
       playerBuilder.buildUserAndPassword(playerData);
+      playerBuilder.buildPlayerID(playerID);
 
       return playerBuilder.getPlayer();
 
