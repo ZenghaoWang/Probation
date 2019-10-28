@@ -28,7 +28,8 @@
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".game.implementations.tappinggame.TapGameActivity" />
+        <activity android:name=".game.implementations.tappinggame.TapGameActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
