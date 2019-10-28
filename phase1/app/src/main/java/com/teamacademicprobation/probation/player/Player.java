@@ -81,7 +81,7 @@ public class Player {
     for(String preferenceKey : this.playerPreferences.getPreferences().keySet()){
       result.put(preferenceKey, this.playerPreferences.getPreference(preferenceKey));
     }
-    
+
     return result;
   }
 
