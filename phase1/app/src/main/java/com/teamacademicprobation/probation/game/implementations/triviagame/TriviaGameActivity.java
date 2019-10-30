@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
-import com.teamacademicprobation.probation.ui.TriviaView;
+import com.teamacademicprobation.probation.game.TriviaView;
 
 //TODO: Documentation
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {

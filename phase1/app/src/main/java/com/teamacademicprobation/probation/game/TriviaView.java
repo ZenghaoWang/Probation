@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.ui;
+package com.teamacademicprobation.probation.game;
 
 import android.view.View;
 
