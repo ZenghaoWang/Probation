@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.player.DataManager;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
 import java.io.File;
@@ -24,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
-    DataManager.setDataFile(new File(getFilesDir(), FILE_PATH));
+    PlayerManager.setDataFile(new File(getFilesDir(), FILE_PATH));
 
     username = findViewById(R.id.editUsername);
     password = findViewById(R.id.editPassword);

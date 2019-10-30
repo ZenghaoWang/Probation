@@ -1,23 +1,23 @@
 package com.teamacademicprobation.probation.player;
 
-import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.teamacademicprobation.probation.data.PlayerDataAccess;
+import com.teamacademicprobation.probation.data.DataManager;
+import java.io.File;
 
 public class PlayerManager {
-
-  private static final String TAG = "PlayerManager";
   private static Player currentLoggedInPlayer;
 
+  private static PlayerDataAccess dataAccess= new DataManager();
+
+
   public static boolean createNewPlayer(String username, String password) {
-    if(DataManager.usernameTaken(username)){
+    if(dataAccess.usernameTaken(username)){
       return false;
     }
-    PlayerBuilder playerBuilder = new PlayerBuilder();
-    playerBuilder.buildUserAndPassword(username, password);
+    PlayerBuilder playerBuilder = new PlayerBuilder(username, password);
     PlayerManager.currentLoggedInPlayer = playerBuilder.getPlayer();
-    DataManager.save(currentLoggedInPlayer);
+    dataAccess.save(currentLoggedInPlayer);
     return true;
   }
 
@@ -29,28 +29,11 @@ public class PlayerManager {
  */
 
   private static Player getPlayer(String playerID) {
-    JSONObject allPlayersData = DataManager.readJSON();
-    try {
-      JSONObject playerData = allPlayersData.getJSONObject(playerID);
-      PlayerBuilder playerBuilder = new PlayerBuilder();
-      playerBuilder.buildPlayerStats(playerData);
-      playerBuilder.buildPlayerPreferences(playerData);
-      playerBuilder.buildUserAndPassword(playerData);
-      playerBuilder.buildPlayerID(playerID);
-
-      return playerBuilder.getPlayer();
-
-    } catch (JSONException e) {
-      Log.e(TAG, "No player with this playerID");
-    } catch(NullPointerException e){
-      Log.e(TAG, "Null players.");
-    }
-
-    return null;
+    return dataAccess.loadPlayer(playerID);
   }
 
   public static boolean login(String username, String password) {
-    Player currPlayer = getPlayer(DataManager.getIDfromUsername(username));
+    Player currPlayer = getPlayer(dataAccess.getIDfromUsername(username));
     if (currPlayer != null && currPlayer.getPassword().equals(password)) {
       PlayerManager.currentLoggedInPlayer = currPlayer;
       return true;
@@ -61,4 +44,5 @@ public class PlayerManager {
 
   public static Player getCurrentLoggedInPlayer(){ return currentLoggedInPlayer;}
 
+  public static void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
 }

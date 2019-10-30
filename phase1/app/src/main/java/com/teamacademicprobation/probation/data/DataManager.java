@@ -1,6 +1,9 @@
-package com.teamacademicprobation.probation.player;
+package com.teamacademicprobation.probation.data;
 
 import android.util.Log;
+
+import com.teamacademicprobation.probation.player.Player;
+import com.teamacademicprobation.probation.player.PlayerBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,14 +27,14 @@ import java.util.Map;
  * "CurrentSession" : {"GameID" : { "StatID" : "statistic" }}, "BestSession": {"GameID": {"StatID" : "statistic"}}}
  *
  */
-public class DataManager {
+public class DataManager implements PlayerDataAccess {
   /** The DataFile for reading and writing. */
-  private static File DataFile;
+  private File DataFile;
 
   private static final String TAG = "DataManager";
 
-  public static void setDataFile(File dataFile) {
-    DataManager.DataFile = dataFile;
+  public void setData(File dataFile) {
+    this.DataFile = dataFile;
   }
 
   /**
@@ -39,10 +42,10 @@ public class DataManager {
    *
    * @param player The player object that we want to save.
    */
-  public static void save(Player player) {
+  public void save(Player player) {
     Map<String, Object> playerDataMap = player.getData();
     JSONObject playerData = new JSONObject(playerDataMap);
-    DataManager.updateFile(playerData, player.getPlayerID());
+    updateFile(playerData, player.getPlayerID());
   }
 
   /**
@@ -51,7 +54,7 @@ public class DataManager {
    * @param playerData The new JSONObject that describes the player.
    * @param playerID The playerID of the player being updated.
    */
-  private static void updateFile(JSONObject playerData, String playerID) {
+  private void updateFile(JSONObject playerData, String playerID) {
 
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {
       JSONObject JSONdata = readJSON(); // Get the old JSON.
@@ -67,12 +70,29 @@ public class DataManager {
     }
   }
 
+  public Player loadPlayer(String playerID){
+    JSONObject allPlayersData = readJSON();
+    try {
+      JSONObject playerData = allPlayersData.getJSONObject(playerID);
+      PlayerBuilder playerBuilder = new PlayerBuilder();
+      playerBuilder.buildPlayer(playerData, playerID);
+      return playerBuilder.getPlayer();
+
+    } catch (JSONException e) {
+      Log.e(TAG, "No player with this playerID");
+    } catch(NullPointerException e){
+      Log.e(TAG, "Null players.");
+    }
+
+    return null;
+  }
+
   /**
    * Returns a JSONObject specified from the file.
    *
    * @return JSONObject.
    */
-  public static JSONObject readJSON() {
+  private JSONObject readJSON() {
     String oldData = readFile();
     JSONObject result = null;
     try {
@@ -88,9 +108,9 @@ public class DataManager {
    *
    * @return String representation of the file.
    */
-  private static String readFile() {
+  private String readFile() {
     StringBuilder result = new StringBuilder();
-    try (BufferedReader br = new BufferedReader(new FileReader(DataFile))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(this.DataFile))) {
       String newLine;
       while ((newLine = br.readLine()) != null) {
         result.append(newLine);
@@ -109,7 +129,7 @@ public class DataManager {
    * @param username Username of the player we want to find.
    * @return The playerID of the player with the given username.
    */
-  public static String getIDfromUsername(String username) {
+  public String getIDfromUsername(String username) {
     JSONObject allPlayersData = readJSON();
 
     try {
@@ -135,23 +155,23 @@ public class DataManager {
     return result.toString();
   }
 
-  public static boolean isNewPlayer(String playerID){
-    JSONObject allPlayersData = readJSON();
-    if(allPlayersData == null){
-      return true;
-    }
-      Iterator<String> keys = allPlayersData.keys();
-      while(keys.hasNext()){
-        String currPlayerID = keys.next();
-        if(currPlayerID.equals(playerID)){
-          return false;
-        }
-      }
-    return true;
+//  public boolean isNewPlayer(String playerID){
+//    JSONObject allPlayersData = readJSON();
+//    if(allPlayersData == null){
+//      return true;
+//    }
+//      Iterator<String> keys = allPlayersData.keys();
+//      while(keys.hasNext()){
+//        String currPlayerID = keys.next();
+//        if(currPlayerID.equals(playerID)){
+//          return false;
+//        }
+//      }
+//    return true;
+//
+//  }
 
-  }
-
-  public static boolean usernameTaken(String username) {
+  public boolean usernameTaken(String username) {
     JSONObject allPlayersData = readJSON();
     if(allPlayersData == null){
       return false;
