@@ -14,6 +14,6 @@ public class BlueObject extends TapObject {
   }
 
   public void draw(Canvas canvas) {
-    canvas.drawCircle(getX(), getY(), 60, paint);
+    canvas.drawCircle(getX(), getY(), radius, paint);
   }
 }

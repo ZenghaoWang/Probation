@@ -2,6 +2,7 @@ package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
 public class TapObject {
 
+  static int radius = 60;
   private int x;
   private int y;
 
@@ -17,4 +18,5 @@ public class TapObject {
   public int getY() {
     return this.y;
   }
+
 }

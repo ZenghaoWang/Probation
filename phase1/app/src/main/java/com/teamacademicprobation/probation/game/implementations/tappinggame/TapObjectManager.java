@@ -2,12 +2,15 @@ package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
 import android.graphics.Canvas;
 
+import com.teamacademicprobation.probation.game.ScoreBoard;
+
 import java.util.Random;
 
 class TapObjectManager {
 
   private BlueObject blueObjects;
   private RedObject redObjects;
+  private ScoreBoard scoreBoard;
   private Random r = new Random();
   private int x;
   private int y;
@@ -15,6 +18,11 @@ class TapObjectManager {
   TapObjectManager(int x, int y) {
     this.x = x;
     this.y = y;
+    this.scoreBoard = new ScoreBoard(x, y);
+  }
+
+  ScoreBoard getScoreBoard(){
+    return this.scoreBoard;
   }
 
   BlueObject getBlue() {
@@ -26,6 +34,7 @@ class TapObjectManager {
   }
 
   void draw(Canvas canvas) {
+    this.scoreBoard.draw(canvas);
     if (this.blueObjects != null) {
       this.blueObjects.draw(canvas);
     } else if (this.getRed() != null) {
