@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
+import com.teamacademicprobation.probation.game.TriviaView;
 
 //TODO: Documentation
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
@@ -19,13 +20,10 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private Button answer4;
     private TextView question;
 
-    // TODO
     public static final String SCORE =
             "com.teamacademicprobation.probation.game.implementations.triviagame.SCORE";
 
-    /*
-    TODO: Add these 2 views to xml
-     */
+
     private int numQuestionsAnswered;
     private int numQuestionsAnsweredCorrectly;
 
@@ -99,7 +97,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
             case ANSWER1:
                 this.answer1.setText(newText);
             case ANSWER2:
-                this.answer3.setText(newText);
+                this.answer2.setText(newText);
             case ANSWER3:
                 this.answer3.setText(newText);
             case ANSWER4:

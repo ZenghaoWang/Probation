@@ -1,8 +1,8 @@
-package com.teamacademicprobation.probation.game.implementations.triviagame;
+package com.teamacademicprobation.probation.game;
 
 import android.view.View;
 
-interface TriviaView {
+public interface TriviaView {
      void updateQuestion();
      void onAnswer(View view);
      void updateScore();

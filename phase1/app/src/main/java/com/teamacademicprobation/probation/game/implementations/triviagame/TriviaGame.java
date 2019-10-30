@@ -2,6 +2,8 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.util.Log;
 
+import com.teamacademicprobation.probation.game.TriviaView;
+
 //TODO: Documentation
 class TriviaGame {
     // Used for logging purposes.
@@ -59,8 +61,10 @@ class TriviaGame {
 
 
     /**
-     *
-     * @param answer
+     * Increase the number of questions answered by 1
+     * Evaluate whether answer is correct
+     * Update number of questions answered correctly if needed
+     * @param answer The chosen answer to be compared to the actual answer
      */
     void answerQuestion(String answer) {
         numQuestionsAnswered += 1;
