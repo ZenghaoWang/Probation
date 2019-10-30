@@ -1,68 +1,73 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
+import android.util.Log;
+
 //TODO: Documentation
-public class TriviaGame {
+class TriviaGame {
+    // Used for logging purposes.
+    private static final String TAG = "TriviaGame";
+    // The UI interface associated with this TriviaGame instance.
+    private final TriviaView triviaView;
+
     private boolean finished;
     private Question currentQuestion;
     private QuestionManager questionManager;
     private int numQuestionsAnswered;
     private int numQuestionsAnsweredCorrectly;
 
-    public TriviaGame() {
+    TriviaGame(TriviaView triviaView) {
         finished = false;
         questionManager = new QuestionManager();
         numQuestionsAnswered = 0;
         numQuestionsAnsweredCorrectly = 0;
+
+        this.triviaView = triviaView;
     }
 
-    public int getNumQuestionsAnswered() {
+    int getNumQuestionsAnswered() {
         return numQuestionsAnswered;
     }
 
-    public int getNumQuestionsAnsweredCorrectly() {
+    int getNumQuestionsAnsweredCorrectly() {
         return numQuestionsAnsweredCorrectly;
     }
 
     /**
-     * Calls questionmanager to get a new question.
+     * Calls questionManager to get a new question, then either updates the TriviaView with a new
+     * question or sends TriviaView to the score screen if there are no more questions.
      */
-    public void updateQuestion() {
+    void updateQuestion() {
         try {
             currentQuestion = questionManager.getRandomQuestion();
         } catch (OutOfQuestionsException e) {
+            Log.e(TAG, "Out of questions!");
             finished = true;
+        } finally{
+            if (this.finished) {
+                triviaView.goToScoreScreen();
+            } else {
+                triviaView.setElement(TriviaView.Element.QUESTION, currentQuestion.getQuestion());
+                triviaView.setElement(TriviaView.Element.ANSWER1, currentQuestion.getAnswer1());
+                triviaView.setElement(TriviaView.Element.ANSWER2, currentQuestion.getAnswer2());
+                triviaView.setElement(TriviaView.Element.ANSWER3, currentQuestion.getAnswer3());
+                triviaView.setElement(TriviaView.Element.ANSWER4, currentQuestion.getAnswer4());
+
+
+            }
         }
     }
 
-    public String getQuestion() {
-        return currentQuestion.getQuestion();
-    }
 
-    public String getAnswer1() {
-        return currentQuestion.getAnswer1();
-    }
-
-    public String getAnswer2() {
-        return currentQuestion.getAnswer2();
-    }
-
-    public String getAnswer3() {
-        return currentQuestion.getAnswer3();
-    }
-
-    public String getAnswer4() {
-        return currentQuestion.getAnswer4();
-    }
-
-
-    public void answerQuestion(String answer) {
+    /**
+     *
+     * @param answer
+     */
+    void answerQuestion(String answer) {
         numQuestionsAnswered += 1;
         if (currentQuestion.isAnswerCorrect(answer)) {
             numQuestionsAnsweredCorrectly += 1;
         }
+
     }
 
-    public boolean isFinished() {
-        return finished;
-    }
 }
