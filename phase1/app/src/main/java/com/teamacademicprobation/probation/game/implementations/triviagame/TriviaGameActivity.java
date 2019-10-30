@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 import com.teamacademicprobation.probation.game.TriviaView;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 //TODO: Documentation
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
@@ -86,6 +87,11 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
                 + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + "!";
         intent.putExtra(SCORE, scoreMessage);
         startActivity(intent);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**

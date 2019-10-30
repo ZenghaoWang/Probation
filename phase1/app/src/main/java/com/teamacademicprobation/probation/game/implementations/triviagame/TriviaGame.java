@@ -11,11 +11,15 @@ class TriviaGame {
     // The UI interface associated with this TriviaGame instance.
     private final TriviaView triviaView;
 
+    private static final String CORRECT_ANSWER_MESSAGE = "Correct!";
+    private static final String WRONG_ANSWER_MESSAGE = "Wrong answer :(((";
+
     private boolean finished;
     private Question currentQuestion;
     private QuestionManager questionManager;
     private int numQuestionsAnswered;
     private int numQuestionsAnsweredCorrectly;
+
 
     TriviaGame(TriviaView triviaView) {
         finished = false;
@@ -68,10 +72,18 @@ class TriviaGame {
      */
     void answerQuestion(String answer) {
         numQuestionsAnswered += 1;
-        if (currentQuestion.isAnswerCorrect(answer)) {
+        boolean answerCorrect = currentQuestion.isAnswerCorrect(answer);
+        if (answerCorrect) {
             numQuestionsAnsweredCorrectly += 1;
         }
 
+        String message;
+        if (answerCorrect) {
+            message = CORRECT_ANSWER_MESSAGE;
+        } else {
+            message = WRONG_ANSWER_MESSAGE;
+        }
+        triviaView.showMessage(message);
     }
 
 }
