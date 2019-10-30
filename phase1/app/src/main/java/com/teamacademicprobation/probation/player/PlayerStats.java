@@ -1,55 +1,137 @@
 package com.teamacademicprobation.probation.player;
 
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Objects;
 
 /**
- * A player's game statistics across all their played games. Keeps a record of each of this player's
- * PlayerGameStats. Each player has an instance of PlayerStats.
+ * A player's game statistics across all their played games. Keeps a record of this player's
+ * current game, current game's stats, their best game stats, and all the games they've played.
  */
 public class PlayerStats {
 
-  // A map of all the player's games previously played, along with each game's stats.
-  private final Map<String, PlayerGameStats> gameStatsMap = new HashMap<>();
+    private PlayerGameStats currGame;
 
-  // A PlayerGameStats object to contain the player's highest score in every stat across all games.
-  private final PlayerGameStats bestGame = new PlayerGameStats();
+    // A map of each type of game along with the player's best scores within that game.
+    private Map<String, PlayerGameStats> bestGame;
 
-  /** Instantiates a PlayerStats object. */
-  public PlayerStats() {}
+    // A list of all the player's completed games.
+    private final ArrayList<PlayerGameStats> completedGames; //how to retrieve specific game stats?
 
-  /**
-   * Adds a game's stats to the player's history of games played
-   *
-   * @param GameID the ID associated with the game.
-   * @param Stats the game's statistics.
-   */
-  public void addGameStats(String GameID, PlayerGameStats Stats) {
-    gameStatsMap.put(GameID, Stats);
-
-    if (Stats.getStat("time") > bestGame.getStat("time")) {
-      bestGame.setStat("time", Stats.getStat("time"));
+    /**
+     * Instantiates a PlayerStats object with an empty list of completed games.
+     */
+    PlayerStats() {
+        currGame = null;
+        bestGame = null;
+        completedGames = new ArrayList<>();
     }
-    if (Stats.getStat("score") > bestGame.getStat("score")) {
-      bestGame.setStat("score", Stats.getStat("score"));
-    }
-    if (Stats.getStat("items") > bestGame.getStat("items")) {
-      bestGame.setStat("items", Stats.getStat("items"));
-    }
-  }
 
-  /**
-   * Returns a specific game's stats given its ID.
-   *
-   * @param GameID the ID of the game.
-   * @return the statistics recorded for that game.
-   */
-  public PlayerGameStats getGameStats(String GameID) {
-    return gameStatsMap.get(GameID);
-  }
+    /**
+     * Instantiates a new PlayerGameStats object with the given gameID (ie. when you start a new
+     * game)
+     *
+     * @param gameID which game the player is currently on.
+     */
+    public void newGame(String gameID) {
+        currGame = new PlayerGameStats(gameID);
+    }
 
-  /** Returns the player's best statistics among all their played games. */
-  public PlayerGameStats getBestScore() {
-    return bestGame;
-  }
+    /**
+     * Occurs at the end of the current game session.
+     */
+    public void endCurrGame() {
+        completedGames.add(currGame); //adds this game to the list of this player's completed games
+
+        updateBestGame(currGame); // updates the player's best game statistics with this game in mind
+
+        currGame.setComplete(); // sets the current game to complete (meaning it's not the current level)
+        currGame = null; // sets the current game to null (meaning there is currently no level being played)
+    }
+
+    /**
+     * Updates a single statistic within the current game.
+     *
+     * @param statID the statistic to be updated.
+     * @param value  the value we want associated with that statistic.
+     * @param reset  whether we want this value to replace the current score (true) or increment it (false)
+     */
+    public void updateCurrGame(String statID, int value, boolean reset) {
+        if (reset) {
+            currGame.update(statID, value);
+        } else {
+            currGame.increment(statID, value);
+        }
+    }
+
+    /**
+     * Updates a map of statistics within the current game.
+     *
+     * @param newStats a map of statistics plus the values we want associated with them
+     * @param reset    whether we want this value to replace the current score (true) or increment it (false)
+     */
+    public void updateCurrGame(Map<String, Integer> newStats, boolean reset) {
+        if (reset) {
+            newStats.forEach((k, v) -> currGame.update(k, v));
+        } else {
+            newStats.forEach((k, v) -> currGame.increment(k, v));
+        }
+    }
+
+    /**
+     * Updates the statistics of the player's best game if the new statistics are better
+     *
+     * @param otherGameStats the statistics of the game to be compared with the best game statistics
+     */
+    private void updateBestGame(PlayerGameStats otherGameStats) {
+        String gameID = otherGameStats.getGameID();
+
+        if (bestGame.containsKey(gameID)) {
+            if (Objects.requireNonNull(bestGame.get(gameID)).compareTo(otherGameStats) < 0) {
+                bestGame.put(gameID, otherGameStats);
+            }
+        } else {
+            bestGame.put(gameID, otherGameStats);
+        }
+    }
+
+    /**
+     * Returns a map of all the statistics of the current game along with their values.
+     *
+     * @return the map
+     */
+    public Map<String, Integer> getCurr() {
+        return currGame.getAllStats();
+    }
+
+    /**
+     * Returns the current game's current score for a certain statistic.
+     *
+     * @param statID the statistic to be returned.
+     * @return the statistic's value.
+     */
+    public int getCurr(String statID) {
+        return currGame.getStat(statID);
+    }
+
+    /**
+     * Returns a map of the player's highest scores.
+     *
+     * @return a map of all the statistics of a game along with their associated values.
+     */
+    public Map<String, Integer> getBest(String gameID) {
+        return Objects.requireNonNull(bestGame.get(gameID)).getAllStats();
+    }
+
+    /**
+     * Returns the "highest score" for a given game type's given statistic.
+     *
+     * @param gameID the game whose statistics we want.
+     * @param statID the statistic we want.
+     * @return a map of the game's statistics.
+     */
+    public int getBest(String gameID, String statID) {
+        return Objects.requireNonNull(bestGame.get(gameID)).getStat(statID);
+    }
+
 }
