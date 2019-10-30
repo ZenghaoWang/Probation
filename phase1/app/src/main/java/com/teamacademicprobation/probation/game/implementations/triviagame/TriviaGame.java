@@ -42,7 +42,7 @@ class TriviaGame {
      * Calls questionManager to get a new question, then either updates the TriviaView with a new
      * question or sends TriviaView to the score screen if there are no more questions.
      */
-    void updateQuestion() {
+    void updateView() {
         try {
             currentQuestion = questionManager.getRandomQuestion();
         } catch (OutOfQuestionsException e) {
@@ -57,10 +57,15 @@ class TriviaGame {
                 triviaView.setElement(TriviaView.Element.ANSWER2, currentQuestion.getAnswer2());
                 triviaView.setElement(TriviaView.Element.ANSWER3, currentQuestion.getAnswer3());
                 triviaView.setElement(TriviaView.Element.ANSWER4, currentQuestion.getAnswer4());
-
+                triviaView.setElement(TriviaView.Element.SCOREBOARD, generateCurrentScore());
 
             }
         }
+    }
+
+    private String generateCurrentScore() {
+        return "Current Score: "
+                + numQuestionsAnsweredCorrectly + "/" + numQuestionsAnswered;
     }
 
 

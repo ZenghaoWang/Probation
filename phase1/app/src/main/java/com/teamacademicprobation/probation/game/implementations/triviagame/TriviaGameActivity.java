@@ -15,12 +15,13 @@ import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 //TODO: Documentation
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
-    private TriviaGame triviaGame;
+    private static TriviaGame triviaGame;
     private Button answer1;
     private Button answer2;
     private Button answer3;
     private Button answer4;
     private TextView question;
+    private TextView score;
 
     public static final String SCORE =
             "com.teamacademicprobation.probation.game.implementations.triviagame.SCORE";
@@ -48,13 +49,17 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         answer3 = findViewById(R.id.answer3);
         answer4 = findViewById(R.id.answer4);
         question = findViewById(R.id.question);
+        score = findViewById(R.id.current_score);
 
         triviaGame = new TriviaGame(this);
-        updateQuestion();
+        updateView();
     }
 
-    public void updateQuestion() {
-        triviaGame.updateQuestion();
+    /**
+     * Update all elements on the screen.
+     */
+    public void updateView() {
+        triviaGame.updateView();
     }
 
     /**
@@ -69,7 +74,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         String answer = ((Button) answerClicked).getText().toString();
         triviaGame.answerQuestion(answer);
         updateScore();
-        updateQuestion();
+        updateView();
     }
 
     public void updateScore() {
@@ -84,7 +89,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     public void goToScoreScreen() {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
         String scoreMessage = "You answered "
-                + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + "!";
+                + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + " correctly!";
         intent.putExtra(SCORE, scoreMessage);
         startActivity(intent);
     }
@@ -111,6 +116,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
                 this.answer3.setText(newText);
             case ANSWER4:
                 this.answer4.setText(newText);
+            case SCOREBOARD:
+                this.score.setText(newText);
         }
     }
 

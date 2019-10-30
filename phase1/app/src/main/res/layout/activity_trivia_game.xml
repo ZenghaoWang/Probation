@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="363dp"
+        android:layout_width="361dp"
         android:layout_height="270dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
@@ -79,4 +79,16 @@
                 android:text="@string/potential_answer" />
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/current_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/trivia_current_score"
+        app:layout_constraintBottom_toTopOf="@+id/question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
