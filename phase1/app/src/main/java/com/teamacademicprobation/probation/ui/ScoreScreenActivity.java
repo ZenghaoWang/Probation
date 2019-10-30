@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.game.implementations.triviagame;
+package com.teamacademicprobation.probation.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
+import com.teamacademicprobation.probation.game.implementations.triviagame.TriviaGameActivity;
 
 /**
  * The screen that appears when a player has completed a game.
+ * A shared activity used by all game implementations.
  */
 public class ScoreScreenActivity extends AppCompatActivity {
 

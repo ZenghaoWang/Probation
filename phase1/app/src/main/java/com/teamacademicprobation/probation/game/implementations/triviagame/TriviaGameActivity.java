@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.TriviaView;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+import com.teamacademicprobation.probation.ui.TriviaView;
 
 //TODO: Documentation
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
@@ -81,14 +82,16 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
      */
     public void goToScoreScreen() {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
-        //TODO: Give intent score and total questions
         String scoreMessage = "You answered "
                 + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + "!";
         intent.putExtra(SCORE, scoreMessage);
         startActivity(intent);
     }
 
-
+    /**
+     * @param element The question or answer on the screen to be set
+     * @param newText The text to set the chosen element to
+     */
     @Override
     public void setElement(TriviaView.Element element, String newText) {
         switch (element) {

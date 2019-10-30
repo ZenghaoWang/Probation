@@ -2,7 +2,7 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.util.Log;
 
-import com.teamacademicprobation.probation.game.TriviaView;
+import com.teamacademicprobation.probation.ui.TriviaView;
 
 //TODO: Documentation
 class TriviaGame {
