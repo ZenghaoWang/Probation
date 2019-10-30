@@ -116,4 +116,10 @@ public class Player {
    * @param gameStatsMap A map with the following format: {"Stat1": int}
    */
   public void updateStats(String gameID, Map<String, Integer> gameStatsMap) {}
+
+  public void updateBestSession(String currGameID, Map<String, Integer> currGameStatsMap) {
+  }
+
+  public void updateCurrentSession(String currGameID, Map<String, Integer> currGameStatsMap) {
+  }
 }

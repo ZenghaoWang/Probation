@@ -12,23 +12,19 @@ import com.teamacademicprobation.probation.game.Playable;
  */
 public class TimingGame implements Playable {
 
-  /** The box and the target zone. */
-  private HitBox hitBox;
-  /** The line that moves left and right across the box. */
-  private SlidingLine slidingLine;
+
+  private Box box;
   /** Represents if the game is completed. */
   private boolean completed;
   /** The color of the game. In phase 2, can be updated to change based on user preferences. */
   private static int gameColor = Color.CYAN;
   /** The score of the game. */
-  // TODO: Implement PlayerManager and PlayerGameStats once implemented correctly!
   private int score;
 
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   public TimingGame(int screenWidth, int screenHeight) {
 
-    hitBox = new HitBox(screenWidth, screenHeight);
-    slidingLine = new SlidingLine(screenWidth, screenHeight, hitBox);
+    this.box = new Box(screenWidth, screenHeight);
     this.score = 0;
     this.completed = false;
   }
@@ -45,7 +41,7 @@ public class TimingGame implements Playable {
   /** Updates the game. */
   public void update() {
     if (!this.completed) {
-      this.slidingLine.update();
+      this.box.update();
       }
   }
 
@@ -60,8 +56,7 @@ public class TimingGame implements Playable {
       return;
     }
     canvas.drawColor(Color.BLACK); // resets the screen.
-    this.hitBox.draw(canvas);
-    this.slidingLine.draw(canvas);
+    this.box.draw(canvas);
   }
 
   /**
@@ -93,10 +88,8 @@ public class TimingGame implements Playable {
   /** Updates the score of the game, if and only if the game is completed. */
   public void updateScore() {
     if (this.completed) {
-
-      int distance =
-          Math.abs((this.slidingLine.getActualPosition() - this.hitBox.getTargetCenter()));
-      this.score = Math.max(0, 100 - distance);
+      int distance = this.box.getLineDistanceFromTarget();
+      this.score = 100 - Math.abs(distance);
     }
   }
 }
