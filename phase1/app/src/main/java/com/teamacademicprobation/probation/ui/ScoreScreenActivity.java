@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.implementations.triviagame.TriviaGameActivity;
 
 /**
  * The screen that appears when a player has completed a game.
@@ -32,7 +31,7 @@ public class ScoreScreenActivity extends AppCompatActivity {
     private void displayScoreMessage() {
         TextView scoreMessage = findViewById(R.id.scoreMessage);
         Intent intent = getIntent();
-        scoreMessage.setText(intent.getStringExtra(TriviaGameActivity.SCORE));
+        scoreMessage.setText(intent.getStringExtra("score"));
     }
 
     public void returnToHomeScreen(View view) {

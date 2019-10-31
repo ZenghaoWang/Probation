@@ -89,7 +89,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         Intent intent = new Intent(this, ScoreScreenActivity.class);
         String scoreMessage = "You answered "
                 + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + " correctly!";
-        intent.putExtra(SCORE, scoreMessage);
+        intent.putExtra("score", scoreMessage);
         startActivity(intent);
     }
 
