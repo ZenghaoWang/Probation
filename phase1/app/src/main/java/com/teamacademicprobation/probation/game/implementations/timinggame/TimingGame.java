@@ -22,7 +22,7 @@ public class TimingGame implements Playable {
   private int score;
 
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
-  public TimingGame(int screenWidth, int screenHeight) {
+  TimingGame(int screenWidth, int screenHeight) {
 
     this.box = new Box(screenWidth, screenHeight);
     this.score = 0;
@@ -31,10 +31,9 @@ public class TimingGame implements Playable {
 
   /**
    * Returns the Color of the game.
-   *
    * @return color of the game
    */
-  public static int getGameColor() {
+  static int getGameColor() {
     return gameColor;
   }
 
@@ -85,11 +84,22 @@ public class TimingGame implements Playable {
     return this.completed;
   }
 
-  /** Updates the score of the game, if and only if the game is completed. */
+  /**
+   * Updates the score of this timing game. The score algorithm is visualized here:
+   * https://www.desmos.com/calculator/7rxfhnhuog
+   */
   public void updateScore() {
     if (this.completed) {
-      int distance = this.box.getLineDistanceFromTarget();
-      this.score = 100 - Math.abs(distance);
+      int lineDistance = Math.abs(this.box.getLineDistanceFromTarget());
+      int targetBoxWidth = this.box.getTargetBoxWidth();
+
+      if(lineDistance >= targetBoxWidth/2){
+        this.score = 100 - (40*(lineDistance)/targetBoxWidth);
+      }
+      else{
+        this.score = 160 - (160*(lineDistance)/targetBoxWidth);
+      }
+
     }
   }
 }
