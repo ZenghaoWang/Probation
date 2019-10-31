@@ -15,7 +15,7 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
     private boolean isCurrLevel;
 
     //The time and date of the game's initiation.
-    private final Date startingTime;
+    private final Date startTime;
 
     //The total score in this game (the value of all stats added together)
     private int totalScore;
@@ -31,7 +31,7 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
     PlayerGameStats(String id) {
         isCurrLevel = true;
         gameID = id;
-        startingTime = new Date();
+        startTime = new Date();
         totalScore = 0;
     }
 
@@ -55,7 +55,7 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
      * Returns the date and time this session of the game began.
      */
     public Date getStartTime() {
-        return startingTime;
+        return startTime;
     }
 
     /**

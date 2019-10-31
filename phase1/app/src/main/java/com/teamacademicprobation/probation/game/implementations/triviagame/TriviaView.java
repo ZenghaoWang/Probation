@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.game;
+package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.view.View;
 
