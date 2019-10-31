@@ -54,28 +54,18 @@ public class PlayerStats {
      *
      * @param statID the statistic to be updated.
      * @param value  the value we want associated with that statistic.
-     * @param reset  whether we want this value to replace the current score (true) or increment it (false)
      */
-    public void updateCurrGame(String statID, int value, boolean reset) {
-        if (reset) {
-            currGame.update(statID, value);
-        } else {
-            currGame.increment(statID, value);
-        }
+    public void updateCurrGame(String statID, int value) {
+        currGame.update(statID, value);
     }
 
     /**
      * Updates a map of statistics within the current game.
      *
      * @param newStats a map of statistics plus the values we want associated with them
-     * @param reset    whether we want this value to replace the current score (true) or increment it (false)
      */
-    public void updateCurrGame(Map<String, Integer> newStats, boolean reset) {
-        if (reset) {
-            newStats.forEach((k, v) -> currGame.update(k, v));
-        } else {
-            newStats.forEach((k, v) -> currGame.increment(k, v));
-        }
+    public void updateCurrGame(Map<String, Integer> newStats) {
+        newStats.forEach((k, v) -> currGame.update(k, v));
     }
 
     /**
@@ -93,6 +83,10 @@ public class PlayerStats {
         } else {
             bestGame.put(gameID, otherGameStats);
         }
+    }
+
+    public String getCurrLevel() {
+        return currGame.getGameID();
     }
 
     /**
@@ -115,7 +109,16 @@ public class PlayerStats {
     }
 
     /**
-     * Returns a map of the player's highest scores.
+     * Returns a map of the player's highest scores for each game.
+     *
+     * @return a map of all the statistics of a game along with their associated values.
+     */
+    public Map<String, PlayerGameStats> getBest() {
+        return Objects.requireNonNull(bestGame);
+    }
+
+    /**
+     * Returns a map of the player's highest scores for each game.
      *
      * @return a map of all the statistics of a game along with their associated values.
      */
