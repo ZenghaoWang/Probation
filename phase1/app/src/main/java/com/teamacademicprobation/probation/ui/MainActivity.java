@@ -1,16 +1,15 @@
 package com.teamacademicprobation.probation.ui;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.teamacademicprobation.probation.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +18,10 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+
+    Button level1 = findViewById(R.id.level1);
+    Button level2 = findViewById(R.id.level2);
+    Button level3 = findViewById(R.id.level3);
 
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(

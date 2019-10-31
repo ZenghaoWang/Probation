@@ -14,4 +14,7 @@
     <string name="potential_answer">\?</string>
     <string name="trivia_current_score">Current Score: 0/0</string>
     <string name="return_to_main_menu">Return to Main Menu</string>
+    <string name="level1">Level 1</string>
+    <string name="level2">Level 2</string>
+    <string name="level3">Level 3</string>
 </resources>
