@@ -13,4 +13,5 @@
     <string name="current_question">No current question</string>
     <string name="potential_answer">\?</string>
     <string name="trivia_current_score">Current Score: 0/0</string>
+    <string name="return_to_main_menu">Return to Main Menu</string>
 </resources>

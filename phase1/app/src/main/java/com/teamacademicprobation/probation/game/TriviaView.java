@@ -6,7 +6,8 @@ public interface TriviaView {
 
 
      void updateView();
-     void onAnswer(View view);
+
+    void onAnswer(View answerClicked);
      void updateScore();
      void goToScoreScreen();
      void showMessage(String message);

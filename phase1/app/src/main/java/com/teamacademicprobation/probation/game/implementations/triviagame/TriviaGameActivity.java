@@ -70,7 +70,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
      */
     public void onAnswer(View answerClicked) {
 
-        //TODO: CaSTiNG iS BAd
         String answer = ((Button) answerClicked).getText().toString();
         triviaGame.answerQuestion(answer);
         updateScore();
