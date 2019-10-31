@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.TriviaView;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 //TODO: Documentation
@@ -89,7 +88,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         Intent intent = new Intent(this, ScoreScreenActivity.class);
         String scoreMessage = "You answered "
                 + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + " correctly!";
-        intent.putExtra(SCORE, scoreMessage);
+        intent.putExtra("score", scoreMessage);
         startActivity(intent);
     }
 
