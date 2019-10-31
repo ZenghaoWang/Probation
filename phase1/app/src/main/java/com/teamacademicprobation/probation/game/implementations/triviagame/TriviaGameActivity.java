@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.TriviaView;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 //TODO: Documentation
