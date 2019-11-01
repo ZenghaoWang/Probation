@@ -13,14 +13,20 @@ class TapGame {
   private ScoreBoard scoreBoard;
   private Random r = new Random();
   private BlueCounter blueCounter;
+  private boolean gameComplete;
   private int x;
   private int y;
 
   TapGame(int x, int y) {
     this.x = x;
     this.y = y;
+    this.gameComplete = false;
     this.scoreBoard = new ScoreBoard(x, y);
     this.blueCounter = new BlueCounter(x, y);
+  }
+
+  boolean getgameComplete(){
+    return this.gameComplete;
   }
 
   BlueCounter getBlueCounter() {
@@ -59,6 +65,14 @@ class TapGame {
       blueObjects = new BlueObject(r.nextInt(this.x - 350) + 100, r.nextInt(this.y - 350) + 100);
       blueCounter.addCount();
     }
+    if (blueCounter.getBlueCount() == BlueCounter.blueLimit){
+      this.setCompleted();
+    }
+  }
+
+  public void setCompleted() {
+    this.gameComplete = true;
+    // playerAccess.updateStats(currPlayerID,GAME_ID, "score", this.scoreBoard.getScore());
   }
 
   void check_touch(double touch_x, double touch_y, Canvas canvas) {
@@ -73,11 +87,9 @@ class TapGame {
       if (Math.pow(touch_x - this.getRed().getX(), 2)
               + (Math.pow(touch_y - this.getRed().getY(), 2))
           <= Math.pow(TapObject.radius, 2)) {
-        if (this.getScoreBoard().getScore() != 0) {
           this.getScoreBoard().losePoint();
           this.getScoreBoard().draw(canvas);
         }
       }
     }
-  }
 }

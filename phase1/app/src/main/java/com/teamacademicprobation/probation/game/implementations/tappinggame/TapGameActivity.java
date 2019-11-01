@@ -13,6 +13,8 @@ public class TapGameActivity extends AppCompatActivity {
     tapGameView = new TapGameView(this.getApplicationContext());
     super.onCreate(savedInstanceState);
     setContentView(tapGameView);
+    Thread thread = new Thread(tapGameView);
+    thread.start();
   }
 
   @Override

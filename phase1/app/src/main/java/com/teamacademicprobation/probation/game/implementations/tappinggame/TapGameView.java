@@ -1,6 +1,7 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 public class TapGameView extends SurfaceView implements Runnable {
   volatile boolean playing;
@@ -35,7 +38,7 @@ public class TapGameView extends SurfaceView implements Runnable {
 
   private void update() {
     tapGame.update();
-    if (tapGame.getBlueCounter().getBlueCount() == BlueCounter.blueLimit) {
+    if (this.tapGame.getgameComplete()){
       playing = false;
     }
   }
@@ -78,8 +81,12 @@ public class TapGameView extends SurfaceView implements Runnable {
       double touch_x = event.getX();
       double touch_y = event.getY();
       tapGame.check_touch(touch_x, touch_y, canvas);
+      if (tapGame.getgameComplete()) {
+        Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+        intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
+        getContext().startActivity(intent);
+      }
       return true;
     }
-    return false;
-  }
+  return false;}
 }

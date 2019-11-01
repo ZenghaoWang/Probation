@@ -30,7 +30,9 @@ public class ScoreBoard{
   }
 
   public void losePoint() {
-    this.score--;
+    if (score != 0) {
+      this.score--;
+    }
   }
 
   public void draw(Canvas canvas) {
