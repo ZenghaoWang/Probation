@@ -1,6 +1,7 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,11 +10,13 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+
 public class TapGameView extends SurfaceView implements Runnable {
   volatile boolean playing;
   private Thread gameThread = null;
   private SurfaceHolder surfaceHolder;
-  private TapObjectManager tapObjectManager;
+  private TapGame tapGame;
   private Canvas canvas;
 
   public TapGameView(Context context) {
@@ -21,7 +24,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     surfaceHolder = getHolder();
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    tapObjectManager = new TapObjectManager(screenWidth, screenHeight);
+    tapGame = new TapGame(screenWidth, screenHeight);
   }
 
   @Override
@@ -34,9 +37,11 @@ public class TapGameView extends SurfaceView implements Runnable {
   }
 
   private void update() {
-    tapObjectManager.update();
-    if (tapObjectManager.getBlueCounter().getBlueCount() == BlueCounter.blueLimit) {
-      playing = false;
+    tapGame.update();
+    if (tapGame.getgameComplete()) {
+      Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+      intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
+      getContext().startActivity(intent);
     }
   }
 
@@ -44,7 +49,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     if (surfaceHolder.getSurface().isValid()) {
       canvas = surfaceHolder.lockCanvas();
       canvas.drawColor(Color.BLACK);
-      tapObjectManager.draw(canvas);
+      tapGame.draw(canvas);
       surfaceHolder.unlockCanvasAndPost(canvas);
     }
   }
@@ -75,29 +80,10 @@ public class TapGameView extends SurfaceView implements Runnable {
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-      int touch_x = (int) event.getX();
-      int touch_y = (int) event.getY();
-      if (tapObjectManager.getBlue() != null) {
-        if (tapObjectManager.getBlue().getX() - 60 <= touch_x
-            && touch_x <= tapObjectManager.getBlue().getX() + 60
-            && tapObjectManager.getBlue().getY() - 60 <= touch_y
-            && touch_y <= tapObjectManager.getBlue().getY()) {
-          tapObjectManager.getScoreBoard().earnPoint();
-          tapObjectManager.getScoreBoard().draw(canvas);
-        }
-      } else {
-        if (tapObjectManager.getRed().getX() - TapObject.radius <= touch_x
-            && touch_x <= tapObjectManager.getRed().getX() + TapObject.radius
-            && tapObjectManager.getRed().getY() - TapObject.radius <= touch_y
-            && touch_y <= tapObjectManager.getRed().getY() + TapObject.radius) {
-          if (tapObjectManager.getScoreBoard().getScore() != 0) {
-            tapObjectManager.getScoreBoard().losePoint();
-            tapObjectManager.getScoreBoard().draw(canvas);
-          }
-        }
-      }
+      double touch_x = event.getX();
+      double touch_y = event.getY();
+      tapGame.check_touch(touch_x, touch_y, canvas);
       return true;
     }
-    return false;
-  }
+  return false;}
 }

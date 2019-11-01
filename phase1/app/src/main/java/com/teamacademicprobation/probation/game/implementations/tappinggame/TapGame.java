@@ -6,21 +6,27 @@ import com.teamacademicprobation.probation.game.ScoreBoard;
 
 import java.util.Random;
 
-class TapObjectManager {
+class TapGame {
 
   private BlueObject blueObjects;
   private RedObject redObjects;
   private ScoreBoard scoreBoard;
   private Random r = new Random();
   private BlueCounter blueCounter;
+  private boolean gameComplete;
   private int x;
   private int y;
 
-  TapObjectManager(int x, int y) {
+  TapGame(int x, int y) {
     this.x = x;
     this.y = y;
+    this.gameComplete = false;
     this.scoreBoard = new ScoreBoard(x, y);
     this.blueCounter = new BlueCounter(x, y);
+  }
+
+  boolean getgameComplete(){
+    return this.gameComplete;
   }
 
   BlueCounter getBlueCounter() {
@@ -59,5 +65,31 @@ class TapObjectManager {
       blueObjects = new BlueObject(r.nextInt(this.x - 350) + 100, r.nextInt(this.y - 350) + 100);
       blueCounter.addCount();
     }
+    if (blueCounter.getBlueCount() == BlueCounter.blueLimit){
+      this.setCompleted();
+    }
   }
+
+  public void setCompleted() {
+    this.gameComplete = true;
+    // playerAccess.updateStats(currPlayerID,GAME_ID, "score", this.scoreBoard.getScore());
+  }
+
+  void check_touch(double touch_x, double touch_y, Canvas canvas) {
+    if (this.getBlue() != null) {
+      if (Math.pow(touch_x - this.getBlue().getX(), 2)
+              + Math.pow(touch_y - this.getBlue().getY(), 2)
+          <= Math.pow(TapObject.radius, 2)) {
+        this.getScoreBoard().earnPoint();
+        this.getScoreBoard().draw(canvas);
+      }
+    } else {
+      if (Math.pow(touch_x - this.getRed().getX(), 2)
+              + (Math.pow(touch_y - this.getRed().getY(), 2))
+          <= Math.pow(TapObject.radius, 2)) {
+          this.getScoreBoard().losePoint();
+          this.getScoreBoard().draw(canvas);
+        }
+      }
+    }
 }

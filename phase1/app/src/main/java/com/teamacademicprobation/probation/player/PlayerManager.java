@@ -1,6 +1,8 @@
 package com.teamacademicprobation.probation.player;
 
 
+import android.util.Log;
+
 import com.teamacademicprobation.probation.data.DataAccessObject;
 import com.teamacademicprobation.probation.data.DataManager;
 import java.io.File;
@@ -27,13 +29,18 @@ public class PlayerManager implements PlayerAccess{
 
   @Override
   public void updateStats(String playerID, String gameID, String statID, int stat) {
-    Player playerToUpdate = getPlayer(playerID);
+    try{
+      Player playerToUpdate = getPlayer(playerID);
     if(!(playerToUpdate.getCurrGameID().equals(gameID))){
         playerToUpdate.endCurrGame();
         playerToUpdate.newCurrGame(gameID);
     }
     playerToUpdate.updateCurrStats(statID, stat);
     dataAccess.save(playerToUpdate);
+    }
+    catch(NullPointerException e){
+      Log.e("PlayerManager", "No player with this playerID.");
+    }
   }
 
   /**
