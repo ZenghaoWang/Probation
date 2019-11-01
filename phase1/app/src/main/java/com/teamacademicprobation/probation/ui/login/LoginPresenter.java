@@ -1,6 +1,5 @@
 package com.teamacademicprobation.probation.ui.login;
 
-import android.view.View;
 
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
@@ -19,6 +18,10 @@ public class LoginPresenter {
     }
 
     void login(String username, String password){
+        if(checkEmpty(username, password)){
+            return;
+        }
+
         String playerID = playerAccess.login(username, password);
         if(playerID != null){
             loginView.goToMainView(playerID);
@@ -29,6 +32,10 @@ public class LoginPresenter {
     }
 
     void register(String username, String password){
+        if(checkEmpty(username, password)){
+            return;
+        }
+
         String playerID = playerAccess.createNewPlayer(username, password);
         if(playerID != null){
             loginView.goToMainView(playerID);
@@ -36,6 +43,17 @@ public class LoginPresenter {
         else{
             loginView.setErrorMessage("Username has already been taken.");
         }
+    }
+
+    private boolean checkEmpty(String username, String password) {
+        if (username.equals("")) {
+            loginView.setErrorMessage("Please enter a Username.");
+            return true;
+        } else if (password.equals("")) {
+            loginView.setErrorMessage("Please enter a Password");
+            return true;
+        }
+        return false;
     }
 
 }
