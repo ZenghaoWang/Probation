@@ -31,6 +31,10 @@ public class TimingGame {
 
   private String currPlayerID;
 
+  private final int TOTAL_LEVELS = 5;
+
+
+
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   TimingGame(int screenWidth, int screenHeight, String currPlayerID) {
 
@@ -54,7 +58,7 @@ public class TimingGame {
   /** Updates the game. */
   public void update() {
     this.box.update();
-    if (this.numPlayed >= 5) {
+    if (this.numPlayed >= TOTAL_LEVELS) {
       this.setCompleted();
     }
   }

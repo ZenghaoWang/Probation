@@ -6,6 +6,7 @@ import android.util.Log;
 import com.teamacademicprobation.probation.data.DataAccessObject;
 import com.teamacademicprobation.probation.data.DataManager;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerManager implements PlayerAccess{
@@ -27,10 +28,12 @@ public class PlayerManager implements PlayerAccess{
     try{
       Player playerToUpdate = getPlayer(playerID);
     if(!(playerToUpdate.getCurrGameID().equals(gameID))){
-        playerToUpdate.endCurrGame();
+
+        // pre-condition: the current game is none.
         playerToUpdate.newCurrGame(gameID);
     }
     playerToUpdate.updateCurrStats(statID, stat);
+    playerToUpdate.endCurrGame();
     dataAccess.save(playerToUpdate);
     }
     catch(NullPointerException e){
@@ -58,9 +61,17 @@ public class PlayerManager implements PlayerAccess{
     }
   }
 
+  @Override
   public Map<String, Integer> getBest(String playerID, String gameID){
     Player currPlayer = getPlayer(playerID);
     return currPlayer.getBest(gameID);
+  }
+
+  @Override
+  public List<String> getGamesPlayed(String playerID) {
+    Player currPlayer = getPlayer(playerID);
+    return currPlayer.getGamesPlayed();
+
   }
 
   public static void setDataFile(File dataFile){ dataAccess.setData(dataFile);}

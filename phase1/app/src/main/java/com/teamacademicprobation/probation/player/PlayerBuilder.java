@@ -45,16 +45,21 @@ public class PlayerBuilder {
 
   private void buildPlayerStats(JSONObject playerData) {
     try {
-
-      JSONObject currGameStats = playerData.getJSONObject("CurrentSession");
-      JSONObject bestGameStats = playerData.getJSONObject("BestSession");
-
+      JSONObject bestGameStats = playerData.getJSONObject("Best Session");
       buildBestGameStats(bestGameStats);
-      buildCurrGameStats(currGameStats);
-
     } catch(JSONException e) {
-      Log.e(TAG, e.toString());
+      JSONObject bestGameStats = new JSONObject();
+      buildBestGameStats(bestGameStats);
     }
+
+    try {
+      JSONObject currGameStats = playerData.getJSONObject("Current Session");
+      buildCurrGameStats(currGameStats);
+    } catch(JSONException e) {
+      JSONObject currGameStats = new JSONObject();
+      buildCurrGameStats(currGameStats);
+    }
+
   }
 
   private void buildBestGameStats(JSONObject bestGameStats) {
@@ -69,6 +74,7 @@ public class PlayerBuilder {
       }
       player.newCurrGame(currGameID);
       player.updateCurrStats(currGameStatsMap);
+      player.endCurrGame();
     }
   }
 
@@ -84,6 +90,7 @@ public class PlayerBuilder {
       }
       this.player.newCurrGame(currGameID);
       this.player.updateCurrStats(currGameStatsMap);
+      this.player.endCurrGame();
     }
   }
 
@@ -97,7 +104,7 @@ public class PlayerBuilder {
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
     Map<String, Integer> gameStatsMap = new HashMap<>();
-    String[] statIDs = {"time", "score", "items"}; // Player.getStatIDs();
+    String[] statIDs = {"score"}; // Player.getStatIDs();
     try {
       for (String statID : statIDs) {
         gameStatsMap.put(statID, Integer.valueOf(gameStatistics.getString(statID)));

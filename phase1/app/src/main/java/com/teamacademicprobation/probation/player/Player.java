@@ -1,6 +1,8 @@
 package com.teamacademicprobation.probation.player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -161,5 +163,15 @@ public class Player {
 
   public Map<String, Integer> getBest(String gameID){
     return this.playerStats.getBest(gameID);
+  }
+
+  public List<String> getGamesPlayed(){
+    List<String> result = new ArrayList<>();
+    for(String gameID : this.playerStats.getBest().keySet()){
+      if(!(gameID.equals(""))){
+        result.add(gameID);
+      }
+    }
+    return result;
   }
 }

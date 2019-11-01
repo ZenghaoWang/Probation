@@ -2,6 +2,7 @@ package com.teamacademicprobation.probation.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.TapGameActivity;
 import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameActivity;
 import com.teamacademicprobation.probation.game.implementations.triviagame.TriviaGameActivity;
+import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,12 +71,22 @@ public class MainActivity extends AppCompatActivity {
     if (v.getId() == R.id.btnTapping) {
       activityClass = TapGameActivity.class;
     }
+
+
     Intent intent = new Intent(this, activityClass);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+    intent.putExtra(LoginActivity.PLAYER_ID_KEY, getPlayerID());
     startActivity(intent);
   }
 
+  private String getPlayerID() {
+    Intent contextIntent = getIntent();
+    return contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY);
+  }
+
   public void enterScoreScreen(View v) {
-    startActivity(new Intent(this, HighScoresActivity.class));
+    Intent intent = new Intent(this, HighScoresActivity.class);
+    intent.putExtra(LoginActivity.PLAYER_ID_KEY, getPlayerID());
+    startActivity(intent);
   }
 }

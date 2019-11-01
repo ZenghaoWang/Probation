@@ -52,6 +52,5 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
   public void setErrorMessage(String errorMessage){
     error.setText(errorMessage);
     error.setVisibility(View.VISIBLE);
-
   }
 }
