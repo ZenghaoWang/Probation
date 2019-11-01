@@ -84,7 +84,7 @@ public class PlayerStats {
     }
   }
 
-  public String getCurrLevel() {
+  public String getCurrGameID() {
     return currGame.getGameID();
   }
 

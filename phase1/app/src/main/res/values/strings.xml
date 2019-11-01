@@ -17,4 +17,6 @@
     <string name="level1">Level 1</string>
     <string name="level2">Level 2</string>
     <string name="level3">Level 3</string>
+    <string name="prompt_username">Username</string>
+    <string name="action_register">Register</string>
 </resources>

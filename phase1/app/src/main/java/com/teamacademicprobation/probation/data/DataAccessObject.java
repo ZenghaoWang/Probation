@@ -4,7 +4,7 @@ import com.teamacademicprobation.probation.player.Player;
 
 import java.io.File;
 
-public interface PlayerDataAccess {
+public interface DataAccessObject {
 
     void save(Player player);
     Player loadPlayer(String playerID);

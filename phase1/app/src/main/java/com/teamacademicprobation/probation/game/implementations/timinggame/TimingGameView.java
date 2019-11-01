@@ -10,6 +10,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+import com.teamacademicprobation.probation.ui.login.LoginActivity;
+
+import java.io.File;
 
 // Code template from
 // https://www.simplifiedcoding.net/android-game-development-tutorial-1/#Android-Game-Development-with-Unity
@@ -27,11 +30,13 @@ public class TimingGameView extends SurfaceView implements Runnable {
    *
    * @param context the environment
    */
-  public TimingGameView(Context context) {
+  public TimingGameView(Context context, String currPlayerID) {
     super(context);
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    this.timingGame = new TimingGame(screenWidth, screenHeight);
+    this.timingGame = new TimingGame(screenWidth, screenHeight, currPlayerID);
+    this.timingGame.setDataFile(new File(context.getFilesDir(), LoginActivity.FILE_PATH));
+
     surfaceHolder = getHolder();
   }
 

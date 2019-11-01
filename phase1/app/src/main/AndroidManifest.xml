@@ -18,7 +18,7 @@
             android:name=".game.implementations.triviagame.TriviaGameActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:label="Log In"
             android:theme="@style/AppTheme">
             <intent-filter>

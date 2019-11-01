@@ -88,7 +88,7 @@ public class Player {
 
     Map<String, Map<String, Integer>> currStats = new HashMap<>();
     currStats.put(
-        this.playerStats.getCurrLevel(), this.playerStats.getCurr()); // this is null so fix it
+        this.playerStats.getCurrGameID(), this.playerStats.getCurr()); // this is null so fix it
     result.put("Current Session", currStats);
 
     Map<String, Map<String, Integer>> bestStats = new HashMap<>();
@@ -153,5 +153,9 @@ public class Player {
    */
   public void updateCurrStats(Map<String, Integer> gameStatsMap) {
     this.playerStats.updateCurrGame(gameStatsMap);
+  }
+
+  public String getCurrGameID() {
+    return this.playerStats.getCurrGameID();
   }
 }

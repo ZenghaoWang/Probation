@@ -4,7 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 
 import com.teamacademicprobation.probation.game.ScoreBoard;
+import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
+
+import java.io.File;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
@@ -25,22 +28,20 @@ public class TimingGame {
   /** The gameID of this game. */
   private static final String GAME_ID = "TimingGame";
 
+  private PlayerAccess playerAccess;
+
+  private String currPlayerID;
+
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
-  TimingGame(int screenWidth, int screenHeight) {
+  TimingGame(int screenWidth, int screenHeight, String currPlayerID) {
 
     this.box = new Box(screenWidth, screenHeight);
     this.scoreBoard = new ScoreBoard(screenWidth, screenHeight);
     this.numPlayed = 0;
     this.completed = false;
-
-    // This should never happen in the real game.
-    try{
-      PlayerManager.getCurrentLoggedInPlayer().updateCurrGame(GAME_ID);
-      }
-    catch(NullPointerException e){
-      e.printStackTrace();
+    this.playerAccess = new PlayerManager();
+    this.currPlayerID = currPlayerID;
     }
-  }
 
   /**
    * Returns the Color of the game.
@@ -73,14 +74,7 @@ public class TimingGame {
   /** Sets this game as completed. */
   public void setCompleted() {
     this.completed = true;
-
-    // This should not happen in the real game.
-    try{
-    PlayerManager.getCurrentLoggedInPlayer().updateCurrStats("score", this.scoreBoard.getScore());
-    }
-    catch(NullPointerException e){
-      e.printStackTrace();
-    }
+    playerAccess.updateStats(currPlayerID,GAME_ID, "score", this.scoreBoard.getScore());
   }
 
   /**
@@ -121,5 +115,9 @@ public class TimingGame {
 
     return this.scoreBoard.getScore();
 
+  }
+
+  public void setDataFile(File file) {
+    this.playerAccess.setDataFile(file);
   }
 }

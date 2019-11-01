@@ -2,9 +2,12 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 public class TimingGameActivity extends AppCompatActivity {
 
@@ -22,7 +25,9 @@ public class TimingGameActivity extends AppCompatActivity {
         .setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    timingGameView = new TimingGameView(this);
+    Intent contextIntent = getIntent();
+
+    timingGameView = new TimingGameView(this, contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY));
     setContentView(timingGameView);
     Thread thread = new Thread(timingGameView);
     thread.start();

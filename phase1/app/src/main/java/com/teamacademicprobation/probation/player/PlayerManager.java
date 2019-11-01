@@ -1,48 +1,60 @@
 package com.teamacademicprobation.probation.player;
 
 
-import com.teamacademicprobation.probation.data.PlayerDataAccess;
+import com.teamacademicprobation.probation.data.DataAccessObject;
 import com.teamacademicprobation.probation.data.DataManager;
 import java.io.File;
 
-public class PlayerManager {
-  private static Player currentLoggedInPlayer;
+public class PlayerManager implements PlayerAccess{
 
-  private static PlayerDataAccess dataAccess= new DataManager();
+  private DataAccessObject dataAccess= new DataManager();
 
+  public PlayerManager(){};
 
-  public static boolean createNewPlayer(String username, String password) {
-    if(dataAccess.usernameTaken(username)){
-      return false;
-    }
-    PlayerBuilder playerBuilder = new PlayerBuilder(username, password);
-    PlayerManager.currentLoggedInPlayer = playerBuilder.getPlayer();
-    dataAccess.save(currentLoggedInPlayer);
-    return true;
+  public PlayerManager(File dataFile){
+    this.dataAccess.setData(dataFile);
   }
 
-/**
+  public String createNewPlayer(String username, String password) {
+    if(dataAccess.usernameTaken(username)){
+      return null;
+    }
+    PlayerBuilder playerBuilder = new PlayerBuilder(username, password);
+    Player newPlayer = playerBuilder.getPlayer();
+    dataAccess.save(newPlayer);
+    return newPlayer.getPlayerID();
+  }
+
+  @Override
+  public void updateStats(String playerID, String gameID, String statID, int stat) {
+    Player playerToUpdate = getPlayer(playerID);
+    if(!(playerToUpdate.getCurrGameID().equals(gameID))){
+        playerToUpdate.endCurrGame();
+        playerToUpdate.newCurrGame(gameID);
+    }
+    playerToUpdate.updateCurrStats(statID, stat);
+    dataAccess.save(playerToUpdate);
+  }
+
+  /**
  * Returns a player object with their playerID.
  *
  * @param playerID The playerID to find.
  * @return A player with all the data specified in the JSON of the player with playerID.
  */
 
-  private static Player getPlayer(String playerID) {
+  private Player getPlayer(String playerID) {
     return dataAccess.loadPlayer(playerID);
   }
 
-  public static boolean login(String username, String password) {
+  public String login(String username, String password) {
     Player currPlayer = getPlayer(dataAccess.getIDfromUsername(username));
     if (currPlayer != null && currPlayer.getPassword().equals(password)) {
-      PlayerManager.currentLoggedInPlayer = currPlayer;
-      return true;
+      return currPlayer.getPlayerID();
     } else {
-      return false;
+      return null;
     }
   }
 
-  public static Player getCurrentLoggedInPlayer(){ return currentLoggedInPlayer;}
-
-  public static void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
+  public void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
 }

@@ -84,7 +84,7 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      //TODO: Implement this. 
+      //TODO: Implement this.
 //      this.player.loadBestSession(currGameID, currGameStatsMap);
     }
   }
@@ -99,7 +99,7 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      this.player.updateCurrGame(currGameID);
+      this.player.newCurrGame(currGameID);
       this.player.updateCurrStats(currGameStatsMap);
     }
   }

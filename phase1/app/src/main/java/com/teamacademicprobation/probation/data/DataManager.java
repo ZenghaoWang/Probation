@@ -27,7 +27,7 @@ import java.util.Map;
  * "CurrentSession" : {"GameID" : { "StatID" : "statistic" }}, "BestSession": {"GameID": {"StatID" : "statistic"}}}
  *
  */
-public class DataManager implements PlayerDataAccess {
+public class DataManager implements DataAccessObject {
   /** The DataFile for reading and writing. */
   private File DataFile;
 
