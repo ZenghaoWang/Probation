@@ -83,20 +83,18 @@ class TapGame {
     playerAccess.updateStats(currPlayerID, GAME_ID, "score", this.scoreBoard.getScore());
   }
 
-  void check_touch(double touch_x, double touch_y, Canvas canvas) {
+  void check_touch(double touch_x, double touch_y) {
     if (this.getBlue() != null) {
       if (Math.pow(touch_x - this.getBlue().getX(), 2)
               + Math.pow(touch_y - this.getBlue().getY(), 2)
           <= Math.pow(TapObject.radius, 2)) {
         this.getScoreBoard().earnPoint();
-        this.getScoreBoard().draw(canvas);
       }
     } else {
       if (Math.pow(touch_x - this.getRed().getX(), 2)
               + (Math.pow(touch_y - this.getRed().getY(), 2))
           <= Math.pow(TapObject.radius, 2)) {
           this.getScoreBoard().losePoint();
-          this.getScoreBoard().draw(canvas);
         }
       }
     }

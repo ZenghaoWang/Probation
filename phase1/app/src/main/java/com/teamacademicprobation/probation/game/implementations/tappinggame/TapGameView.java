@@ -11,9 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
-import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
-import java.io.File;
 
 public class TapGameView extends SurfaceView implements Runnable {
   volatile boolean playing;
@@ -42,10 +40,14 @@ public class TapGameView extends SurfaceView implements Runnable {
   private void update() {
     tapGame.update();
     if (tapGame.getgameComplete()) {
-      Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-      intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
-      getContext().startActivity(intent);
+      goToScoreScreen();
     }
+  }
+
+  private void goToScoreScreen() {
+    Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+    intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
+    getContext().startActivity(intent);
   }
 
   private void draw() {
@@ -85,7 +87,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
       double touch_x = event.getX();
       double touch_y = event.getY();
-      tapGame.check_touch(touch_x, touch_y, canvas);
+      tapGame.check_touch(touch_x, touch_y);
       return true;
     }
   return false;}

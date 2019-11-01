@@ -10,9 +10,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
-import com.teamacademicprobation.probation.ui.login.LoginActivity;
-
-import java.io.File;
 
 // Code template from
 // https://www.simplifiedcoding.net/android-game-development-tutorial-1/#Android-Game-Development-with-Unity
@@ -50,6 +47,9 @@ public class TimingGameView extends SurfaceView implements Runnable {
   /** Updates the game. */
   private void update() {
     this.timingGame.update();
+    if (this.timingGame.isCompleted()) {
+      goToScoreScreen();
+    }
   }
 
   /** Draws the game onto the canvas. */
@@ -94,12 +94,13 @@ public class TimingGameView extends SurfaceView implements Runnable {
   public boolean performClick() {
     super.performClick();
     this.timingGame.updateScore();
-    if (this.timingGame.isCompleted()) {
-      Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-      intent.putExtra("score", "You scored:" + this.timingGame.getScore());
-      getContext().startActivity(intent);
-    }
     return true;
+  }
+
+  private void goToScoreScreen() {
+    Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+    intent.putExtra("score", "You scored:" + this.timingGame.getScore());
+    getContext().startActivity(intent);
   }
 
   @Override
