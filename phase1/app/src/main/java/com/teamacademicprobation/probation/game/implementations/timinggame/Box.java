@@ -201,7 +201,7 @@ class Box {
     private SlidingLine() {
       this.linePosition = 0;
       this.lineVelocity =
-          Math.toIntExact(Math.round(boxWidth * 0.05)); // This can be adjusted for difficulty.
+          Math.toIntExact(Math.round(boxWidth * 0.03)); // This can be adjusted for difficulty.
       generatePaint();
     }
 

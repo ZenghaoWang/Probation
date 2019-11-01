@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 
 import com.teamacademicprobation.probation.game.ScoreBoard;
+import com.teamacademicprobation.probation.player.PlayerManager;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
@@ -21,6 +22,9 @@ public class TimingGame {
   /** The amount of times this game is played. */
   private int numPlayed;
 
+  /** The gameID of this game. */
+  private static final String GAME_ID = "TimingGame";
+
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   TimingGame(int screenWidth, int screenHeight) {
 
@@ -28,6 +32,14 @@ public class TimingGame {
     this.scoreBoard = new ScoreBoard(screenWidth, screenHeight);
     this.numPlayed = 0;
     this.completed = false;
+
+    // This should never happen in the real game.
+    try{
+      PlayerManager.getCurrentLoggedInPlayer().updateCurrGame(GAME_ID);
+      }
+    catch(NullPointerException e){
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -61,6 +73,14 @@ public class TimingGame {
   /** Sets this game as completed. */
   public void setCompleted() {
     this.completed = true;
+
+    // This should not happen in the real game.
+    try{
+    PlayerManager.getCurrentLoggedInPlayer().updateCurrStats("score", this.scoreBoard.getScore());
+    }
+    catch(NullPointerException e){
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -85,7 +105,7 @@ public class TimingGame {
           this.scoreBoard.getScore() + 100 - (40 * (lineDistance) / targetBoxWidth));
     } else {
       this.scoreBoard.setScore(
-          this.scoreBoard.getScore() + 160 - (160 * (lineDistance) / targetBoxWidth));
+          Math.max(0, this.scoreBoard.getScore() + 160 - (160 * (lineDistance) / targetBoxWidth)));
     }
 
     this.box.newTarget();
@@ -98,6 +118,8 @@ public class TimingGame {
    * @return int, the score of this game.
    */
   public int getScore() {
+
     return this.scoreBoard.getScore();
+
   }
 }

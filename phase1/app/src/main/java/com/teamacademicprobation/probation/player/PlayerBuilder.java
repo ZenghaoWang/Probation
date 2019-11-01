@@ -74,7 +74,6 @@ public class PlayerBuilder {
     }
   }
 
-  // TODO: FIX
   private void buildBestGameStats(JSONObject bestGameStats) {
     Iterator<String> gameIDs = bestGameStats.keys();
     while (gameIDs.hasNext()) {
@@ -85,11 +84,11 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      this.player.updateBestSession(currGameID, currGameStatsMap);
+      //TODO: Implement this. 
+//      this.player.loadBestSession(currGameID, currGameStatsMap);
     }
   }
 
-  // TODO: FIX
   private void buildCurrGameStats(JSONObject currGameStats) {
     Iterator<String> gameIDs = currGameStats.keys();
     while (gameIDs.hasNext()) {
@@ -100,7 +99,8 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      this.player.updateCurrentSession(currGameID, currGameStatsMap);
+      this.player.updateCurrGame(currGameID);
+      this.player.updateCurrStats(currGameStatsMap);
     }
   }
 
