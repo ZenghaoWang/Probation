@@ -36,10 +36,8 @@ public class TimingGameView extends SurfaceView implements Runnable {
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     this.timingGame = new TimingGame(screenWidth, screenHeight, currPlayerID);
     this.timingGame.setDataFile(new File(context.getFilesDir(), LoginActivity.FILE_PATH));
-
     surfaceHolder = getHolder();
   }
-
   @Override
   public void run() {
     while (running) {
