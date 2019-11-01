@@ -12,6 +12,7 @@ class TapObjectManager {
   private RedObject redObjects;
   private ScoreBoard scoreBoard;
   private Random r = new Random();
+  private BlueCounter blueCounter;
   private int x;
   private int y;
 
@@ -19,9 +20,14 @@ class TapObjectManager {
     this.x = x;
     this.y = y;
     this.scoreBoard = new ScoreBoard(x, y);
+    this.blueCounter = new BlueCounter(x, y);
   }
 
-  ScoreBoard getScoreBoard(){
+  BlueCounter getBlueCounter() {
+    return blueCounter;
+  }
+
+  ScoreBoard getScoreBoard() {
     return this.scoreBoard;
   }
 
@@ -35,6 +41,7 @@ class TapObjectManager {
 
   void draw(Canvas canvas) {
     this.scoreBoard.draw(canvas);
+    this.blueCounter.draw(canvas);
     if (this.blueObjects != null) {
       this.blueObjects.draw(canvas);
     } else if (this.getRed() != null) {
@@ -50,6 +57,7 @@ class TapObjectManager {
     } else if (c < 0.5) {
       redObjects = null;
       blueObjects = new BlueObject(r.nextInt(this.x - 350) + 100, r.nextInt(this.y - 350) + 100);
+      blueCounter.addCount();
     }
   }
 }

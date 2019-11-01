@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class BlueObject extends TapObject {
+class BlueObject extends TapObject {
   private Paint paint = new Paint();
 
   BlueObject(int x, int y) {
@@ -13,7 +13,7 @@ public class BlueObject extends TapObject {
     paint.setStyle(Paint.Style.FILL);
   }
 
-  public void draw(Canvas canvas) {
+  void draw(Canvas canvas) {
     canvas.drawCircle(getX(), getY(), radius, paint);
   }
 }
