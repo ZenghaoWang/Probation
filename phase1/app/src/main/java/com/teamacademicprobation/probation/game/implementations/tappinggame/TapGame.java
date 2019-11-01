@@ -95,14 +95,14 @@ class TapGame {
       this.targetObjects = null;
       this.nonTargetObjects =
           new NonTargetObject(
-              r.nextInt(this.x - TapObject.radius) + TapObject.radius,
+              r.nextInt(this.x - TapObject.radius * 2) + TapObject.radius,
               (int) (r.nextInt(this.y - TapObject.radius) + this.y * 0.03));
     } else if (c < 0.5) {
       this.nonTargetObjects = null;
       targetObjects =
           new TargetObject(
               r.nextInt(this.x - TapObject.radius) + TapObject.radius,
-              (int) (r.nextInt(this.y - TapObject.radius) + this.y * 0.03));
+              (int) (r.nextInt(this.y - TapObject.radius) + this.y * 0.06));
       targetCounter.addCount();
     }
     //If target objects reach the limit. The game is completed
