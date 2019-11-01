@@ -41,7 +41,7 @@ public class TimingGame {
     this.completed = false;
     this.playerAccess = new PlayerManager();
     this.currPlayerID = currPlayerID;
-    }
+  }
 
   /**
    * Returns the Color of the game.
@@ -74,7 +74,7 @@ public class TimingGame {
   /** Sets this game as completed. */
   public void setCompleted() {
     this.completed = true;
-    playerAccess.updateStats(currPlayerID,GAME_ID, "score", this.scoreBoard.getScore());
+    playerAccess.updateStats(currPlayerID, GAME_ID, "score", this.scoreBoard.getScore());
   }
 
   /**
@@ -114,9 +114,15 @@ public class TimingGame {
   public int getScore() {
 
     return this.scoreBoard.getScore();
-
   }
 
+  /**
+   * Sets the data file for the player access.
+   *
+   * @param file The file for the player access.
+   */
+
+  // TODO: THIS IS REALLY BAD, FIX IT.
   public void setDataFile(File file) {
     this.playerAccess.setDataFile(file);
   }

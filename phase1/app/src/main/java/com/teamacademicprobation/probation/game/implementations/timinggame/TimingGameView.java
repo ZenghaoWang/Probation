@@ -38,6 +38,7 @@ public class TimingGameView extends SurfaceView implements Runnable {
     this.timingGame.setDataFile(new File(context.getFilesDir(), LoginActivity.FILE_PATH));
     surfaceHolder = getHolder();
   }
+
   @Override
   public void run() {
     while (running) {

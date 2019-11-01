@@ -27,7 +27,8 @@ public class TimingGameActivity extends AppCompatActivity {
 
     Intent contextIntent = getIntent();
 
-    timingGameView = new TimingGameView(this, contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY));
+    timingGameView =
+        new TimingGameView(this, contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY));
     setContentView(timingGameView);
     Thread thread = new Thread(timingGameView);
     thread.start();

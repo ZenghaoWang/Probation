@@ -35,24 +35,6 @@ public class PlayerBuilder {
     this.player = new Player(username, password);
   }
 
-  /**
-   * Updates the player stats according to the player data.
-   *
-   * @param playerData The data of this player.
-   */
-  //  public void buildPlayerStats(JSONObject playerData) {
-  //    String[] gameIDs = {"Game1", "Game2", "Game3"}; // TODO: Change to Game.getID() once
-  // implemented
-  //    try {
-  //      for (String gameID : gameIDs) {
-  //        JSONObject gameStatistics = playerData.getJSONObject(gameID);
-  //        Map<String, Integer> gameStatsMap = buildGameStatMap(gameStatistics);
-  //        this.player.updateStats(gameID, gameStatsMap);
-  //      }
-  //    } catch (JSONException e) {
-  //      Log.e(TAG, "Error in getting player statistics");
-  //    }
-  //  }
 
   public void buildPlayer(JSONObject playerData, String playerID) {
     buildPlayerID(playerID);
