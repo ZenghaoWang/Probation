@@ -9,8 +9,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.TapGameActivity;
 import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameActivity;
@@ -18,26 +16,20 @@ import com.teamacademicprobation.probation.game.implementations.triviagame.Trivi
 
 public class MainActivity extends AppCompatActivity {
 
+  private Button trivia;
+  private Button timing;
+  private Button tapping;
+  private Button bestgames;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Button trivia = findViewById(R.id.trivia);
-    Button timing = findViewById(R.id.timing);
-    Button tapping = findViewById(R.id.tapping);
-    Button bestgames = findViewById(R.id.bestgames);
-
-    FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
-          }
-        });
+    trivia = findViewById(R.id.btnTrivia);
+    timing = findViewById(R.id.btnTiming);
+    tapping = findViewById(R.id.btnTapping);
+    bestgames = findViewById(R.id.bestgames);
   }
 
   @Override
@@ -62,19 +54,27 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public void startTrivia(View v){
-    startActivity(new Intent(this, TriviaGameActivity.class));
+  public void startGame(View v) {
+    Class<?> activityClass = null;
+    switch (v.getId()) {
+      case R.id.btnTapping:
+        activityClass = TapGameActivity.class;
+        break;
+      case R.id.btnTiming:
+        activityClass = TimingGameActivity.class;
+        break;
+      case R.id.btnTrivia:
+        activityClass = TriviaGameActivity.class;
+    }
+    if (v.getId() == R.id.btnTapping) {
+      activityClass = TapGameActivity.class;
+    }
+    Intent intent = new Intent(this, activityClass);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+    startActivity(intent);
   }
 
-  public void startTiming(View v){
-    startActivity(new Intent(this, TimingGameActivity.class));
-  }
-
-  public void startTapping(View v){
-    startActivity(new Intent(this, TapGameActivity.class));
-  }
-
-  public void enterScoreScreen(View v){
+  public void enterScoreScreen(View v) {
     startActivity(new Intent(this, HighScoresActivity.class));
   }
 }

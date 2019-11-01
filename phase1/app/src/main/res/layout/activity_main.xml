@@ -13,39 +13,31 @@
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/trivia"
+            android:id="@+id/btnTrivia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trivia"
-            android:onClick="startTrivia"/>
+            android:onClick="startGame"/>
 
         <Button
-            android:id="@+id/timing"
+            android:id="@+id/btnTiming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Timing"
-            android:onClick="startTiming" />
+            android:onClick="startGame" />
 
         <Button
-            android:id="@+id/tapping"
+            android:id="@+id/btnTapping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tapping"
-            android:onClick="startTapping" />
+            android:onClick="startGame" />
 
         <Button
             android:id="@+id/bestgames"
