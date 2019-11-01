@@ -127,8 +127,13 @@ public class Player {
    *
    * @param currGameID the new game's ID
    */
-  public void updateCurrGame(String currGameID) {
+  public void newCurrGame(String currGameID) {
     this.playerStats.newGame(currGameID);
+  }
+
+  /** Lets you update the player's current game session with a new game. */
+  public void endCurrGame() {
+    this.playerStats.endCurrGame();
   }
 
   /**
