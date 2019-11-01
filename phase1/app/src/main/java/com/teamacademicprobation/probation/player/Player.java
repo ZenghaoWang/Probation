@@ -158,4 +158,8 @@ public class Player {
   public String getCurrGameID() {
     return this.playerStats.getCurrGameID();
   }
+
+  public Map<String, Integer> getBest(String gameID){
+    return this.playerStats.getBest(gameID);
+  }
 }

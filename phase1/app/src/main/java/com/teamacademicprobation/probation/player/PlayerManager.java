@@ -6,6 +6,7 @@ import android.util.Log;
 import com.teamacademicprobation.probation.data.DataAccessObject;
 import com.teamacademicprobation.probation.data.DataManager;
 import java.io.File;
+import java.util.Map;
 
 public class PlayerManager implements PlayerAccess{
 
@@ -55,6 +56,11 @@ public class PlayerManager implements PlayerAccess{
     } else {
       return null;
     }
+  }
+
+  public Map<String, Integer> getBest(String playerID, String gameID){
+    Player currPlayer = getPlayer(playerID);
+    return currPlayer.getBest(gameID);
   }
 
   public static void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
