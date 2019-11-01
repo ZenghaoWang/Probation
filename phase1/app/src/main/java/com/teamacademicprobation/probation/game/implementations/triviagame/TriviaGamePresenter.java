@@ -3,12 +3,15 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 import android.util.Log;
 
 
+
 //TODO: Documentation
-class TriviaGame {
+
+// MVP structure from https://github.com/antoniolg/androidmvp
+class TriviaGamePresenter {
     // Used for logging purposes.
-    private static final String TAG = "TriviaGame";
-    // The UI interface associated with this TriviaGame instance.
-    private final TriviaView triviaView;
+    private static final String TAG = "TriviaGamePresenter";
+    // The UI interface associated with this TriviaGamePresenter instance.
+    private TriviaView triviaView;
 
     private static final String CORRECT_ANSWER_MESSAGE = "Correct!";
     private static final String WRONG_ANSWER_MESSAGE = "Wrong answer :(((";
@@ -20,22 +23,15 @@ class TriviaGame {
     private int numQuestionsAnsweredCorrectly;
 
 
-    TriviaGame(TriviaView triviaView) {
+    TriviaGamePresenter(TriviaView triviaView) {
         finished = false;
-        questionManager = new QuestionManager();
+        questionManager = new QuestionManager(new DefaultQuestionSet());
         numQuestionsAnswered = 0;
         numQuestionsAnsweredCorrectly = 0;
 
         this.triviaView = triviaView;
     }
 
-    int getNumQuestionsAnswered() {
-        return numQuestionsAnswered;
-    }
-
-    int getNumQuestionsAnsweredCorrectly() {
-        return numQuestionsAnsweredCorrectly;
-    }
 
     /**
      * Calls questionManager to get a new question, then either updates the TriviaView with a new
@@ -51,16 +47,17 @@ class TriviaGame {
             if (this.finished) {
                 triviaView.goToScoreScreen();
             } else {
-                triviaView.setElement(TriviaView.Element.QUESTION, currentQuestion.getQuestion());
-                triviaView.setElement(TriviaView.Element.ANSWER1, currentQuestion.getAnswer1());
-                triviaView.setElement(TriviaView.Element.ANSWER2, currentQuestion.getAnswer2());
-                triviaView.setElement(TriviaView.Element.ANSWER3, currentQuestion.getAnswer3());
-                triviaView.setElement(TriviaView.Element.ANSWER4, currentQuestion.getAnswer4());
-                triviaView.setElement(TriviaView.Element.SCOREBOARD, generateCurrentScore());
+                triviaView.setQuestion(currentQuestion.getQuestion());
+                triviaView.setAnswer1(currentQuestion.getAnswer1());
+                triviaView.setAnswer2(currentQuestion.getAnswer2());
+                triviaView.setAnswer3(currentQuestion.getAnswer3());
+                triviaView.setAnswer4(currentQuestion.getAnswer4());
 
+                triviaView.setScore(generateCurrentScore());
             }
         }
     }
+
 
     private String generateCurrentScore() {
         return "Current Score: "
@@ -90,4 +87,9 @@ class TriviaGame {
         triviaView.showMessage(message);
     }
 
+    String generateScoreMessage() {
+        return "You answered "
+                + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered +
+                " questions correctly!";
+    }
 }

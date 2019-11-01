@@ -1,19 +1,23 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
-import android.view.View;
+//MVP structure from https://github.com/antoniolg/androidmvp
 
 public interface TriviaView {
 
+    void goToScoreScreen();
 
-     void updateView();
+    void showMessage(String message);
 
-    void onAnswer(View answerClicked);
-     void updateScore();
-     void goToScoreScreen();
-     void showMessage(String message);
+    void setQuestion(String newText);
 
-     enum Element{
-          QUESTION, ANSWER1, ANSWER2, ANSWER3, ANSWER4, SCOREBOARD
-     }
-     void setElement(Element element, String newText);
+    void setAnswer1(String newText);
+
+    void setAnswer2(String newText);
+
+    void setAnswer3(String newText);
+
+    void setAnswer4(String newText);
+
+    void setScore(String newText);
+
 }

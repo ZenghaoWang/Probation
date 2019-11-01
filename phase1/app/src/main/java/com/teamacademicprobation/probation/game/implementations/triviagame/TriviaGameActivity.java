@@ -13,8 +13,9 @@ import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 //TODO: Documentation
+//MVP structure from https://github.com/antoniolg/androidmvp
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
-    private static TriviaGame triviaGame;
+    private static TriviaGamePresenter triviaGamePresenter;
     private Button answer1;
     private Button answer2;
     private Button answer3;
@@ -22,18 +23,11 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private TextView question;
     private TextView score;
 
-    public static final String SCORE =
-            "com.teamacademicprobation.probation.game.implementations.triviagame.SCORE";
-
-
-    private int numQuestionsAnswered;
-    private int numQuestionsAnsweredCorrectly;
-
 
     /**
      * 1. Set up the layout of the screen
      * 2. Set the local variables to the corresponding UI elements
-     * 3. Construct a new TriviaGame instance
+     * 3. Construct a new TriviaGamePresenter instance
      * 4. Updates the UI with the first question and answers.
      *
      * @param savedInstanceState The saved state of the application.
@@ -50,16 +44,10 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         question = findViewById(R.id.question);
         score = findViewById(R.id.current_score);
 
-        triviaGame = new TriviaGame(this);
-        updateView();
+        triviaGamePresenter = new TriviaGamePresenter(this);
+        triviaGamePresenter.updateView();
     }
 
-    /**
-     * Update all elements on the screen.
-     */
-    public void updateView() {
-        triviaGame.updateView();
-    }
 
     /**
      * Evaluate whether the answerClicked is correct and update the score accordingly,
@@ -70,15 +58,10 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     public void onAnswer(View answerClicked) {
 
         String answer = ((Button) answerClicked).getText().toString();
-        triviaGame.answerQuestion(answer);
-        updateScore();
-        updateView();
+        triviaGamePresenter.answerQuestion(answer);
+        triviaGamePresenter.updateView();
     }
 
-    public void updateScore() {
-        numQuestionsAnswered = triviaGame.getNumQuestionsAnswered();
-        numQuestionsAnsweredCorrectly = triviaGame.getNumQuestionsAnsweredCorrectly();
-    }
 
     /**
      * When all questions have been answered, head to the results screen.
@@ -86,8 +69,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
      */
     public void goToScoreScreen() {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
-        String scoreMessage = "You answered "
-                + numQuestionsAnsweredCorrectly + " out of " + numQuestionsAnswered + " correctly!";
+        String scoreMessage = triviaGamePresenter.generateScoreMessage();
+
         intent.putExtra("score", scoreMessage);
         startActivity(intent);
     }
@@ -97,27 +80,33 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * @param element The question or answer on the screen to be set
-     * @param newText The text to set the chosen element to
-     */
     @Override
-    public void setElement(TriviaView.Element element, String newText) {
-        switch (element) {
-            case QUESTION:
-                this.question.setText(newText);
-            case ANSWER1:
-                this.answer1.setText(newText);
-            case ANSWER2:
-                this.answer2.setText(newText);
-            case ANSWER3:
-                this.answer3.setText(newText);
-            case ANSWER4:
-                this.answer4.setText(newText);
-            case SCOREBOARD:
-                this.score.setText(newText);
-        }
+    public void setQuestion(String newText) {
+        this.question.setText(newText);
     }
 
+    @Override
+    public void setAnswer1(String newText) {
+        this.answer1.setText(newText);
+    }
 
+    @Override
+    public void setAnswer2(String newText) {
+        this.answer2.setText(newText);
+    }
+
+    @Override
+    public void setAnswer3(String newText) {
+        this.answer3.setText(newText);
+    }
+
+    @Override
+    public void setAnswer4(String newText) {
+        this.answer4.setText(newText);
+    }
+
+    @Override
+    public void setScore(String newText) {
+        this.score.setText(newText);
+    }
 }
