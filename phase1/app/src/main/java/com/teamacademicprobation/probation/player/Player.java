@@ -101,7 +101,7 @@ public class Player {
         result.put("Preferences", preferences);
 
         Map<String, Map<String, Integer>> currStats = new HashMap<>();
-        currStats.put(this.playerStats.getCurrLevel(), this.playerStats.getCurr());
+        currStats.put(this.playerStats.getCurrLevel(), this.playerStats.getCurr()); // this is null so fix it
         result.put("Current Session", currStats);
 
         Map<String, Map<String, Integer>> bestStats = new HashMap<>();
@@ -134,12 +134,21 @@ public class Player {
     }
 
     /**
+     * Lets you update the player's current game session with a new game.
+     *
+     * @param currGameID the new game's ID
+     */
+    public void updateCurrGame(String currGameID) {
+        this.playerStats.newGame(currGameID);
+    }
+
+    /**
      * Updates the PlayerStats for the current game.
      *
      * @param statID the statistic to be updated
-     * @param value the new value of the statistic
+     * @param value  the new value of the statistic
      */
-    public void updateStats(String statID, int value) {
+    public void updateCurrStats(String statID, int value) {
         this.playerStats.updateCurrGame(statID, value);
     }
 
@@ -148,14 +157,8 @@ public class Player {
      *
      * @param gameStatsMap A map with the following format: {"Stat1": int}
      */
-    public void updateStats(Map<String, Integer> gameStatsMap) {
+    public void updateCurrStats(Map<String, Integer> gameStatsMap) {
         this.playerStats.updateCurrGame(gameStatsMap);
     }
 
-    public void updateBestSession(String currGameID, Map<String, Integer> currGameStatsMap) {
-    }
-
-    public void updateCurrentSession(String currGameID, Map<String, Integer> currGameStatsMap) {
-
-    }
 }
