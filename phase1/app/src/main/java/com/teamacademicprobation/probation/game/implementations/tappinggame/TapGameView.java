@@ -11,6 +11,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+import com.teamacademicprobation.probation.ui.login.LoginActivity;
+
+import java.io.File;
 
 public class TapGameView extends SurfaceView implements Runnable {
   volatile boolean playing;
@@ -19,12 +22,13 @@ public class TapGameView extends SurfaceView implements Runnable {
   private TapGame tapGame;
   private Canvas canvas;
 
-  public TapGameView(Context context) {
+  public TapGameView(Context context, String currPlayerID) {
     super(context);
     surfaceHolder = getHolder();
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    tapGame = new TapGame(screenWidth, screenHeight);
+    tapGame = new TapGame(screenWidth, screenHeight, currPlayerID);
+    this.tapGame.setDataFile(new File(context.getFilesDir(), LoginActivity.FILE_PATH));
   }
 
   @Override
