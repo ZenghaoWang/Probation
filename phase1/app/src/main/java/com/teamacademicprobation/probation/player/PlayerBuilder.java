@@ -67,8 +67,9 @@ public class PlayerBuilder {
       JSONObject currGameStats = playerData.getJSONObject("CurrentSession");
       JSONObject bestGameStats = playerData.getJSONObject("BestSession");
 
-      buildCurrGameStats(currGameStats);
       buildBestGameStats(bestGameStats);
+      buildCurrGameStats(currGameStats);
+
     } catch(JSONException e) {
       Log.e(TAG, e.toString());
     }
@@ -84,8 +85,8 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      //TODO: Implement this.
-//      this.player.loadBestSession(currGameID, currGameStatsMap);
+      player.newCurrGame(currGameID);
+      player.updateCurrStats(currGameStatsMap);
     }
   }
 
