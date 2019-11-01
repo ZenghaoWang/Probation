@@ -1,5 +1,6 @@
 package com.teamacademicprobation.probation.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamacademicprobation.probation.R;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.TapGameActivity;
+import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameActivity;
+import com.teamacademicprobation.probation.game.implementations.triviagame.TriviaGameActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Button level1 = findViewById(R.id.level1);
-    Button level2 = findViewById(R.id.level2);
-    Button level3 = findViewById(R.id.level3);
+    Button trivia = findViewById(R.id.trivia);
+    Button timing = findViewById(R.id.timing);
+    Button tapping = findViewById(R.id.tapping);
+    Button bestgames = findViewById(R.id.bestgames);
 
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(
@@ -55,5 +60,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  public void startTrivia(View v){
+    startActivity(new Intent(this, TriviaGameActivity.class));
+  }
+
+  public void startTiming(View v){
+    startActivity(new Intent(this, TimingGameActivity.class));
+  }
+
+  public void startTapping(View v){
+    startActivity(new Intent(this, TapGameActivity.class));
+  }
+
+  public void enterScoreScreen(View v){
+    startActivity(new Intent(this, HighScoresActivity.class));
   }
 }

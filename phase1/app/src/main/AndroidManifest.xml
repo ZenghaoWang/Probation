@@ -14,6 +14,7 @@
             android:name=".game.implementations.timinggame.TimingGameActivity"
             android:exported="true" />
         <activity android:name=".ui.ScoreScreenActivity" />
+        <activity android:name=".ui.HighScoresActivity" />
         <activity
             android:name=".game.implementations.triviagame.TriviaGameActivity"
             android:exported="true" />
