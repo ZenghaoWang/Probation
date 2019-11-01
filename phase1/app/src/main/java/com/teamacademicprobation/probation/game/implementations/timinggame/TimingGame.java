@@ -2,17 +2,14 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 
-import com.teamacademicprobation.probation.game.Playable;
 import com.teamacademicprobation.probation.game.ScoreBoard;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
  * their taps so the line ends up inside the target box.
  */
-public class TimingGame implements Playable {
-
+public class TimingGame {
 
   private Box box;
   /** Represents if the game is completed. */
@@ -35,6 +32,7 @@ public class TimingGame implements Playable {
 
   /**
    * Returns the Color of the game.
+   *
    * @return color of the game
    */
   static int getGameColor() {
@@ -44,7 +42,7 @@ public class TimingGame implements Playable {
   /** Updates the game. */
   public void update() {
     this.box.update();
-    if(this.numPlayed >= 5){
+    if (this.numPlayed >= 5) {
       this.setCompleted();
     }
   }
@@ -68,33 +66,37 @@ public class TimingGame implements Playable {
   /**
    * Returns if this game is completed or not.
    *
-   * @return
+   * @return Completed game or not.
    */
   public boolean isCompleted() {
     return this.completed;
   }
-
 
   /**
    * Updates the score of this timing game. The score algorithm is visualized here:
    * https://www.desmos.com/calculator/7rxfhnhuog
    */
   public void updateScore() {
-      int lineDistance = Math.abs(this.box.getLineDistanceFromTarget());
-      int targetBoxWidth = this.box.getTargetBoxWidth();
+    int lineDistance = Math.abs(this.box.getLineDistanceFromTarget());
+    int targetBoxWidth = this.box.getTargetBoxWidth();
 
-      if(lineDistance <= targetBoxWidth/2){
-        this.scoreBoard.setScore( this.scoreBoard.getScore() + 100 - (40*(lineDistance)/targetBoxWidth));
-      }
-      else{
-        this.scoreBoard.setScore( this.scoreBoard.getScore() + 160 - (160*(lineDistance)/targetBoxWidth));
-      }
+    if (lineDistance <= targetBoxWidth / 2) {
+      this.scoreBoard.setScore(
+          this.scoreBoard.getScore() + 100 - (40 * (lineDistance) / targetBoxWidth));
+    } else {
+      this.scoreBoard.setScore(
+          this.scoreBoard.getScore() + 160 - (160 * (lineDistance) / targetBoxWidth));
+    }
 
-      this.box.newTarget();
-      this.numPlayed++;
+    this.box.newTarget();
+    this.numPlayed++;
   }
 
-  @Override
+  /**
+   * Returns the score of this game.
+   *
+   * @return int, the score of this game.
+   */
   public int getScore() {
     return this.scoreBoard.getScore();
   }
