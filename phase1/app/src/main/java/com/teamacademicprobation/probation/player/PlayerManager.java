@@ -9,13 +9,7 @@ import java.io.File;
 
 public class PlayerManager implements PlayerAccess{
 
-  private DataAccessObject dataAccess= new DataManager();
-
-  public PlayerManager(){};
-
-  public PlayerManager(File dataFile){
-    this.dataAccess.setData(dataFile);
-  }
+  private static DataAccessObject dataAccess= new DataManager();
 
   public String createNewPlayer(String username, String password) {
     if(dataAccess.usernameTaken(username)){
@@ -63,5 +57,5 @@ public class PlayerManager implements PlayerAccess{
     }
   }
 
-  public void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
+  public static void setDataFile(File dataFile){ dataAccess.setData(dataFile);}
 }

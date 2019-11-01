@@ -14,7 +14,8 @@ public class LoginPresenter {
 
     LoginPresenter(LoginView loginView, File dataFile){
         this.loginView = loginView;
-        this.playerAccess = new PlayerManager(dataFile);
+        this.playerAccess = new PlayerManager();
+        PlayerManager.setDataFile(dataFile);
     }
 
     void login(String username, String password){

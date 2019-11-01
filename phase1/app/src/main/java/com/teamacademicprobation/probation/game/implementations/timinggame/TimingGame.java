@@ -3,17 +3,17 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
+import com.teamacademicprobation.probation.game.RunnableGame;
 import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
-import java.io.File;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
  * their taps so the line ends up inside the target box.
  */
-public class TimingGame {
+public class TimingGame implements RunnableGame {
 
   private Box box;
   /** Represents if the game is completed. */
@@ -53,6 +53,7 @@ public class TimingGame {
   }
 
   /** Updates the game. */
+  @Override
   public void update() {
     this.box.update();
     if (this.numPlayed >= 5) {
@@ -65,6 +66,7 @@ public class TimingGame {
    *
    * @param canvas The canvas to be drawn on.
    */
+  @Override
   public void draw(Canvas canvas) {
     canvas.drawColor(Color.BLACK); // resets the screen.
     this.box.draw(canvas);
@@ -114,16 +116,5 @@ public class TimingGame {
   public int getScore() {
 
     return this.scoreBoard.getScore();
-  }
-
-  /**
-   * Sets the data file for the player access.
-   *
-   * @param file The file for the player access.
-   */
-
-  // TODO: THIS IS REALLY BAD, FIX IT.
-  public void setDataFile(File file) {
-    this.playerAccess.setDataFile(file);
   }
 }

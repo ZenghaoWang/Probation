@@ -100,9 +100,5 @@ class TapGame {
         }
       }
     }
-
-  public void setDataFile(File file) {
-    this.playerAccess.setDataFile(file);
-  }
 }
 

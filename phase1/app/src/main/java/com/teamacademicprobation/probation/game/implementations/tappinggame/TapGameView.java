@@ -28,7 +28,6 @@ public class TapGameView extends SurfaceView implements Runnable {
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     tapGame = new TapGame(screenWidth, screenHeight, currPlayerID);
-    this.tapGame.setDataFile(new File(context.getFilesDir(), LoginActivity.FILE_PATH));
   }
 
   @Override
