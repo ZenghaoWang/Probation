@@ -34,6 +34,15 @@ class Question {
         return this.question;
     }
 
+    public boolean isAnswerCorrect(String guess) {
+        return guess.equals(potentialAnswers.get(correctAnswerIndex));
+    }
+
+
+    public String getCurrentQuestion() {
+        return this.question;
+    }
+
     public String getAnswer1() {
         return this.potentialAnswers.get(0);
     }
@@ -48,9 +57,5 @@ class Question {
 
     public String getAnswer4() {
         return this.potentialAnswers.get(3);
-    }
-
-    public boolean isAnswerCorrect(String guess) {
-        return guess.equals(potentialAnswers.get(correctAnswerIndex));
     }
 }

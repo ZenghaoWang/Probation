@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 //TODO: Documentation
 //MVP structure from https://github.com/antoniolg/androidmvp
@@ -36,6 +37,9 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia_game);
 
+        Intent intent = getIntent();
+        String playerID = intent.getStringExtra(LoginActivity.PLAYER_ID_KEY);
+
         // Update UI with 1st question
         answer1 = findViewById(R.id.answer1);
         answer2 = findViewById(R.id.answer2);
@@ -44,7 +48,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         question = findViewById(R.id.question);
         score = findViewById(R.id.current_score);
 
-        triviaGamePresenter = new TriviaGamePresenter(this);
+        triviaGamePresenter = new TriviaGamePresenter(this, playerID);
         triviaGamePresenter.updateView();
     }
 

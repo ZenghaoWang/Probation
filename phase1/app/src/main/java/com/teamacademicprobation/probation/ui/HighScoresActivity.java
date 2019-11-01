@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.player.Player;
-import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 public class HighScoresActivity extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class HighScoresActivity extends AppCompatActivity {
 
     String playerId = getIntent().getExtras().getString(LoginActivity.PLAYER_ID_KEY);
 
-    String[] arr;
+    String[] arr = {"Test"};
 
     ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr);
     TextView label = findViewById(R.id.txtPlayerStatsTitle);
