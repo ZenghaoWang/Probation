@@ -10,11 +10,9 @@ public class TapGameActivity extends AppCompatActivity {
   private TapGameView tapGameView;
 
   protected void onCreate(Bundle savedInstanceState) {
-    tapGameView = new TapGameView(this.getApplicationContext());
+    tapGameView = new TapGameView(this);
     super.onCreate(savedInstanceState);
     setContentView(tapGameView);
-    Thread thread = new Thread(tapGameView);
-    thread.start();
   }
 
   @Override

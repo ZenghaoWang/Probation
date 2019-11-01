@@ -38,8 +38,10 @@ public class TapGameView extends SurfaceView implements Runnable {
 
   private void update() {
     tapGame.update();
-    if (this.tapGame.getgameComplete()){
-      playing = false;
+    if (tapGame.getgameComplete()) {
+      Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+      intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
+      getContext().startActivity(intent);
     }
   }
 
@@ -81,11 +83,6 @@ public class TapGameView extends SurfaceView implements Runnable {
       double touch_x = event.getX();
       double touch_y = event.getY();
       tapGame.check_touch(touch_x, touch_y, canvas);
-      if (tapGame.getgameComplete()) {
-        Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-        intent.putExtra("score", "You scored:" + this.tapGame.getScoreBoard().getScore());
-        getContext().startActivity(intent);
-      }
       return true;
     }
   return false;}
