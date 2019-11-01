@@ -112,6 +112,13 @@ public class Box {
     }
 
     /**
+     * Randomly make the target box move locations.
+     */
+    public void newTarget() {
+        this.targetBox.generateBoxStart();
+    }
+
+    /**
      * The target box that describes the zone the player has to hit.
      */
     private class TargetBox {
@@ -128,9 +135,16 @@ public class Box {
          */
         TargetBox(){
             this.targetBoxWidth = Math.toIntExact(Math.round(boxWidth * 0.1));
+            generateBoxStart();
+            generateTargetPaint();
+        }
+
+        /**
+         * Generate a new, random start to the target box.
+         */
+        private void generateBoxStart() {
             Random rand = new Random();
             this.targetBoxStart = rand.nextInt(90) * 0.01;
-            generateTargetPaint();
         }
 
         /**
@@ -193,7 +207,7 @@ public class Box {
          */
         private SlidingLine() {
             this.linePosition = 0;
-            this.lineVelocity = boxWidth / 25; // This can be adjusted for difficulty.
+            this.lineVelocity = Math.toIntExact(Math.round(boxWidth * 0.05)); // This can be adjusted for difficulty.
             generatePaint();
         }
 

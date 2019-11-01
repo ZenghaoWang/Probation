@@ -9,4 +9,5 @@ public interface Playable {
     void setCompleted();
     boolean isCompleted();
     void updateScore();
+    int getScore();
 }

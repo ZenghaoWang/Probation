@@ -23,6 +23,8 @@ public class ScoreBoard{
     return this.score;
   }
 
+  public void setScore(int score){ this.score = score;}
+
   public void earnPoint() {
     this.score++;
   }
@@ -32,6 +34,9 @@ public class ScoreBoard{
   }
 
   public void draw(Canvas canvas) {
-    canvas.drawText("Score:" + this.score,this.x, this.y, paint);
+    int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
+    int numChars = (int) (Math.log10(score+1) + 1);
+
+    canvas.drawText("Score:" + this.score ,this.x -(charWidth*numChars), this.y, paint);
   }
 }

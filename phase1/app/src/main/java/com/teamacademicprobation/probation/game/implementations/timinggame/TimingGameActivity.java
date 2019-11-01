@@ -24,6 +24,8 @@ public class TimingGameActivity extends AppCompatActivity {
 
         timingGameView = new TimingGameView(this);
         setContentView(timingGameView);
+        Thread thread = new Thread(timingGameView);
+        thread.start();
     }
 
     @Override

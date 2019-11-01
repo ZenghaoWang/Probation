@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.teamacademicprobation.probation.game.Playable;
+import com.teamacademicprobation.probation.game.ScoreBoard;
 
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
@@ -18,14 +19,17 @@ public class TimingGame implements Playable {
   private boolean completed;
   /** The color of the game. In phase 2, can be updated to change based on user preferences. */
   private static int gameColor = Color.CYAN;
-  /** The score of the game. */
-  private int score;
+  /** The scoreboard of this game. */
+  private ScoreBoard scoreBoard;
+  /** The amount of times this game is played. */
+  private int numPlayed;
 
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   TimingGame(int screenWidth, int screenHeight) {
 
     this.box = new Box(screenWidth, screenHeight);
-    this.score = 0;
+    this.scoreBoard = new ScoreBoard(screenWidth, screenHeight);
+    this.numPlayed = 0;
     this.completed = false;
   }
 
@@ -39,9 +43,10 @@ public class TimingGame implements Playable {
 
   /** Updates the game. */
   public void update() {
-    if (!this.completed) {
-      this.box.update();
-      }
+    this.box.update();
+    if(this.numPlayed >= 5){
+      this.setCompleted();
+    }
   }
 
   /**
@@ -50,24 +55,9 @@ public class TimingGame implements Playable {
    * @param canvas The canvas to be drawn on.
    */
   public void draw(Canvas canvas) {
-    if (this.completed) {
-      drawScore(canvas);
-      return;
-    }
     canvas.drawColor(Color.BLACK); // resets the screen.
     this.box.draw(canvas);
-  }
-
-  /**
-   * Draws the score of the current game.
-   *
-   * @param canvas The canvas to be drawn on.
-   */
-  private void drawScore(Canvas canvas) {
-    Paint paint = new Paint();
-    paint.setColor(gameColor);
-    paint.setTextSize(50);
-    canvas.drawText(String.valueOf(this.score), 100, 100, paint);
+    this.scoreBoard.draw(canvas);
   }
 
   /** Sets this game as completed. */
@@ -84,22 +74,28 @@ public class TimingGame implements Playable {
     return this.completed;
   }
 
+
   /**
    * Updates the score of this timing game. The score algorithm is visualized here:
    * https://www.desmos.com/calculator/7rxfhnhuog
    */
   public void updateScore() {
-    if (this.completed) {
       int lineDistance = Math.abs(this.box.getLineDistanceFromTarget());
       int targetBoxWidth = this.box.getTargetBoxWidth();
 
-      if(lineDistance >= targetBoxWidth/2){
-        this.score = 100 - (40*(lineDistance)/targetBoxWidth);
+      if(lineDistance <= targetBoxWidth/2){
+        this.scoreBoard.setScore( this.scoreBoard.getScore() + 100 - (40*(lineDistance)/targetBoxWidth));
       }
       else{
-        this.score = 160 - (160*(lineDistance)/targetBoxWidth);
+        this.scoreBoard.setScore( this.scoreBoard.getScore() + 160 - (160*(lineDistance)/targetBoxWidth));
       }
 
-    }
+      this.box.newTarget();
+      this.numPlayed++;
+  }
+
+  @Override
+  public int getScore() {
+    return this.scoreBoard.getScore();
   }
 }
