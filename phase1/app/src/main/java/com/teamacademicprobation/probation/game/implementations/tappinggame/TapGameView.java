@@ -12,7 +12,6 @@ import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
-
 public class TapGameView extends SurfaceView implements Runnable {
   volatile boolean playing;
   private Thread gameThread = null;
@@ -90,5 +89,6 @@ public class TapGameView extends SurfaceView implements Runnable {
       tapGame.check_touch(touch_x, touch_y);
       return true;
     }
-  return false;}
+    return false;
+  }
 }

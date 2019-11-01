@@ -6,11 +6,11 @@ import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
-import java.io.File;
 import java.util.Random;
 
 class TapGame {
 
+  private static final String GAME_ID = "TapGame";
   private BlueObject blueObjects;
   private RedObject redObjects;
   private ScoreBoard scoreBoard;
@@ -19,7 +19,6 @@ class TapGame {
   private boolean gameComplete;
   private int x;
   private int y;
-  private static final String GAME_ID = "TapGame";
   private PlayerAccess playerAccess;
   private String currPlayerID;
 
@@ -33,7 +32,7 @@ class TapGame {
     this.currPlayerID = currPlayerID;
   }
 
-  boolean getgameComplete(){
+  boolean getgameComplete() {
     return this.gameComplete;
   }
 
@@ -67,13 +66,19 @@ class TapGame {
     double c = Math.random();
     if (c > 0.5) {
       blueObjects = null;
-      redObjects = new RedObject(r.nextInt(this.x - 350) + 100, r.nextInt(this.y - 350) + 100);
+      redObjects =
+          new RedObject(
+              r.nextInt(this.x - TapObject.radius) + TapObject.radius,
+              (int) (r.nextInt(this.y - TapObject.radius) + this.y * 0.03));
     } else if (c < 0.5) {
       redObjects = null;
-      blueObjects = new BlueObject(r.nextInt(this.x - 350) + 100, r.nextInt(this.y - 350) + 100);
+      blueObjects =
+          new BlueObject(
+              r.nextInt(this.x - TapObject.radius) + TapObject.radius,
+              (int) (r.nextInt(this.y - TapObject.radius) + this.y * 0.03));
       blueCounter.addCount();
     }
-    if (blueCounter.getBlueCount() == BlueCounter.blueLimit){
+    if (blueCounter.getBlueCount() == BlueCounter.blueLimit) {
       this.setCompleted();
     }
   }
@@ -94,9 +99,8 @@ class TapGame {
       if (Math.pow(touch_x - this.getRed().getX(), 2)
               + (Math.pow(touch_y - this.getRed().getY(), 2))
           <= Math.pow(TapObject.radius, 2)) {
-          this.getScoreBoard().losePoint();
-        }
+        this.getScoreBoard().losePoint();
       }
     }
+  }
 }
-
