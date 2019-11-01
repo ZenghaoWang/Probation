@@ -104,7 +104,7 @@ public class PlayerBuilder {
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
     Map<String, Integer> gameStatsMap = new HashMap<>();
-    String[] statIDs = {"score"}; // Player.getStatIDs();
+    String[] statIDs = {"score"}; // TODO : Player.getStatIDs();
     try {
       for (String statID : statIDs) {
         gameStatsMap.put(statID, Integer.valueOf(gameStatistics.getString(statID)));
@@ -122,7 +122,7 @@ public class PlayerBuilder {
    */
   private void buildPlayerPreferences(JSONObject playerData) {
     Map<String, String> playerPreferencesMap = new HashMap<>();
-    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"}; // Player.getPreferenceKeys();
+    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"}; // TODO: Player.getPreferenceKeys();
     try {
       JSONObject playerPreferences = playerData.getJSONObject("Preferences");
       for (String preferenceKey : preferenceKeys) {

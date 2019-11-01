@@ -74,7 +74,7 @@ class TriviaGameModel {
     }
 
     void updateStats(int score) {
-        playerAccess.updateStats(playerID, GAMEID, "Score", score);
+        playerAccess.updateStats(playerID, GAMEID, "score", score);
     }
 
     boolean isFinished() {
