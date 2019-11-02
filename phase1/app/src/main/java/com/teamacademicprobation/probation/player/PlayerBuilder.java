@@ -104,10 +104,13 @@ public class PlayerBuilder {
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
     Map<String, Integer> gameStatsMap = new HashMap<>();
-    String[] statIDs = {"score"}; // TODO : Player.getStatIDs();
+//    String[] statIDs = {"score"}; // TODO : Player.getStatIDs();
+    Iterator<String> statIDs = gameStatistics.keys();
     try {
-      for (String statID : statIDs) {
-        gameStatsMap.put(statID, Integer.valueOf(gameStatistics.getString(statID)));
+
+      while(statIDs.hasNext()){
+        String statID = statIDs.next();
+        gameStatsMap.put(statID, gameStatistics.getInt(statID));
       }
     } catch (JSONException e) {
       Log.e(TAG, "Error in getting game statistics");
@@ -122,12 +125,14 @@ public class PlayerBuilder {
    */
   private void buildPlayerPreferences(JSONObject playerData) {
     Map<String, String> playerPreferencesMap = new HashMap<>();
-    String[] preferenceKeys = {"Difficulty", "Color", "Avatar"}; // TODO: Player.getPreferenceKeys();
     try {
       JSONObject playerPreferences = playerData.getJSONObject("Preferences");
-      for (String preferenceKey : preferenceKeys) {
+      Iterator<String> preferenceKeys = playerPreferences.keys();
+      while(preferenceKeys.hasNext()){
+        String preferenceKey = preferenceKeys.next();
         playerPreferences.put(preferenceKey, playerPreferences.getString(preferenceKey));
       }
+
     } catch (JSONException e) {
       Log.e(TAG, "Error in getting player preferences.");
     }
