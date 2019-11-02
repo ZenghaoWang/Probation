@@ -35,7 +35,11 @@ public class PlayerBuilder {
     this.player = new Player(username, password);
   }
 
-
+  /**
+   * Starts building this player given it's playerData and playerID.
+   * @param playerData The JSONObject that represents the data.
+   * @param playerID The playerID of this player.
+   */
   public void buildPlayer(JSONObject playerData, String playerID) {
     buildPlayerID(playerID);
     buildPlayerStats(playerData);
@@ -43,6 +47,10 @@ public class PlayerBuilder {
     buildUserAndPassword(playerData);
   }
 
+  /**
+   * Builds the player stats.
+   * @param playerData THe JSONObject that represents the data.
+   */
   private void buildPlayerStats(JSONObject playerData) {
     try {
       JSONObject bestGameStats = playerData.getJSONObject("Best Session");
@@ -62,6 +70,10 @@ public class PlayerBuilder {
 
   }
 
+  /**
+   * Builds the best session stats.
+   * @param bestGameStats The JSONObject that represents the best session.
+   */
   private void buildBestGameStats(JSONObject bestGameStats) {
     Iterator<String> gameIDs = bestGameStats.keys();
     while (gameIDs.hasNext()) {
@@ -78,6 +90,10 @@ public class PlayerBuilder {
     }
   }
 
+  /**
+   * Builds the current session stats.
+   * @param currGameStats The JSONObject that represents the current session.
+   */
   private void buildCurrGameStats(JSONObject currGameStats) {
     Iterator<String> gameIDs = currGameStats.keys();
     while (gameIDs.hasNext()) {

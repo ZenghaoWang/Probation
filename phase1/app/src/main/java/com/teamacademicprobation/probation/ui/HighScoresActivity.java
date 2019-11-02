@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+//TODO: IMPLEMENT MVP FOR THIS.
 public class HighScoresActivity extends AppCompatActivity {
 
   private Player player;
@@ -38,6 +40,10 @@ public class HighScoresActivity extends AppCompatActivity {
     list.setAdapter(adapter);
   }
 
+  /**
+   * Gets the Strings that represent the scores of each game.
+   * @return A String Array that contains the string representations of each game.
+   */
   private String[] getScoreStrings() {
 
     String[] result;
@@ -53,6 +59,14 @@ public class HighScoresActivity extends AppCompatActivity {
     return result;
   }
 
+  /**
+   * A helper method that builds the string that represent each game and it's statistics,
+   * and appends it to the list statsToShow.
+   * @param playerID The playerID of this game.
+   * @param playerAccess An object that allows some access into the player.
+   * @param statsToShow The list to append the results onto.
+   * @param gameID The gameID of the game to retrieve statistics from.
+   */
   private void buildStrings(String playerID, PlayerAccess playerAccess, List<String> statsToShow, String gameID) {
     StringBuilder toShow = new StringBuilder(gameID + ": ");
     Map<String, Integer> gameStatMap = playerAccess.getBest(playerID, gameID);
@@ -62,6 +76,10 @@ public class HighScoresActivity extends AppCompatActivity {
     statsToShow.add(toShow.toString());
   }
 
+  /**
+   * Returns to the home screen / main activity.
+   * @param view The button. 
+   */
   public void returnToHomeScreen(View view) {
     startActivity(new Intent(this, MainActivity.class));
   }
