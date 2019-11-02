@@ -29,6 +29,8 @@ public class HighScoresActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_high_scores);
 
+
+    // TODO: FIX THIS.
     String playerID = getIntent().getStringExtra(LoginActivity.PLAYER_ID_KEY);
     PlayerAccess playerAccess = new PlayerManager();
     List<String> statsToShow = new ArrayList<>();
