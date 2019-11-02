@@ -6,10 +6,13 @@ import java.io.File;
 
 public interface DataAccessObject {
 
-    void save(Player player);
-    Player loadPlayer(String playerID);
-    boolean usernameTaken(String username);
-    void setData(File dataFile);
-    String getIDfromUsername(String username);
+  void save(Player player);
 
+  Player loadPlayer(String playerID);
+
+  boolean usernameTaken(String username);
+
+  void setData(File dataFile);
+
+  String getIDfromUsername(String username);
 }

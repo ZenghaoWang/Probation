@@ -1,7 +1,5 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame;
-/**
- * A Tap object that the players will tap when playing the game.
- */
+/** A Tap object that the players will tap when playing the game. */
 class TapObject {
   /** The radius of the circle TapObjects. */
   static int radius = 60;
@@ -21,16 +19,12 @@ class TapObject {
     this.y = y;
   }
 
-  /**
-   * @return the x-coordinate of the Tap Object
-   */
+  /** @return the x-coordinate of the Tap Object */
   int getX() {
     return this.x;
   }
 
-  /**
-   * @return the y-coordinate of the Tap Object
-   */
+  /** @return the y-coordinate of the Tap Object */
   int getY() {
     return this.y;
   }

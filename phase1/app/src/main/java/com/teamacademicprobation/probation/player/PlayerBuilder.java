@@ -37,6 +37,7 @@ public class PlayerBuilder {
 
   /**
    * Starts building this player given it's playerData and playerID.
+   *
    * @param playerData The JSONObject that represents the data.
    * @param playerID The playerID of this player.
    */
@@ -49,13 +50,14 @@ public class PlayerBuilder {
 
   /**
    * Builds the player stats.
+   *
    * @param playerData THe JSONObject that represents the data.
    */
   private void buildPlayerStats(JSONObject playerData) {
     try {
       JSONObject bestGameStats = playerData.getJSONObject("Best Session");
       buildBestGameStats(bestGameStats);
-    } catch(JSONException e) {
+    } catch (JSONException e) {
       JSONObject bestGameStats = new JSONObject();
       buildBestGameStats(bestGameStats);
     }
@@ -63,15 +65,15 @@ public class PlayerBuilder {
     try {
       JSONObject currGameStats = playerData.getJSONObject("Current Session");
       buildCurrGameStats(currGameStats);
-    } catch(JSONException e) {
+    } catch (JSONException e) {
       JSONObject currGameStats = new JSONObject();
       buildCurrGameStats(currGameStats);
     }
-
   }
 
   /**
    * Builds the best session stats.
+   *
    * @param bestGameStats The JSONObject that represents the best session.
    */
   private void buildBestGameStats(JSONObject bestGameStats) {
@@ -92,6 +94,7 @@ public class PlayerBuilder {
 
   /**
    * Builds the current session stats.
+   *
    * @param currGameStats The JSONObject that represents the current session.
    */
   private void buildCurrGameStats(JSONObject currGameStats) {
@@ -120,11 +123,11 @@ public class PlayerBuilder {
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
     Map<String, Integer> gameStatsMap = new HashMap<>();
-//    String[] statIDs = {"score"}; // TODO : Player.getStatIDs();
+    //    String[] statIDs = {"score"}; // TODO : Player.getStatIDs();
     Iterator<String> statIDs = gameStatistics.keys();
     try {
 
-      while(statIDs.hasNext()){
+      while (statIDs.hasNext()) {
         String statID = statIDs.next();
         gameStatsMap.put(statID, gameStatistics.getInt(statID));
       }
@@ -144,7 +147,7 @@ public class PlayerBuilder {
     try {
       JSONObject playerPreferences = playerData.getJSONObject("Preferences");
       Iterator<String> preferenceKeys = playerPreferences.keys();
-      while(preferenceKeys.hasNext()){
+      while (preferenceKeys.hasNext()) {
         String preferenceKey = preferenceKeys.next();
         playerPreferences.put(preferenceKey, playerPreferences.getString(preferenceKey));
       }

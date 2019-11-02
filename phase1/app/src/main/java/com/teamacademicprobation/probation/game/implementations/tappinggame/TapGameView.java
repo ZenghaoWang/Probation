@@ -33,9 +33,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     tapGame = new TapGame(screenWidth, screenHeight, currPlayerID);
   }
 
-  /**
-   * Runs game while playing variable is true.
-   */
+  /** Runs game while playing variable is true. */
   @Override
   public void run() {
     while (playing) {
@@ -45,9 +43,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     }
   }
 
-  /**
-   * Updates the game.
-   */
+  /** Updates the game. */
   private void update() {
     tapGame.update();
     if (tapGame.getGameComplete()) {
@@ -55,19 +51,14 @@ public class TapGameView extends SurfaceView implements Runnable {
     }
   }
 
-
-  /**
-   * Switches to the ScoreScreenActivity.
-   */
+  /** Switches to the ScoreScreenActivity. */
   private void goToScoreScreen() {
     Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
     intent.putExtra("score", "You scored:" + this.tapGame.getScore());
     getContext().startActivity(intent);
   }
 
-  /**
-   * Draws the game on canvas.
-   */
+  /** Draws the game on canvas. */
   private void draw() {
     if (surfaceHolder.getSurface().isValid()) {
       canvas = surfaceHolder.lockCanvas();

@@ -23,9 +23,9 @@ import java.util.Map;
  *
  * <p>Each player is stored in a .txt file containing a JSON Object with the following structure:
  *
- * <p>{"PlayerID": {"Username": "playerUsername, "Password": "playerPassword", "Preferences" : {"PreferenceKey" : "thisPreference"},
- * "CurrentSession" : {"GameID" : { "StatID" : "statistic" }}, "BestSession": {"GameID": {"StatID" : "statistic"}}}
- *
+ * <p>{"PlayerID": {"Username": "playerUsername, "Password": "playerPassword", "Preferences" :
+ * {"PreferenceKey" : "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic" }},
+ * "BestSession": {"GameID": {"StatID" : "statistic"}}}
  */
 public class DataManager implements DataAccessObject {
   /** The DataFile for reading and writing. */
@@ -57,8 +57,8 @@ public class DataManager implements DataAccessObject {
   private void updateFile(JSONObject playerData, String playerID) {
 
     JSONObject JSONdata = readJSON(); // Get the old JSON.
-    try(BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))){ ;
-      if(JSONdata == null){
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {;
+      if (JSONdata == null) {
         JSONdata = new JSONObject();
       }
       JSONdata.put(playerID, playerData); // Replaces data for playerID
@@ -70,7 +70,7 @@ public class DataManager implements DataAccessObject {
     }
   }
 
-  public Player loadPlayer(String playerID){
+  public Player loadPlayer(String playerID) {
     JSONObject allPlayersData = readJSON();
     try {
       JSONObject playerData = allPlayersData.getJSONObject(playerID);
@@ -80,7 +80,7 @@ public class DataManager implements DataAccessObject {
 
     } catch (JSONException e) {
       Log.e(TAG, "No player with this playerID");
-    } catch(NullPointerException e){
+    } catch (NullPointerException e) {
       Log.e(TAG, "Null players.");
     }
 
@@ -110,12 +110,11 @@ public class DataManager implements DataAccessObject {
    */
   private String readFile() {
     StringBuilder result = new StringBuilder();
-    try(FileReader reader = new FileReader(this.DataFile)) {
+    try (FileReader reader = new FileReader(this.DataFile)) {
       BufferedReader br = new BufferedReader(reader);
       String newLine;
       while ((newLine = br.readLine()) != null) {
         result.append(newLine);
-
       }
     } catch (FileNotFoundException e) {
       Log.e(TAG, "File not found,");
@@ -157,25 +156,25 @@ public class DataManager implements DataAccessObject {
     return result.toString();
   }
 
-//  public boolean isNewPlayer(String playerID){
-//    JSONObject allPlayersData = readJSON();
-//    if(allPlayersData == null){
-//      return true;
-//    }
-//      Iterator<String> keys = allPlayersData.keys();
-//      while(keys.hasNext()){
-//        String currPlayerID = keys.next();
-//        if(currPlayerID.equals(playerID)){
-//          return false;
-//        }
-//      }
-//    return true;
-//
-//  }
+  //  public boolean isNewPlayer(String playerID){
+  //    JSONObject allPlayersData = readJSON();
+  //    if(allPlayersData == null){
+  //      return true;
+  //    }
+  //      Iterator<String> keys = allPlayersData.keys();
+  //      while(keys.hasNext()){
+  //        String currPlayerID = keys.next();
+  //        if(currPlayerID.equals(playerID)){
+  //          return false;
+  //        }
+  //      }
+  //    return true;
+  //
+  //  }
 
   public boolean usernameTaken(String username) {
     JSONObject allPlayersData = readJSON();
-    if(allPlayersData == null){
+    if (allPlayersData == null) {
       return false;
     }
     try {

@@ -6,15 +6,13 @@ import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 import java.util.Random;
 
-/**
- * A Tapping game where the player tries to tap the target object and avoid tapping non-target.
- */
-
+/** A Tapping game where the player tries to tap the target object and avoid tapping non-target. */
 class TapGame {
   /** The gameID of this game. */
   private static final String GAME_ID = "TapGame";
   /** Represents if the game is completed. */
   private boolean GameComplete;
+
   private TargetObject targetObjects;
   private NonTargetObject nonTargetObjects;
   private ScoreBoard scoreBoard;
@@ -25,9 +23,7 @@ class TapGame {
   private PlayerAccess playerAccess;
   private String currPlayerID;
 
-  /**
-   * Constructor for the Tap game.
-   */
+  /** Constructor for the Tap game. */
   TapGame(int x, int y, String currPlayerID) {
     this.x = x;
     this.y = y;
@@ -38,9 +34,7 @@ class TapGame {
     this.currPlayerID = currPlayerID;
   }
 
-  /**
-   * Return the status of the game (Completed or not Completed).
-   */
+  /** Return the status of the game (Completed or not Completed). */
   boolean getGameComplete() {
     return this.GameComplete;
   }
@@ -72,9 +66,7 @@ class TapGame {
     return this.nonTargetObjects;
   }
 
-  /**
-   * Draw the TapGame objects on the canvas.
-   */
+  /** Draw the TapGame objects on the canvas. */
   void draw(Canvas canvas) {
     this.scoreBoard.draw(canvas);
     this.targetCounter.draw(canvas);
@@ -85,38 +77,34 @@ class TapGame {
     }
   }
 
-
-  /**
-   * Updates the TapGame.
-   */
+  /** Updates the TapGame. */
   void update() {
-    double c = Math.random(); //Randomly choose if a Target or Non-target should be created.
+    double c = Math.random(); // Randomly choose if a Target or Non-target should be created.
     if (c > 0.5) {
       this.targetObjects = null;
       this.nonTargetObjects =
           new NonTargetObject(
-              r.nextInt(this.x - TapObject.radius * 2) + TapObject.radius, r.nextInt(this.y - TapObject.radius * 4) + TapObject.radius * 2);
+              r.nextInt(this.x - TapObject.radius * 2) + TapObject.radius,
+              r.nextInt(this.y - TapObject.radius * 4) + TapObject.radius * 2);
     } else if (c < 0.5) {
       this.nonTargetObjects = null;
       targetObjects =
           new TargetObject(
-              r.nextInt(this.x - TapObject.radius) + TapObject.radius, r.nextInt(this.y - TapObject.radius * 4) + TapObject.radius * 2);
+              r.nextInt(this.x - TapObject.radius) + TapObject.radius,
+              r.nextInt(this.y - TapObject.radius * 4) + TapObject.radius * 2);
       targetCounter.addCount();
     }
-    //If target objects reach the limit. The game is completed
+    // If target objects reach the limit. The game is completed
     if (targetCounter.getTargetCount() == TargetCounter.targetLimit) {
       this.setCompleted();
     }
   }
 
-  /**
-   * Sets the game to completed and sends the statistics.
-   */
+  /** Sets the game to completed and sends the statistics. */
   private void setCompleted() {
     this.GameComplete = true;
     playerAccess.updateStats(currPlayerID, GAME_ID, "score", this.scoreBoard.getScore());
   }
-
 
   /**
    * Checks if the user tapped on the non-target or target object.

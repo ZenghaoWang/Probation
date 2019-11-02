@@ -9,34 +9,32 @@ import java.util.Map;
 /**
  * The preferences a player. These include options such as difficulty, current avatar, color, etc.
  */
-public class PlayerPreferences{
+public class PlayerPreferences {
 
   private Map<String, String> preferenceMap;
   private String[] preferenceKeys = {"Difficulty", "Color", "Avatar"};
 
-
-  public PlayerPreferences(){
+  public PlayerPreferences() {
     this.preferenceMap = buildPreferenceMap();
   }
 
   private Map<String, String> buildPreferenceMap() {
     Map<String, String> result = new HashMap<>();
-    for(String preferenceKey : preferenceKeys){
+    for (String preferenceKey : preferenceKeys) {
       result.put(preferenceKey, "");
     }
     return result;
   }
 
-  public String getPreference(String preferenceKey){
+  public String getPreference(String preferenceKey) {
     return this.preferenceMap.get(preferenceKey);
   }
 
-  public void updatePreference(String preferenceKey, String preference){
+  public void updatePreference(String preferenceKey, String preference) {
     this.preferenceMap.put(preferenceKey, preference);
   }
 
-  public Map<String, String> getPreferences(){
+  public Map<String, String> getPreferences() {
     return this.preferenceMap;
   }
-
 }

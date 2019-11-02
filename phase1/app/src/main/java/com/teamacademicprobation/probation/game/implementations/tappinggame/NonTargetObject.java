@@ -13,6 +13,7 @@ class NonTargetObject extends TapObject {
 
   /**
    * Initializes the paint and x and y coordinates of the non-target Object.
+   *
    * @param x The x coordinate of TapObject in pixels.
    * @param y The y coordinate of TapObject in pixels.
    */
@@ -22,9 +23,7 @@ class NonTargetObject extends TapObject {
     paint.setStyle(Paint.Style.FILL);
   }
 
-  /**
-   * Draws the Non-Target object on input canvas.
-   */
+  /** Draws the Non-Target object on input canvas. */
   void draw(Canvas canvas) {
     canvas.drawCircle(getX(), getY(), radius, paint);
   }

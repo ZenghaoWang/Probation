@@ -11,6 +11,7 @@ class TargetObject extends TapObject {
 
   /**
    * Constructor for TargetObject,
+   *
    * @param x x-coordinate for TargetObject
    * @param y y-coordinate for TargetObject
    */
@@ -20,9 +21,7 @@ class TargetObject extends TapObject {
     paint.setStyle(Paint.Style.FILL);
   }
 
-  /**
-   * Draws the Target object on the input canvas.
-   */
+  /** Draws the Target object on the input canvas. */
   void draw(Canvas canvas) {
     canvas.drawCircle(getX(), getY(), radius, paint);
   }

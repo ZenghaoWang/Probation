@@ -1,4 +1,3 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
-class OutOfQuestionsException extends Exception {
-}
+class OutOfQuestionsException extends Exception {}

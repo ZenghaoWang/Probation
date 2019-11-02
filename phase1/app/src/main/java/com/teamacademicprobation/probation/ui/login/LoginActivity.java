@@ -15,8 +15,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
   private EditText username;
   private EditText password;
   private TextView error;
-  public final static String FILE_PATH = "PlayerData.txt";
-  public final static String PLAYER_ID_KEY = "PlayerID";
+  public static final String FILE_PATH = "PlayerData.txt";
+  public static final String PLAYER_ID_KEY = "PlayerID";
   private LoginPresenter loginPresenter;
 
   @Override
@@ -41,15 +41,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
   }
 
   @Override
-  public void goToMainView(String playerID){
+  public void goToMainView(String playerID) {
     Intent main = new Intent(this, MainActivity.class);
     main.putExtra(PLAYER_ID_KEY, playerID);
     startActivity(main);
   }
 
-
   @Override
-  public void setErrorMessage(String errorMessage){
+  public void setErrorMessage(String errorMessage) {
     error.setText(errorMessage);
     error.setVisibility(View.VISIBLE);
   }

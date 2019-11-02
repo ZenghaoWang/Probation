@@ -97,9 +97,7 @@ public class TimingGameView extends SurfaceView implements Runnable {
     return true;
   }
 
-  /**
-   * Goes to the score screen.
-   */
+  /** Goes to the score screen. */
   private void goToScoreScreen() {
     Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
     intent.putExtra("score", "You scored:" + this.timingGame.getScore());

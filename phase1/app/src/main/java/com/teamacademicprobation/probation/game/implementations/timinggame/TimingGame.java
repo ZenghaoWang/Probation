@@ -7,7 +7,6 @@ import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
-
 /**
  * A game where there is a bar with a target box and a moving line, and the player attempts to time
  * their taps so the line ends up inside the target box.
@@ -32,8 +31,6 @@ public class TimingGame {
   private String currPlayerID;
 
   private final int TOTAL_LEVELS = 5;
-
-
 
   /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
   TimingGame(int screenWidth, int screenHeight, String currPlayerID) {
