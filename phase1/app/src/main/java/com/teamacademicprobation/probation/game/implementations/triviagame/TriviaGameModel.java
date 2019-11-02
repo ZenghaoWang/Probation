@@ -21,6 +21,7 @@ class TriviaGameModel {
 
     private int numQuestionsAnsweredCorrectly;
     private int totalNumQuestionsAnswered;
+    private int numQuestionsremaining;
     private Question currentQuestion;
     private boolean finished;
 
@@ -37,6 +38,7 @@ class TriviaGameModel {
 
         totalNumQuestionsAnswered = 0;
         numQuestionsAnsweredCorrectly = 0;
+        numQuestionsremaining = questionset.getNumQuestions();
 
         this.finished = false;
     }
@@ -71,6 +73,7 @@ class TriviaGameModel {
     void getRandomQuestion() {
         try {
             currentQuestion = questionset.getRandomQuestion();
+            numQuestionsremaining -= 1;
         } catch (OutOfQuestionsException e) {
             Log.e(TAG, "Out of questions!");
             finished = true;
@@ -133,9 +136,18 @@ class TriviaGameModel {
     }
 
     /**
+     * @return A message that indicates how many questions are left to answer.
+     */
+    String generateQuestionsRemainingString() {
+        return numQuestionsremaining + " Questions Left";
+    }
+
+    /**
      * Send the percentage of correct answers for this game to the score tracker.
      */
     void updateStats() {
         playerAccess.updateStats(playerID, GAMEID, "score", generateScorePercentage());
     }
+
+
 }

@@ -34,4 +34,6 @@ public interface TriviaView {
 
     void setScore(String newText);
 
+    void setQuestionsRemaining(String newText);
+
 }

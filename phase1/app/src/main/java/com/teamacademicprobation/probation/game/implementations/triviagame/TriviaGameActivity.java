@@ -26,6 +26,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private Button answer4;
     private TextView question;
     private TextView score;
+    private TextView questionsRemaining;
 
 
     /**
@@ -47,6 +48,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         answer4 = findViewById(R.id.answer4);
         question = findViewById(R.id.question);
         score = findViewById(R.id.current_score);
+        questionsRemaining = findViewById(R.id.questionsRemaining);
 
         triviaGamePresenter = new TriviaGamePresenter(this, playerID);
         triviaGamePresenter.updateView();
@@ -115,6 +117,11 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     @Override
     public void setScore(String newText) {
         this.score.setText(newText);
+    }
+
+    @Override
+    public void setQuestionsRemaining(String newText) {
+        this.questionsRemaining.setText(newText);
     }
     // End of Setters
 

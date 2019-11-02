@@ -46,6 +46,7 @@ class TriviaGamePresenter {
             view.setAnswer3(model.getAnswer3());
             view.setAnswer4(model.getAnswer4());
             view.setScore(model.generateCurrentScoreString());
+            view.setQuestionsRemaining(model.generateQuestionsRemainingString());
         }
     }
 
