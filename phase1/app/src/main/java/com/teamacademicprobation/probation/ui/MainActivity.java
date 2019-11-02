@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
       activityClass = TapGameActivity.class;
     }
 
-
     Intent intent = new Intent(this, activityClass);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
     intent.putExtra(LoginActivity.PLAYER_ID_KEY, getPlayerID());

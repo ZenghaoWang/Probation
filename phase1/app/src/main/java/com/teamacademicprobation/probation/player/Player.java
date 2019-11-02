@@ -161,14 +161,14 @@ public class Player {
     return this.playerStats.getCurrGameID();
   }
 
-  public Map<String, Integer> getBest(String gameID){
+  public Map<String, Integer> getBest(String gameID) {
     return this.playerStats.getBest(gameID);
   }
 
-  public List<String> getGamesPlayed(){
+  public List<String> getGamesPlayed() {
     List<String> result = new ArrayList<>();
-    for(String gameID : this.playerStats.getBest().keySet()){
-      if(!(gameID.equals(""))){
+    for (String gameID : this.playerStats.getBest().keySet()) {
+      if (!(gameID.equals(""))) {
         result.add(gameID);
       }
     }

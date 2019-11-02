@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-//TODO: IMPLEMENT MVP FOR THIS.
+// TODO: IMPLEMENT MVP FOR THIS.
 public class HighScoresActivity extends AppCompatActivity {
 
   private Player player;
@@ -29,7 +28,6 @@ public class HighScoresActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_high_scores);
-
 
     // TODO: FIX THIS.
     String[] arr = getScoreStrings();
@@ -42,6 +40,7 @@ public class HighScoresActivity extends AppCompatActivity {
 
   /**
    * Gets the Strings that represent the scores of each game.
+   *
    * @return A String Array that contains the string representations of each game.
    */
   private String[] getScoreStrings() {
@@ -51,7 +50,7 @@ public class HighScoresActivity extends AppCompatActivity {
     PlayerAccess playerAccess = new PlayerManager();
     List<String> statsToShow = new ArrayList<>();
     List<String> gameIDs = playerAccess.getGamesPlayed(playerID);
-    for(String gameID : gameIDs){
+    for (String gameID : gameIDs) {
       buildStrings(playerID, playerAccess, statsToShow, gameID);
     }
     result = new String[statsToShow.size()];
@@ -60,17 +59,19 @@ public class HighScoresActivity extends AppCompatActivity {
   }
 
   /**
-   * A helper method that builds the string that represent each game and it's statistics,
-   * and appends it to the list statsToShow.
+   * A helper method that builds the string that represent each game and it's statistics, and
+   * appends it to the list statsToShow.
+   *
    * @param playerID The playerID of this game.
    * @param playerAccess An object that allows some access into the player.
    * @param statsToShow The list to append the results onto.
    * @param gameID The gameID of the game to retrieve statistics from.
    */
-  private void buildStrings(String playerID, PlayerAccess playerAccess, List<String> statsToShow, String gameID) {
+  private void buildStrings(
+      String playerID, PlayerAccess playerAccess, List<String> statsToShow, String gameID) {
     StringBuilder toShow = new StringBuilder(gameID + ": ");
     Map<String, Integer> gameStatMap = playerAccess.getBest(playerID, gameID);
-    for(String statID : gameStatMap.keySet()){
+    for (String statID : gameStatMap.keySet()) {
       toShow.append(statID).append(": ").append(gameStatMap.get(statID));
     }
     statsToShow.add(toShow.toString());
@@ -78,6 +79,7 @@ public class HighScoresActivity extends AppCompatActivity {
 
   /**
    * Returns to the home screen / main activity.
+   *
    * @param view The button.
    */
   public void returnToHomeScreen(View view) {

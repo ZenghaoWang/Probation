@@ -17,7 +17,9 @@ public class TapGameActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     Intent contextIntent = getIntent();
     requestWindowFeature(Window.FEATURE_NO_TITLE);
-    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    getWindow()
+        .setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     tapGameView = new TapGameView(this, contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY));
     setContentView(tapGameView);
     super.onCreate(savedInstanceState);
