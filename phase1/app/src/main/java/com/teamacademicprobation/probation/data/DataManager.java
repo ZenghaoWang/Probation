@@ -56,8 +56,8 @@ public class DataManager implements DataAccessObject {
    */
   private void updateFile(JSONObject playerData, String playerID) {
 
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {
-      JSONObject JSONdata = readJSON(); // Get the old JSON.
+    JSONObject JSONdata = readJSON(); // Get the old JSON.
+    try(BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))){ ;
       if(JSONdata == null){
         JSONdata = new JSONObject();
       }
@@ -110,10 +110,12 @@ public class DataManager implements DataAccessObject {
    */
   private String readFile() {
     StringBuilder result = new StringBuilder();
-    try (BufferedReader br = new BufferedReader(new FileReader(this.DataFile))) {
+    try(FileReader reader = new FileReader(this.DataFile)) {
+      BufferedReader br = new BufferedReader(reader);
       String newLine;
       while ((newLine = br.readLine()) != null) {
         result.append(newLine);
+
       }
     } catch (FileNotFoundException e) {
       Log.e(TAG, "File not found,");

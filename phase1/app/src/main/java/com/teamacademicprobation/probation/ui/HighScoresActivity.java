@@ -78,7 +78,7 @@ public class HighScoresActivity extends AppCompatActivity {
 
   /**
    * Returns to the home screen / main activity.
-   * @param view The button. 
+   * @param view The button.
    */
   public void returnToHomeScreen(View view) {
     startActivity(new Intent(this, MainActivity.class));
