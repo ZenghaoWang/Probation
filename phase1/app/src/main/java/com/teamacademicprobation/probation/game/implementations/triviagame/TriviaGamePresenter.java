@@ -28,32 +28,21 @@ class TriviaGamePresenter {
     void updateView() {
         triviagamemodel.getRandomQuestion();
         if (triviagamemodel.isFinished()) {
-            triviaView.goToScoreScreen();
-            triviagamemodel.updateStats(generateScorePercentage());
+            triviaView.goToScoreScreen(triviagamemodel.generateScoreMessage());
+            triviagamemodel.updateStats();
         } else {
             triviaView.setQuestion(triviagamemodel.getCurrentQuestion());
             triviaView.setAnswer1(triviagamemodel.getAnswer1());
             triviaView.setAnswer2(triviagamemodel.getAnswer2());
             triviaView.setAnswer3(triviagamemodel.getAnswer3());
             triviaView.setAnswer4(triviagamemodel.getAnswer4());
-            triviaView.setScore(generateCurrentScoreString());
+            triviaView.setScore(triviagamemodel.generateCurrentScoreString());
         }
     }
 
 
-    private String generateCurrentScoreString() {
-        return "Current Score: "
-                + triviagamemodel.getNumQuestionsAnsweredCorrectly() + "/"
-                + triviagamemodel.getNumQuestionsAnswered();
-    }
 
-    /**
-     * @return A score between 0 and 100.
-     */
-    private int generateScorePercentage() {
-        return (triviagamemodel.getNumQuestionsAnsweredCorrectly()
-                / triviagamemodel.getNumQuestionsAnswered()) * 100;
-    }
+
 
 
     /**
@@ -70,14 +59,8 @@ class TriviaGamePresenter {
         } else {
             message = WRONG_ANSWER_MESSAGE;
         }
-        triviaView.showMessage(message);
+        triviaView.showToast(message);
     }
 
-    String generateScoreMessage() {
-        return "You answered "
-                + triviagamemodel.getNumQuestionsAnsweredCorrectly()
-                + " out of "
-                + triviagamemodel.getNumQuestionsAnswered() +
-                " questions correctly!";
-    }
+
 }

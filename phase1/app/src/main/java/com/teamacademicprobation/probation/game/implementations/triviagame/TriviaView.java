@@ -4,9 +4,9 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 public interface TriviaView {
 
-    void goToScoreScreen();
+    void goToScoreScreen(String s);
 
-    void showMessage(String message);
+    void showToast(String message);
 
     void setQuestion(String newText);
 
