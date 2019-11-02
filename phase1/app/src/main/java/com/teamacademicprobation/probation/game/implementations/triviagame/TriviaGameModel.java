@@ -105,8 +105,8 @@ class TriviaGameModel {
      * @return A score between 0 and 100.
      */
     private int generateScorePercentage() {
-        return (numQuestionsAnsweredCorrectly
-                / numQuestionsAnswered) * 100;
+        return (numQuestionsAnsweredCorrectly * 100
+                / numQuestionsAnswered);
     }
 
     String generateScoreMessage() {
