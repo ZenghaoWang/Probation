@@ -98,6 +98,7 @@
         android:layout_height="18dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:text="@string/questions_remaining"
         app:layout_constraintBottom_toTopOf="@+id/question"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
