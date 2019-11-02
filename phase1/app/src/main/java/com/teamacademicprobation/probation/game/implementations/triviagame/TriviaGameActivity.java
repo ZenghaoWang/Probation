@@ -13,8 +13,11 @@ import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
-//TODO: Documentation
 //MVP structure from https://github.com/antoniolg/androidmvp
+
+/**
+ * The front-end for the trivia game.
+ */
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
     private static TriviaGamePresenter triviaGamePresenter;
     private Button answer1;
@@ -26,10 +29,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
 
 
     /**
-     * 1. Set up the layout of the screen
-     * 2. Set the local variables to the corresponding UI elements
-     * 3. Construct a new TriviaGamePresenter instance
-     * 4. Updates the UI with the first question and answers.
+     * Set up the screen, capture all the elements, initialize the Presenter with the ID of the
+     * current player, and update the screen with the first question.
      *
      * @param savedInstanceState The saved state of the application.
      */
@@ -40,7 +41,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         Intent intent = getIntent();
         String playerID = intent.getStringExtra(LoginActivity.PLAYER_ID_KEY);
 
-        // Update UI with 1st question
         answer1 = findViewById(R.id.answer1);
         answer2 = findViewById(R.id.answer2);
         answer3 = findViewById(R.id.answer3);
@@ -54,9 +54,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
 
 
     /**
-     * Evaluate whether the answerClicked is correct and update the score accordingly,
-     * then grab the next question.
-     *
+     * Updates the screen after a question is answered.
      * @param answerClicked The answerClicked that was clicked.
      */
     public void onAnswer(View answerClicked) {
@@ -68,9 +66,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
 
 
     /**
-     * When all questions have been answered, head to the results screen.
-     * The intent sent to the results screen contains the message to be displayed.
-     * @param scoreMessage The message that will appear on the score screen
+     * Head to the score screen.
+     * @param scoreMessage The message that will appear on the score screen.
      */
     public void goToScoreScreen(String scoreMessage) {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
@@ -79,11 +76,17 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     }
 
 
+    /**
+     * Shows a toast pop-up on-screen.
+     *
+     * @param message The message to be shown.
+     */
     @Override
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    // Start of Setters
     @Override
     public void setQuestion(String newText) {
         this.question.setText(newText);
@@ -113,4 +116,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     public void setScore(String newText) {
         this.score.setText(newText);
     }
+    // End of Setters
+
 }

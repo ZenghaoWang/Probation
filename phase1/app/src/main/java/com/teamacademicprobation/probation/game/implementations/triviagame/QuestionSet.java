@@ -6,7 +6,15 @@ import java.util.Random;
 
 abstract class QuestionSet {
     private static Random rand = new Random();
-    ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<Question> questions;
+
+    /**
+     * Constructs a questionset with no questions.
+     * Should not be directly instantiated.
+     */
+    QuestionSet() {
+        questions = new ArrayList<>();
+    }
 
     /**
      * Returns a random question and removes it so that

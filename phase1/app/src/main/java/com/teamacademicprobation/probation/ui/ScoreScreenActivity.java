@@ -23,15 +23,20 @@ public class ScoreScreenActivity extends AppCompatActivity {
     displayScoreMessage();
   }
 
-  /** Captures the message to be displayed from the intent. */
-  private void displayScoreMessage() {
-    TextView scoreMessage = findViewById(R.id.scoreMessage);
-    Intent intent = getIntent();
-    scoreMessage.setText(intent.getStringExtra("score"));
-  }
+    /**
+     * Capture the message to be displayed from the intent and display it.
+     */
+    private void displayScoreMessage() {
+        TextView scoreMessage = findViewById(R.id.scoreMessage);
+        Intent intent = getIntent();
+        scoreMessage.setText(intent.getStringExtra("score"));
+    }
 
-  public void returnToHomeScreen(View view) {
-    //        startActivity(new Intent(this, MainActivity.class));
-    finish();
-  }
+    /**
+     * Return to the home-screen.
+     * @param view The return to main menu button.
+     */
+    public void returnToHomeScreen(View view) {
+        finish();
+    }
 }

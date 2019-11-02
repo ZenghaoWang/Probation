@@ -1,66 +1,67 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
-//TODO: Documentation
-
 // MVP structure from https://github.com/antoniolg/androidmvp
-class TriviaGamePresenter {
-    // The UI interface associated with this TriviaGamePresenter instance.
-    private TriviaView triviaView;
 
+/**
+ * Passes information between the front-end(TriviaGameActivity) and TriviaGameModel.
+ */
+class TriviaGamePresenter {
+
+    //Messages for the toast pop-up upon answering a question
     private static final String CORRECT_ANSWER_MESSAGE = "Correct!";
+    // The UI interface associated with this TriviaGamePresenter instance.
+    private TriviaView view;
+    // The back-end
+    private TriviaGameModel model;
     private static final String WRONG_ANSWER_MESSAGE = "Wrong answer :(((";
 
-    private TriviaGameModel triviagamemodel;
 
-
-    TriviaGamePresenter(TriviaView triviaView, String playerID) {
-        triviagamemodel = new TriviaGameModel(new DefaultQuestionSet(), playerID);
-
-
-        this.triviaView = triviaView;
+    /**
+     * Constructs a TriviaGamePresenter on the creation of a given game instance being played by
+     * playerID.
+     *
+     * @param view     The UI interface which initialized this presenter.
+     * @param playerID The ID of the player currently playing. Used for stat-tracking
+     */
+    TriviaGamePresenter(TriviaView view, String playerID) {
+        model = new TriviaGameModel(new DefaultQuestionSet(), playerID);
+        this.view = view;
     }
 
 
     /**
-     * Calls TriviaGameModel to get a new question, then either updates the TriviaView with a new
-     * question or sends TriviaView to the score screen if there are no more questions.
+     * Called when a button is clicked on the view. Gets a new question, sends the player to the
+     * score screen if there are no more questions, and updates the elements on the screen
+     * otherwise.
      */
     void updateView() {
-        triviagamemodel.getRandomQuestion();
-        if (triviagamemodel.isFinished()) {
-            triviaView.goToScoreScreen(triviagamemodel.generateScoreMessage());
-            triviagamemodel.updateStats();
+        model.getRandomQuestion();
+        if (model.isFinished()) {
+            view.goToScoreScreen(model.generateScoreMessage());
+            model.updateStats();
         } else {
-            triviaView.setQuestion(triviagamemodel.getCurrentQuestion());
-            triviaView.setAnswer1(triviagamemodel.getAnswer1());
-            triviaView.setAnswer2(triviagamemodel.getAnswer2());
-            triviaView.setAnswer3(triviagamemodel.getAnswer3());
-            triviaView.setAnswer4(triviagamemodel.getAnswer4());
-            triviaView.setScore(triviagamemodel.generateCurrentScoreString());
+            view.setQuestion(model.getCurrentQuestion());
+            view.setAnswer1(model.getAnswer1());
+            view.setAnswer2(model.getAnswer2());
+            view.setAnswer3(model.getAnswer3());
+            view.setAnswer4(model.getAnswer4());
+            view.setScore(model.generateCurrentScoreString());
         }
     }
 
 
-
-
-
-
     /**
-     * Increase the number of questions answered by 1
-     * Evaluate whether answer is correct
-     * Update number of questions answered correctly if needed
-     * @param answer The chosen answer to be compared to the actual answer
+     * Evaluate whether the user-inputted answer is correct and display the appropriate toast
+     * message on-screen.
      */
     void answerQuestion(String answer) {
-        boolean answerCorrect = triviagamemodel.answerQuestion(answer);
+        boolean answerCorrect = model.answerQuestion(answer);
         String message;
         if (answerCorrect) {
             message = CORRECT_ANSWER_MESSAGE;
         } else {
             message = WRONG_ANSWER_MESSAGE;
         }
-        triviaView.showToast(message);
+        view.showToast(message);
     }
-
-
 }
