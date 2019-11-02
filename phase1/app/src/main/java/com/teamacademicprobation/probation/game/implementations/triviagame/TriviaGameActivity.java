@@ -70,17 +70,17 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     /**
      * When all questions have been answered, head to the results screen.
      * The intent sent to the results screen contains the message to be displayed.
+     * @param scoreMessage The message that will appear on the score screen
      */
-    public void goToScoreScreen() {
+    public void goToScoreScreen(String scoreMessage) {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
-        String scoreMessage = triviaGamePresenter.generateScoreMessage();
-
         intent.putExtra("score", scoreMessage);
         startActivity(intent);
     }
 
+
     @Override
-    public void showMessage(String message) {
+    public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

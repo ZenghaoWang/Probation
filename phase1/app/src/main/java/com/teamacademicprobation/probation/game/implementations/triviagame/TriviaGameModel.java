@@ -37,16 +37,10 @@ class TriviaGameModel {
         this.finished = false;
     }
 
-    public int getNumQuestionsAnswered() {
-        return numQuestionsAnswered;
-    }
-
-    public int getNumQuestionsAnsweredCorrectly() {
-        return numQuestionsAnsweredCorrectly;
-    }
 
     /**
-     * Returns a random question and removes it so that a player cannot get the same question 2 times.
+     * Returns a random question and removes it so that a
+     * player cannot get the same question 2 times.
      */
     void getRandomQuestion() {
         try {
@@ -58,8 +52,8 @@ class TriviaGameModel {
     }
 
     /**
-     * Increase the number of questions answered by 1 Evaluate whether answer is correct Update number
-     * of questions answered correctly if needed
+     * Increase the number of questions answered by 1 Evaluate whether answer is correct
+     * Update number of questions answered correctly if needed
      *
      * @param answer The chosen answer to be compared to the actual answer
      * @return a boolean of whether the answer is correct or not
@@ -73,31 +67,53 @@ class TriviaGameModel {
         return answerCorrect;
     }
 
-    void updateStats(int score) {
-        playerAccess.updateStats(playerID, GAMEID, "score", score);
+    void updateStats() {
+        playerAccess.updateStats(playerID, GAMEID, "score", generateScorePercentage());
     }
 
     boolean isFinished() {
         return finished;
     }
 
-    public String getCurrentQuestion() {
+    String getCurrentQuestion() {
         return currentQuestion.getQuestion();
     }
 
-    public String getAnswer1() {
+    String getAnswer1() {
         return currentQuestion.getAnswer1();
     }
 
-    public String getAnswer2() {
+    String getAnswer2() {
         return currentQuestion.getAnswer2();
     }
 
-    public String getAnswer3() {
+    String getAnswer3() {
         return currentQuestion.getAnswer3();
     }
 
-    public String getAnswer4() {
+    String getAnswer4() {
         return currentQuestion.getAnswer4();
+    }
+
+    String generateCurrentScoreString() {
+        return "Current Score: "
+                + numQuestionsAnsweredCorrectly + "/"
+                + numQuestionsAnswered;
+    }
+
+    /**
+     * @return A score between 0 and 100.
+     */
+    private int generateScorePercentage() {
+        return (numQuestionsAnsweredCorrectly
+                / numQuestionsAnswered) * 100;
+    }
+
+    String generateScoreMessage() {
+        return "You answered "
+                + numQuestionsAnsweredCorrectly
+                + " out of "
+                + numQuestionsAnswered +
+                " questions correctly!";
     }
 }
