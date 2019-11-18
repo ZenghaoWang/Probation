@@ -1,111 +1,150 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
+import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.ScoreBoard;
+import com.teamacademicprobation.probation.game.implementations.timinggame.meter.Meter;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
+
+
+// TODO: ADD DOCUMENTATION
+// TODO: IMPLEMENT BONUS BOX
+// TODO: IMPLEMENT CURR LEVEL, ENEMY NAME GENERATOR
+// TODO: IMPLEMENT SAVE / PREFERENCES
+// TODO: ADD MORE LEVELS?
+// TODO: CLEAN UP THE CODE
+
 /**
- * A game where there is a bar with a target meter and a moving line, and the player attempts to time
- * their taps so the line ends up inside the target meter.
+ * Timing game version 2! When the cursor is at the area, tap to shoot a bullet. Each enemy's
+ * health is increased by 1 when you destroy the previous one! The boss has 7 health.
+ *
  */
+
 public class TimingGame {
 
-  private Meter meter;
-  /** Represents if the game is completed. */
-  private boolean completed;
-  /** The scoreboard of this game. */
-  private ScoreBoard scoreBoard;
-  /** The amount of times this game is played. */
-  private int numPlayed;
+    private static final int WAITING_FRAMES = 20;
+    private int currWaitingFrame = 0;
 
-  /** The gameID of this game. */
-  private static final String GAME_ID = "TimingGame";
+    private Meter meter;
+    private int currLevel = 1;
+    static final int BOSS_LEVEL = 5;
+    private ScoreBoard scoreBoard;
+    private static final String GAME_ID = "TimingGame";
 
-  private PlayerAccess playerAccess;
+    private PlayerAccess playerAccess;
+    private String currPlayerID;
 
-  private String currPlayerID;
+    private PlayerShip playerShip;
+    private EnemyShip enemyShip;
+    private ShipFactory shipFactory;
+    private Bullet currBullet;
 
-  private final int TOTAL_LEVELS = 5;
+    private boolean completed;
 
-//TODO: MAKE CURSOR A DIFFERENT COLOR, ADD IN TIMINGGAMESTYLES
+    private int screenWidth;
+    private int screenHeight;
+    private TimingGameStyle gameStyle;
 
-  /** Initializes the line and the hitbox. Sets the initial score to 0 and not completed. */
-  TimingGame(int screenWidth, int screenHeight, String currPlayerID) {
+    TimingGame(int screenWidth, int screenHeight, String currPlayerID, Context context) {
 
-    // Change for preferences
-    TimingGameStyle gameStyle = new TimingGameStyle(TimingGameStyles.STYLE3);
+        // Change for preferences
+         this.gameStyle = new TimingGameStyle(TimingGameStyles.STYLE3); // CHANGE THIS FOR DIFF COLOR
 
-    this.meter = new Meter(screenWidth, screenHeight, gameStyle);
-    this.scoreBoard = new ScoreBoard(screenWidth, screenHeight);
-    this.numPlayed = 0;
-    this.completed = false;
-    this.playerAccess = new PlayerManager();
-    this.currPlayerID = currPlayerID;
-  }
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
 
-  /** Updates the game. */
-  public void update() {
-    this.meter.update();
-//    if (this.numPlayed >= TOTAL_LEVELS) {
-//      this.setCompleted();
-//    }
-    if(this.numPlayed%3 == 0){
-      this.meter.setBonusVisible(true);
-    }
-  }
+        this.meter = new Meter(screenWidth, screenHeight, gameStyle);
+        this.scoreBoard = new TimingGameScoreBoard(screenWidth, screenHeight);
 
-  /**
-   * Draws the game.
-   *
-   * @param canvas The canvas to be drawn on.
-   */
-  public void draw(Canvas canvas) {
-    canvas.drawColor(Color.BLACK); // resets the screen.
-    this.meter.draw(canvas);
-    this.scoreBoard.draw(canvas);
-  }
+        this.shipFactory = new ShipFactory(context);
 
-  /** Sets this game as completed. */
-  public void setCompleted() {
-    this.completed = true;
-    playerAccess.updateStats(currPlayerID, GAME_ID, "score", this.scoreBoard.getScore());
-  }
+        this.playerShip = shipFactory.createPlayerShip(screenWidth, screenHeight);
+        this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, currLevel);
 
-  /**
-   * Returns if this game is completed or not.
-   *
-   * @return Completed game or not.
-   */
-  public boolean isCompleted() {
-    return this.completed;
-  }
 
-  /**
-   * Updates the score of this timing game.
-   */
-  public void updateScore() {
+        this.playerAccess = new PlayerManager();
+        this.currPlayerID = currPlayerID;
 
-    if (this.meter.cursorNearFocus()) {
-      this.scoreBoard.earnPoint();
-      this.scoreBoard.earnPoint();
-    } else if (this.meter.cursorNearTarget()) {
-      this.scoreBoard.earnPoint();
-    }
-    this.meter.newTarget();
-    this.meter.setBonusVisible(false);
-    this.numPlayed++;
     }
 
-  /**
-   * Returns the score of this game.
-   *
-   * @return int, the score of this game.
-   */
-  public int getScore(){
+    public void update() {
+        this.meter.update();
+        if(this.currBullet != null && this.currBullet.contact()){
+            damageTarget();
+            this.currBullet = null;
+        }
+        if(this.enemyShip.isDestroyed()){
+            if(this.currWaitingFrame >= WAITING_FRAMES){
+                this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, ++this.currLevel);
+                this.currWaitingFrame = 0;
+            }else {
+                this.currWaitingFrame++;
+            }
+        }
+        if(this.playerShip.isDestroyed()){
+            if(this.currWaitingFrame >= WAITING_FRAMES){
+                this.completed = true;
+            }
+            this.currWaitingFrame++;
+        }
+    }
 
-    return this.scoreBoard.getScore();
-  }
+    private void damageTarget() {
+        if(this.currBullet instanceof PlayerBullet){
+            this.enemyShip.takeDamage();
+            if(this.enemyShip.getHealth() == 0){
+                this.enemyShip.setDestroyed(true);
+                this.updateScore();
+            }
+        }
+        else{
+            this.playerShip.setDestroyed(true);
+        }
+    }
+
+
+    public void draw(Canvas canvas) {
+        canvas.drawColor(Color.BLACK); // resets the screen.
+        this.meter.draw(canvas);
+        this.scoreBoard.draw(canvas);
+        this.playerShip.draw(canvas);
+        this.enemyShip.draw(canvas);
+
+        if(this.currBullet != null){
+            currBullet.draw(canvas);
+        }
+    }
+
+    public boolean isCompleted() {
+        return this.completed;
+    }
+
+    public void onTouch() {
+        if(this.meter.cursorNearTarget()){
+            this.currBullet = new PlayerBullet(this.screenWidth, this.screenHeight, gameStyle);
+        }
+        else{
+            this.currBullet = new EnemyBullet(this.screenWidth, this.screenHeight, gameStyle);
+        }
+
+        this.meter.newTarget();
+    }
+
+    public int getScore(){
+        return this.scoreBoard.getScore();
+    }
+
+    private void updateScore(){
+        this.scoreBoard.earnPoint();
+        if(this.scoreBoard.getScore() > BOSS_LEVEL){
+            this.completed = true;
+        }
+    }
 }

@@ -1,12 +1,13 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame;
+package com.teamacademicprobation.probation.game.implementations.timinggame.meter;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import java.util.Random;
+import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameStyle;
+import com.teamacademicprobation.probation.game.implementations.timinggame.meter.Meter;
 
-/** The target zone that describes the zone the player has to hit. */
+/** The target zone that describes the zone the player_ship has to hit. */
 class TargetZone {
     /**
      * The start of the leftmost edge of the target zone, described in a ratio: (distance between left
@@ -25,7 +26,7 @@ class TargetZone {
 
     /** Initializes the target box's width, where the target box start and the paint. */
     TargetZone(Meter meter, TimingGameStyle gameStyle) {
-        this(meter, 0.1, gameStyle);
+        this(meter, 0.2, gameStyle);
     }
 
     TargetZone(Meter meter, double widthRatio, TimingGameStyle gameStyle) {

@@ -1,14 +1,17 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame;
+package com.teamacademicprobation.probation.game.implementations.timinggame.meter;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+
+import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameStyle;
+
 /**
  * A Meter object that has a Cursor and a TargetZone (Potentially more in the future!) for
  * TimingGame.
  */
-class Meter {
+public class Meter {
 
   /** The width of the meter. */
   private int width;
@@ -19,7 +22,7 @@ class Meter {
   /** The length between the top-most edge of the screen and the top-most edge of the meter. */
   private int heightMargins;
 
-  /** The zone the player has to try to hit. */
+  /** The zone the player_ship has to try to hit. */
   private TargetZone targetZone;
 
   private BonusZone bonusZone;
@@ -35,9 +38,9 @@ class Meter {
    *
    * @param screenWidth The width of the screen in pixels.
    * @param screenHeight The height of the screen in pixels.
-   * @param gameStyle
+   * @param gameStyle Object that defines the overall style.
    */
-  Meter(int screenWidth, int screenHeight, TimingGameStyle gameStyle) {
+  public Meter(int screenWidth, int screenHeight, TimingGameStyle gameStyle) {
     generateProportions(screenWidth, screenHeight);
     generateContents(gameStyle);
     generatePaint(gameStyle);
@@ -52,7 +55,7 @@ class Meter {
   private void generateProportions(int screenWidth, int screenHeight) {
     this.width = Math.toIntExact(Math.round(screenWidth * 0.8));
     this.height = Math.toIntExact(Math.round(screenHeight * 0.06));
-    this.heightMargins = Math.toIntExact(Math.round((screenHeight - this.height) / 2));
+    this.heightMargins = Math.toIntExact(Math.round((2*screenHeight)/ 3 - (this.height/2)));
     this.widthMargins = Math.toIntExact(Math.round((screenWidth - this.width) / 2));
   }
 
@@ -69,7 +72,7 @@ class Meter {
    *
    * @param canvas The canvas on which to draw on.
    */
-  void draw(Canvas canvas) {
+  public void draw(Canvas canvas) {
     if (bonusZone.isVisible()) {
       bonusZone.draw(canvas);
     }
@@ -79,7 +82,7 @@ class Meter {
   }
 
   /** Updates this box that are updatable. */
-  void update() {
+  public void update() {
     this.cursor.update();
   }
 
@@ -122,7 +125,7 @@ class Meter {
   }
 
   /** Randomly make the target box move locations. */
-  void newTarget() {
+  public void newTarget() {
 //    this.targetZone.generateBoxStart();
 //    if (this.bonusZone.isVisible()) {
 //      int boxDistance;
@@ -153,7 +156,7 @@ class Meter {
     }
   }
 
-  boolean cursorNearFocus() {
+  public boolean cursorNearFocus() {
     if (this.isBonusVisible()){
       int cursorBonusDistance = Math.abs(this.getCursorDistanceFromBonus());
       int bonusBoxWidth = this.getBonusBoxWidth();
@@ -162,7 +165,7 @@ class Meter {
     return false;
   }
 
-  boolean cursorNearTarget() {
+  public boolean cursorNearTarget() {
     int cursorTargetDistance = Math.abs(this.getCursorDistanceFromTarget());
     int targetBoxWidth = this.getTargetBoxWidth();
     return cursorTargetDistance <= targetBoxWidth / 2;
@@ -197,7 +200,7 @@ class Meter {
     return bonusZone.isVisible();
   }
 
-  void setBonusVisible(boolean b) {
+  public void setBonusVisible(boolean b) {
     this.bonusZone.setVisible(b);
   }
 
@@ -226,7 +229,7 @@ class Meter {
     /**
      * Initializes the paint style of this line.
      *
-     * @param gameStyle
+     * @param gameStyle Object that defines the overall style.
      */
     private void generatePaint(TimingGameStyle gameStyle) {
       this.paint = new Paint();

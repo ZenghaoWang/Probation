@@ -1,13 +1,15 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame;
+package com.teamacademicprobation.probation.game.implementations.timinggame.meter;
+
+import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameStyle;
 
 class BonusZone extends TargetZone {
 
     private boolean visible;
 
     BonusZone(Meter meterBox, TimingGameStyle gameStyle){
-        super(meterBox, 0.05, gameStyle);
+        super(meterBox, 0.1, gameStyle);
         this.getPaint().setColor(gameStyle.getBonusZoneColor());
-        this.visible = true;
+        this.visible = false;
     }
 
     boolean isVisible(){

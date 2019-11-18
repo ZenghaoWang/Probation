@@ -31,7 +31,8 @@ public class TimingGameView extends SurfaceView implements Runnable {
     super(context);
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    this.timingGame = new TimingGame(screenWidth, screenHeight, currPlayerID);
+    this.timingGame = new TimingGame(screenWidth, screenHeight, currPlayerID, context);
+
     surfaceHolder = getHolder();
   }
 
@@ -64,7 +65,7 @@ public class TimingGameView extends SurfaceView implements Runnable {
   /** Allows the game to run smoothly. */
   private void control() {
     try {
-      gameThread.sleep(17);
+      Thread.sleep(17);
     } catch (InterruptedException e) {
       Log.e(TAG, e.toString());
     }
@@ -93,7 +94,7 @@ public class TimingGameView extends SurfaceView implements Runnable {
   @Override
   public boolean performClick() {
     super.performClick();
-    this.timingGame.updateScore();
+    this.timingGame.onTouch();
     return true;
   }
 
