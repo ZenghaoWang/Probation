@@ -2,8 +2,6 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +19,7 @@ import com.teamacademicprobation.probation.ui.login.LoginActivity;
  * The front-end for the trivia game.
  */
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
-    private static TriviaGamePresenter presenter;
+    private static TriviaGamePresenter triviaGamePresenter;
     private Button answer1;
     private Button answer2;
     private Button answer3;
@@ -29,7 +27,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private TextView question;
     private TextView score;
     private TextView questionsRemaining;
-    private boolean isClickable;
 
 
     /**
@@ -53,8 +50,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         score = findViewById(R.id.current_score);
         questionsRemaining = findViewById(R.id.questionsRemaining);
 
-        presenter = new TriviaGamePresenter(this, playerID);
-        presenter.updateView();
+        triviaGamePresenter = new TriviaGamePresenter(this, playerID);
+        triviaGamePresenter.updateView();
     }
 
 
@@ -63,39 +60,21 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
      * @param answerClicked The answerClicked that was clicked.
      */
     public void onAnswer(View answerClicked) {
-        this.setClickable(false);
+
         String answer = ((Button) answerClicked).getText().toString();
-        presenter.answerQuestion(answer);
-        presenter.updateView();
-        this.setClickable(true);
+        triviaGamePresenter.answerQuestion(answer);
+        triviaGamePresenter.updateView();
     }
 
-
-    /**
-     * Toggle whether the buttons on screen should be isClickable or not.
-     * @param b whether the buttons will be isClickable
-     */
-    private void setClickable(boolean b) {
-        this.isClickable = b;
-
-
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        return !isClickable;
-    }
 
     /**
      * Head to the score screen.
      * @param scoreMessage The message that will appear on the score screen.
      */
     public void goToScoreScreen(String scoreMessage) {
-        this.setClickable(false);
         Intent intent = new Intent(this, ScoreScreenActivity.class);
         intent.putExtra("score", scoreMessage);
         startActivity(intent);
-        this.setClickable(true);
     }
 
 
