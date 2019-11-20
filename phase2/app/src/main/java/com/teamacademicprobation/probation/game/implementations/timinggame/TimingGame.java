@@ -11,7 +11,7 @@ import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.game.implementations.timinggame.meter.Meter;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
-
+import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 
 
 // TODO: ADD DOCUMENTATION
@@ -38,7 +38,7 @@ public class TimingGame {
     private ScoreBoard scoreBoard;
     private static final String GAME_ID = "TimingGame";
 
-    private PlayerAccess playerAccess;
+    private PlayerStatsAccess playerAccess;
     private String currPlayerID;
 
     private PlayerShip playerShip;

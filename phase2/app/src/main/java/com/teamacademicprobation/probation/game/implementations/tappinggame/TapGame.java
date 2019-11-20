@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
+import com.teamacademicprobation.probation.player.PlayerStatsAccess;
+
 import java.util.Random;
 
 /** A Tapping game where the player tries to tap the target object and avoid tapping non-target. */
@@ -20,7 +22,7 @@ class TapGame {
   private TargetCounter targetCounter;
   private int x;
   private int y;
-  private PlayerAccess playerAccess;
+  private PlayerStatsAccess playerAccess;
   private String currPlayerID;
 
   /** Constructor for the Tap game. */
