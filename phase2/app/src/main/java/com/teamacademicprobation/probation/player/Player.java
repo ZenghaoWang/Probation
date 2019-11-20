@@ -113,15 +113,19 @@ public class Player {
     return this.playerID;
   }
 
+  /** Updates PlayerPreferences. */
+  public void updatePreferences(String preferenceKey, String preferenceSetting) {
+    this.playerPreferences.updatePreferences(preferenceKey, preferenceSetting);
+  }
+
   /**
    * Updates PlayerPreferences.
    *
-   * @param playerPreferences A map with the following format: {"Preference1": String}
+   * @param newPreferences A map with the following format: {gameID: {PreferenceID: Preference
+   *     value}}
    */
-  public void updatePreferences(Map<String, String> playerPreferences) {
-    for (String preferenceKey : playerPreferences.keySet()) {
-      this.playerPreferences.updatePreference(preferenceKey, playerPreferences.get(preferenceKey));
-    }
+  public void updatePreferences(Map<String, String> newPreferences) {
+    this.playerPreferences.updatePreferences(newPreferences);
   }
 
   /**

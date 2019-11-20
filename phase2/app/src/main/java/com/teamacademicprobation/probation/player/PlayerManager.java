@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /** An implementation of PlayerAccess. */
-public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
+public class PlayerManager
+    implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
 
   /** The DataAccessObject that will be responsible for writing/reading from the database. */
   private static DataAccessObject dataAccess = new DataManager();
@@ -112,6 +113,18 @@ public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, Play
   public List<String> getGamesPlayed(String playerID) {
     Player currPlayer = getPlayer(playerID);
     return currPlayer.getGamesPlayed();
+  }
+
+  @Override
+  public void updatePreferences(String playerID, String preferenceKey, String preferenceSetting) {
+    Player playerToUpdate = getPlayer(playerID);
+    playerToUpdate.updatePreferences(preferenceKey, preferenceSetting);
+  }
+
+  @Override
+  public void updatePreferences(String playerID, Map<String, String> preferences) {
+    Player playerToUpdate = getPlayer(playerID);
+    playerToUpdate.updatePreferences(preferences);
   }
 
   /**
