@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /** An implementation of PlayerAccess. */
-public class PlayerManager implements PlayerAccess {
+public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
 
   /** The DataAccessObject that will be responsible for writing/reading from the database. */
   private static DataAccessObject dataAccess = new DataManager();
