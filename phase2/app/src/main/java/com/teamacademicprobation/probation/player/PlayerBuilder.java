@@ -15,18 +15,22 @@ import java.util.Map;
  *
  * <p>The player data is in the following format:
  *
- * <p>{"Username": "playerUsername, "Password": "playerPassword", "Preferences" : {"PreferenceKey" :
+ * <p>{"Username": "playerUsername, "Password": "playerPassword", "PreferencesActivity" : {"PreferenceKey" :
  * "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic"}}, "BestSession":
  * {"GameID": {"StatID" : "statistic"}}
  */
 public class PlayerBuilder {
 
-  /** The player this player builder is building. */
+  /**
+   * The player this player builder is building.
+   */
   private Player player;
 
   private static final String TAG = "PlayerBuilder";
 
-  /** Initializes the player builder with a default player. */
+  /**
+   * Initializes the player builder with a default player.
+   */
   public PlayerBuilder() {
     this.player = new Player();
   }
@@ -39,7 +43,7 @@ public class PlayerBuilder {
    * Starts building this player given it's playerData and playerID.
    *
    * @param playerData The JSONObject that represents the data.
-   * @param playerID The playerID of this player.
+   * @param playerID   The playerID of this player.
    */
   public void buildPlayer(JSONObject playerData, String playerID) {
     buildPlayerID(playerID);
@@ -78,18 +82,19 @@ public class PlayerBuilder {
    */
   private void buildBestGameStats(JSONObject bestGameStats) {
     Iterator<String> gameIDs = bestGameStats.keys();
+    Map<String, Map<String, Integer>> allBestGameStats = new HashMap<>();
+
     while (gameIDs.hasNext()) {
-      String currGameID = gameIDs.next();
-      Map<String, Integer> currGameStatsMap = null;
+      String bestGameID = gameIDs.next();
+      Map<String, Integer> bestGameStatsMap = null;
       try {
-        currGameStatsMap = buildGameStatMap(bestGameStats.getJSONObject(currGameID));
+        bestGameStatsMap = buildGameStatMap(bestGameStats.getJSONObject(bestGameID));
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      player.newCurrGame(currGameID);
-      player.updateCurrStats(currGameStatsMap);
-      player.endCurrGame();
+      allBestGameStats.put(bestGameID, bestGameStatsMap);
     }
+    player.setBestStats(allBestGameStats);
   }
 
   /**
@@ -107,18 +112,17 @@ public class PlayerBuilder {
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      this.player.newCurrGame(currGameID);
-      this.player.updateCurrStats(currGameStatsMap);
-      this.player.endCurrGame();
+
+      this.player.setCurrStats(currGameID, currGameStatsMap);
     }
   }
 
   /**
-   * Builds a map where the key values are the names of each statistic in PlayerGameStats and the
+   * Builds a map where the key values are the names of each statistic in GameStatsMap and the
    * values are the corresponding integer.
    *
    * @param gameStatistics The statistics of this player. It is in the format: {"StatID1": "S,
-   *     "Stat2": int}
+   *                       "Stat2": int}
    * @return Map<String, Integer> </String,> specified above.
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {
@@ -145,7 +149,7 @@ public class PlayerBuilder {
   private void buildPlayerPreferences(JSONObject playerData) {
     Map<String, String> playerPreferencesMap = new HashMap<>();
     try {
-      JSONObject playerPreferences = playerData.getJSONObject("Preferences");
+      JSONObject playerPreferences = playerData.getJSONObject("PreferencesActivity");
       Iterator<String> preferenceKeys = playerPreferences.keys();
       while (preferenceKeys.hasNext()) {
         String preferenceKey = preferenceKeys.next();
@@ -156,7 +160,7 @@ public class PlayerBuilder {
       Log.e(TAG, "Error in getting player preferences.");
     }
 
-    this.player.updatePreferences(playerPreferencesMap);
+    this.player.setPreferences(playerPreferencesMap);
   }
 
   /**

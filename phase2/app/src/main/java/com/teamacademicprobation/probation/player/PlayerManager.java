@@ -4,15 +4,19 @@ import android.util.Log;
 
 import com.teamacademicprobation.probation.data.DataAccessObject;
 import com.teamacademicprobation.probation.data.DataManager;
+
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-/** An implementation of PlayerAccess. */
-public class PlayerManager
-    implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
+/**
+ * An implementation of PlayerAccess.
+ */ //TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
+public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
 
-  /** The DataAccessObject that will be responsible for writing/reading from the database. */
+  /**
+   * The DataAccessObject that will be responsible for writing/reading from the database.
+   */
   private static DataAccessObject dataAccess = new DataManager();
 
   /**
@@ -34,20 +38,15 @@ public class PlayerManager
   }
 
   /**
-   * Updates the statistics of a player.
+   * Updates the statistics of a player (a single statistic)
    *
    * @param playerID The playerID of the player to save into.
-   * @param gameID The game that calls this method.
-   * @param statID The stat that the game wants to save.
-   * @param stat The stat value.
+   * @param gameID   The game that calls this method.
+   * @param statID   The stat that the game wants to save.
+   * @param stat     The stat value.
    */
   @Override
   public void updateStats(String playerID, String gameID, String statID, int stat) {
-
-    // Right now this code doesn't work if we want to update more than one stat, since
-    // The precondition is that it is called once iff the game has ended.
-    // We have to fix this in phase 2 so we can update more statistics.
-    // We can overload this method to accept a Map instead of statID and stat.
 
     try {
       Player playerToUpdate = getPlayer(playerID);
@@ -57,11 +56,58 @@ public class PlayerManager
         playerToUpdate.newCurrGame(gameID);
       }
       playerToUpdate.updateCurrStats(statID, stat);
-      playerToUpdate.endCurrGame();
       dataAccess.save(playerToUpdate);
     } catch (NullPointerException e) {
       Log.e("PlayerManager", "No player with this playerID.");
     }
+  }
+
+  /**
+   * Updates the statistics of a player (a map of statistics)
+   *
+   * @param playerID The playerID of the player to save into.
+   * @param gameID   The game that calls this method.
+   * @param stats    A map of the statistics plus their values
+   */
+  @Override
+  public void updateStats(String playerID, String gameID, Map<String, Integer> stats) {
+
+    // Updates multiple stats (a map of statIDs plus their values)
+
+    try {
+      Player playerToUpdate = getPlayer(playerID);
+      if (!(playerToUpdate.getCurrGameID().equals(gameID))) {
+
+        // pre-condition: the current game is none.
+        playerToUpdate.newCurrGame(gameID);
+      }
+      playerToUpdate.updateCurrStats(stats);
+      dataAccess.save(playerToUpdate);
+    } catch (NullPointerException e) {
+      Log.e("PlayerManager", "No player with this playerID.");
+    }
+  }
+
+  /**
+   * Alerts the player that their current game is over
+   *
+   * @param playerID
+   * @param save
+   */
+  @Override
+  public void endGame(String playerID, boolean save) {
+    try {
+      Player playerToUpdate = getPlayer(playerID);
+      if (!(playerToUpdate.getCurrGameID().equals(""))) {
+
+        // pre-condition: the current game is none.
+        playerToUpdate.endCurrGame(save);
+      }
+      dataAccess.save(playerToUpdate);
+    } catch (NullPointerException e) {
+      Log.e("PlayerManager", "No player with this playerID.");
+    }
+
   }
 
   /**
@@ -94,13 +140,13 @@ public class PlayerManager
    * Returns a map of the best scores for a given game, given a player.
    *
    * @param playerID the playerID to retrieve information from.
-   * @param gameID the gameID of the best scores to retrieve.
+   * @param gameID   the gameID of the best scores to retrieve.
    * @return
    */
   @Override
   public Map<String, Integer> getBest(String playerID, String gameID) {
     Player currPlayer = getPlayer(playerID);
-    return currPlayer.getBest(gameID);
+    return currPlayer.getBestStats(gameID);
   }
 
   /**

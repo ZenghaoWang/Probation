@@ -11,9 +11,6 @@ import java.util.Objects;
  */
 public class PlayerGameStats implements Comparable<PlayerGameStats> {
 
-  // The status of the game (whether it is ongoing or complete).
-  private boolean isCurrLevel;
-
   // The time and date of the game's initiation.
   private final Date startTime;
 
@@ -27,30 +24,34 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
 
   /** Instantiates a PlayerGameStats object with statistics time, score, and items set to 0. */
   PlayerGameStats(String id) {
-    isCurrLevel = true;
     gameID = id;
     startTime = new Date();
     totalScore = 0;
   }
 
-  /**
-   * Returns whether this game is currently being played.
-   *
-   * @return isCurrLevel
-   */
-  public boolean isCurrLevel() {
-    return isCurrLevel;
-  }
+  // ==== GETTER METHODS
 
-  /** Changes this game's status from incomplete to complete. */
-  void setComplete() {
-    isCurrLevel = false;
-  }
-
-  /** Returns the date and time this session of the game began. */
+  /** @return the date and time this session of the game began. */
   public Date getStartTime() {
     return startTime;
   }
+
+  /** @return this game's ID */
+  String getGameID() {
+    return gameID;
+  }
+
+  /** @return a map of each statistics and their associated scores for this game. */
+  Map<String, Integer> getAllStats() {
+    return statsMap;
+  }
+
+  /** @return this game's total score. */
+  private int getTotalScore() {
+    return totalScore;
+  }
+
+  // ==== UPDATE METHODS
 
   /**
    * Sets the given statistic to replace its current score with the given one.
@@ -62,29 +63,18 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
     if (statsMap.containsKey(statID)) {
       int currValue = Objects.requireNonNull(statsMap.get(statID));
       updateTotalScore(
-          currValue * (-1)); // subtracts the statistic's previous value from totalScore
+              currValue * (-1)); // subtracts the statistic's previous value from totalScore
     }
 
     statsMap.put(statID, newValue);
     updateTotalScore(newValue); // adds the statistic's new value to totalScore
   }
 
-  /**
-   * Increments a statistic by a given amount. If the statistic doesn't already exist, the key is
-   * created in the map with a starting value of the given amount.
-   *
-   * @param statID the statistic to be updated
-   * @param newValue the value to be added to the statistic (or the value of the stat if it DNE)
-   */
-  void increment(String statID, int newValue) {
-    if (statsMap.containsKey(statID)) {
-      int currValue = Objects.requireNonNull(statsMap.get(statID));
-      statsMap.put(statID, currValue + newValue);
-    } else {
-      update(statID, newValue);
+  void update(Map<String, Integer> newStats) {
+    for (String statID : newStats.keySet()){
+      statsMap.put(statID, newStats.get(statID));
+      updateTotalScore(newStats.get(statID));
     }
-
-    updateTotalScore(newValue);
   }
 
   /**
@@ -96,33 +86,7 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
     totalScore += score;
   }
 
-  /**
-   * Returns this game's ID
-   *
-   * @return gameID the name of the stat whose data is to be retrieved.
-   */
-  String getGameID() {
-    return gameID;
-  }
-
-  /**
-   * Returns the score associated with the given statistic.
-   *
-   * @param statID the name of the stat whose data is to be retrieved.
-   */
-  int getStat(String statID) {
-    return Objects.requireNonNull(statsMap.get(statID));
-  }
-
-  /** Returns a map of each statistics and their associated scores for this game. */
-  Map<String, Integer> getAllStats() {
-    return statsMap;
-  }
-
-  /** @return this game's total score. */
-  private int getTotalScore() {
-    return totalScore;
-  }
+  // ==== COMPARABLE METHOD
 
   /**
    * Compares the total score of this game with another's
