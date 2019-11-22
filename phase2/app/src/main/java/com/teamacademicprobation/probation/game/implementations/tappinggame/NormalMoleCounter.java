@@ -5,11 +5,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 /** A counter for how many target objects are left in the game. */
-public class TargetCounter {
+public class NormalMoleCounter {
+
   /** The number of targets in the game, game ends when 30 targets appear. */
-  static int targetLimit = 30;
+  private int normalMoleLimit = 30;
   /** The number of targets that appeared in the game */
-  private int targetCount;
+  private int normalMoleCount;
 
   private Paint paint;
   /** x-coordinate for target counter */
@@ -18,14 +19,14 @@ public class TargetCounter {
   private int y;
 
   /**
-   * Initializes the x and y coordinates, targetCount, paint. The x and y coordinates are in ratios
+   * Initializes the x and y coordinates, normalMoleCount, paint. The x and y coordinates are in ratios
    * of the screenWidth and screenHeight.
    *
    * @param screenWidth The width of the screen in pixels.
    * @param screenHeight The height of the screen in pixels.
    */
-  TargetCounter(int screenWidth, int screenHeight) {
-    this.targetCount = 0;
+  NormalMoleCounter(int screenWidth, int screenHeight) {
+    this.normalMoleCount = 0;
     this.x = (int) (screenWidth * 0.01);
     this.y = (int) (screenHeight * 0.03);
     paint = new Paint();
@@ -34,21 +35,27 @@ public class TargetCounter {
   }
 
   /**
-   * Returns the targetCount.
+   * Returns the normalMoleCount.
    *
-   * @return targetCount
+   * @return normalMoleCount
    */
-  int getTargetCount() {
-    return this.targetCount;
+  int getNormalMoleCount() {
+    return this.normalMoleCount;
   }
 
-  /** Adds a count to the targetCount */
+  public int getNormalMoleLimit() {
+    return normalMoleLimit;
+  }
+
+  /**
+   * Adds a count to the normalMoleCount
+   */
   void addCount() {
-    this.targetCount++;
+    this.normalMoleCount++;
   }
 
   /** Draws the target counter onto canvas */
   void draw(Canvas canvas) {
-    canvas.drawText("Target Left:" + (targetLimit - this.targetCount), this.x, this.y, paint);
+    canvas.drawText("Normal Moles Left:" + (normalMoleLimit - this.normalMoleCount), this.x, this.y, paint);
   }
 }

@@ -54,6 +54,13 @@ public class ScoreBoard {
     this.score++;
   }
 
+    /**
+     * Increments the points by five.
+     */
+    public void earnFivePoints() {
+        this.score = this.score + 5;
+    }
+
   /** Decrements the points by one. */
   public void losePoint() {
     if (score != 0) {

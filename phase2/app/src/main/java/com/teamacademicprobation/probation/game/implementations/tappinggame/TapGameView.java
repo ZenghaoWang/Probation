@@ -3,8 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.tappinggame;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -30,7 +30,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     surfaceHolder = getHolder();
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
     int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    tapGame = new TapGame(screenWidth, screenHeight, currPlayerID);
+      tapGame = new TapGame(context, screenWidth, screenHeight, currPlayerID);
   }
 
   /** Runs game while playing variable is true. */
@@ -62,7 +62,6 @@ public class TapGameView extends SurfaceView implements Runnable {
   private void draw() {
     if (surfaceHolder.getSurface().isValid()) {
       canvas = surfaceHolder.lockCanvas();
-      canvas.drawColor(Color.BLACK);
       tapGame.draw(canvas);
       surfaceHolder.unlockCanvasAndPost(canvas);
     }
@@ -70,7 +69,7 @@ public class TapGameView extends SurfaceView implements Runnable {
 
   private void control() {
     try {
-      Thread.sleep(850);
+        Thread.sleep(700);
     } catch (InterruptedException e) {
       Log.e("TapGame", "Unexpected interruption.");
     }
