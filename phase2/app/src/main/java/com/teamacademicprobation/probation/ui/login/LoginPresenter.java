@@ -1,6 +1,7 @@
 package com.teamacademicprobation.probation.ui.login;
 
 import com.teamacademicprobation.probation.player.PlayerAccess;
+import com.teamacademicprobation.probation.player.PlayerLoginAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
 import java.io.File;
@@ -8,7 +9,7 @@ import java.io.File;
 public class LoginPresenter {
 
   private LoginView loginView;
-  private PlayerAccess playerAccess;
+  private PlayerLoginAccess playerAccess;
 
   LoginPresenter(LoginView loginView, File dataFile) {
     this.loginView = loginView;
