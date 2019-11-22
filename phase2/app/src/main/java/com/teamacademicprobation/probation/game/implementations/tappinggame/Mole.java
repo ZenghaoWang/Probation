@@ -50,13 +50,12 @@ class Mole {
         return this.y;
     }
 
-    void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
-
     private Bitmap getBitmap() {
         return bitmap;
+    }
+
+    void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     int getSize() {
