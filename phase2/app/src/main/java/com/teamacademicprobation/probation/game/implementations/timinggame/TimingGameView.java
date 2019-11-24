@@ -1,8 +1,8 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,106 +11,110 @@ import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
-// Code template from
-// https://www.simplifiedcoding.net/android-game-development-tutorial-1/#Android-Game-Development-with-Unity
+/**
+ * A view for the timing game.
+ */
+@SuppressLint("ViewConstructor")
+public class TimingGameView extends SurfaceView implements Runnable, TimingGameViewInterface {
 
-public class TimingGameView extends SurfaceView implements Runnable {
 
-  private Thread gameThread = null;
-  private volatile boolean running;
-  private TimingGame timingGame;
-  private SurfaceHolder surfaceHolder;
-  private static final String TAG = "TimingGame";
+    private Thread gameThread = null;
+    private volatile boolean running;
+    private TimingGamePresenter timingGamePresenter;
+    private SurfaceHolder surfaceHolder;
+    private static final String TAG = "TimingGame";
 
-  /**
-   * Initializes the view and starts the timing game in the context environment.
-   *
-   * @param context the environment
-   */
-  public TimingGameView(Context context, String currPlayerID) {
-    super(context);
-    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-    this.timingGame = new TimingGame(screenWidth, screenHeight, currPlayerID, context);
-
-    surfaceHolder = getHolder();
-  }
-
-  @Override
-  public void run() {
-    while (running) {
-      update();
-      draw();
-      control();
+    public TimingGameView(Context context, String playerID) {
+        super(context);
+        this.timingGamePresenter = new TimingGamePresenter(this, playerID);
+        surfaceHolder = getHolder();
     }
-  }
 
-  /** Updates the game. */
-  private void update() {
-    this.timingGame.update();
-    if (this.timingGame.isCompleted()) {
-      goToScoreScreen();
+    @Override
+    public void run() {
+        while (running) {
+            update();
+            draw();
+            control();
+        }
     }
-  }
 
-  /** Draws the game onto the canvas. */
-  private void draw() {
-    if (surfaceHolder.getSurface().isValid()) {
-      Canvas canvas = surfaceHolder.lockCanvas();
-      this.timingGame.draw(canvas);
-      surfaceHolder.unlockCanvasAndPost(canvas);
+
+    /**
+     * Updates the game.
+     */
+    private void update() {
+        this.timingGamePresenter.update();
     }
-  }
 
-  /** Allows the game to run smoothly. */
-  private void control() {
-    try {
-      Thread.sleep(17);
-    } catch (InterruptedException e) {
-      Log.e(TAG, e.toString());
+    /**
+     * Draws the game onto the canvas.
+     */
+    private void draw() {
+        if (surfaceHolder.getSurface().isValid()) {
+            Canvas canvas = surfaceHolder.lockCanvas();
+            this.timingGamePresenter.draw(canvas);
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
     }
-  }
 
-  /** Pauses the thread. */
-  public void pause() {
-    running = false;
-    try {
-      // stopping the thread
-      gameThread.join();
-    } catch (InterruptedException e) {
-      Log.e(TAG, e.toString());
+    /**
+     * Allows the game to run smoothly.
+     */
+    private void control() {
+        try {
+            Thread.sleep(17);
+        } catch (InterruptedException e) {
+            Log.e(TAG, e.toString());
+        }
     }
-  }
 
-  /** Resumes the thread. */
-  public void resume() {
-    // when the game is resumed
-    // starting the thread again
-    running = true;
-    gameThread = new Thread(this);
-    gameThread.start();
-  }
-
-  @Override
-  public boolean performClick() {
-    super.performClick();
-    this.timingGame.onTouch();
-    return true;
-  }
-
-  /** Goes to the score screen. */
-  private void goToScoreScreen() {
-    Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-    intent.putExtra("score", "You scored:" + this.timingGame.getScore());
-    getContext().startActivity(intent);
-  }
-
-  @Override
-  public boolean onTouchEvent(MotionEvent motionEvent) {
-    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-      performClick();
-      return true;
+    /**
+     * Pauses the thread.
+     */
+    public void pause() {
+        running = false;
+        try {
+            // stopping the thread
+            gameThread.join();
+        } catch (InterruptedException e) {
+            Log.e(TAG, e.toString());
+        }
     }
-    return false;
-  }
+
+    /**
+     * Resumes the thread.
+     */
+    public void resume() {
+        // when the game is resumed
+        // start the thread again
+        running = true;
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            performClick();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        this.timingGamePresenter.onTouch();
+        return true;
+    }
+
+    @Override
+    public void goToScoreScreen(String score) {
+        Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
+        intent.putExtra("score", "You scored:" + score);
+        getContext().startActivity(intent);
+    }
+
 }
+

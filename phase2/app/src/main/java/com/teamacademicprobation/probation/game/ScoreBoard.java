@@ -75,8 +75,25 @@ public class ScoreBoard {
    */
   public void draw(Canvas canvas) {
     int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
-    int numChars = (int) (Math.log10(score + 1) + 1);
+    int numChars = ("" + score).length();
 
     canvas.drawText("Score:" + this.score, this.x - (charWidth * numChars), this.y, paint);
   }
+
+  protected int getX() {
+    int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
+    int numChars = ("" + score).length();
+    return this.x - (charWidth * numChars);
+  }
+
+  protected int getY(){
+    return y;
+  }
+
+  protected Paint getPaint(){
+    return paint;
+  }
+
+
+
 }

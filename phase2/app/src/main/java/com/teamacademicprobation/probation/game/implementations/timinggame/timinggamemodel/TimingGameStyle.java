@@ -1,8 +1,12 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame;
+package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
 import android.graphics.Color;
 
-public class TimingGameStyle {
+/**
+ * A class that determines the style of the game. It describes the different colors for each
+ * component of the game.
+ */
+class TimingGameStyle {
 
     private int meterColor;
     private int bonusZoneColor;
@@ -10,8 +14,13 @@ public class TimingGameStyle {
     private int targetZoneColor;
     private int bulletColor;
 
-    TimingGameStyle(TimingGameStyles style){
-        switch(style){
+    /**
+     * Initializes a new TimingGameStyle based on the preferences.
+     *
+     * @param style The style to use.
+     */
+    TimingGameStyle(TimingGameStyles style) {
+        switch (style) {
             case STYLE1:
                 meterColor = Color.rgb(87, 255, 241);
                 cursorColor = Color.rgb(87, 255, 241);
@@ -30,35 +39,36 @@ public class TimingGameStyle {
                 break;
             case STYLE3:
                 meterColor = Color.rgb(11, 222, 0);
-                cursorColor =  Color.rgb(11, 222, 0);
-                targetZoneColor =  Color.rgb(11, 222, 0);
+                cursorColor = Color.rgb(11, 222, 0);
+                targetZoneColor = Color.rgb(11, 222, 0);
                 bonusZoneColor = Color.rgb(255, 227, 115);
 
-                bulletColor =  Color.rgb(11, 222, 0);
+                bulletColor = Color.rgb(11, 222, 0);
                 break;
             default:
-                meterColor = Color.rgb(255,255,255);
-                bonusZoneColor = Color.rgb(255,255,255);
+                meterColor = Color.rgb(255, 255, 255);
+                bonusZoneColor = Color.rgb(255, 255, 255);
         }
     }
 
-    public int getBonusZoneColor() {
+    // ====== GETTERS ======
+    int getBonusZoneColor() {
         return bonusZoneColor;
     }
 
-    public int getMeterColor() {
+    int getMeterColor() {
         return meterColor;
     }
 
-    public int getCursorColor() {
+    int getCursorColor() {
         return cursorColor;
     }
 
-    public int getTargetZoneColor() {
+    int getTargetZoneColor() {
         return targetZoneColor;
     }
 
-    public int getBulletColor() {
+    int getBulletColor() {
         return this.bulletColor;
     }
 }

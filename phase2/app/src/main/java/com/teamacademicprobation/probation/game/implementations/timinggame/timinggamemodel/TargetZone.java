@@ -1,34 +1,62 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame.meter;
+package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameStyle;
-import com.teamacademicprobation.probation.game.implementations.timinggame.meter.Meter;
+import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
+import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.ZoneDrawer;
 
-/** The target zone that describes the zone the player_ship has to hit. */
-class TargetZone {
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The target zone that describes the zone the player_ship has to hit.
+ */
+class TargetZone implements Drawable {
     /**
      * The start of the leftmost edge of the target zone, described in a ratio: (distance between left
      * edge of box and left edge of the target zone) / width of the meter.
      */
     private double zoneStart;
-    /** The width of the target zone. */
+    /**
+     * The width of the target zone.
+     */
     private int zoneWidth;
-    /** The paint object that describes the target zone. */
+    /**
+     * The paint object that describes the target zone.
+     */
     private Paint paint;
 
+    /**
+     * The meter this target zone is in.
+     */
     private Meter meter;
 
+    /**
+     * The ratio of the width of the target zone in relation to the meter.
+     */
     private double widthRatio;
 
 
-    /** Initializes the target box's width, where the target box start and the paint. */
+    /**
+     * Initializes a new target zone with the default width ratio.
+     *
+     * @param meter     The meter this target zone is in.
+     * @param gameStyle The style of the game.
+     */
     TargetZone(Meter meter, TimingGameStyle gameStyle) {
         this(meter, 0.2, gameStyle);
     }
 
+    /**
+     * Initializes a new target zone with a specified width ratio.
+     *
+     * @param meter      The meter this target zone is ion.
+     * @param widthRatio The ratio of the width of the target zone in relation ot the meter.
+     * @param gameStyle  The style of the game.
+     */
     TargetZone(Meter meter, double widthRatio, TimingGameStyle gameStyle) {
         this.meter = meter;
         this.zoneWidth = Math.toIntExact(Math.round(meter.getWidth() * widthRatio));
@@ -37,18 +65,22 @@ class TargetZone {
         this.generatePaint(gameStyle);
 
     }
-    /** Generate a new, random start to the target box. */
-    void generateBoxStart() {
-//        Random rand = new Random();
-//        this.zoneStart = rand.nextInt(Math.toIntExact(Math.round(100-(10*widthRatio)))) * (widthRatio * 0.1);
 
-        do{
+    /**
+     * Generate a new, random start to the target box.
+     */
+    void generateBoxStart() {
+        do {
             this.zoneStart = Math.random();
-        }while(this.zoneStart >= (1-widthRatio));
+        } while (this.zoneStart >= (1 - widthRatio));
 
     }
 
-    /** Initializes the paint style of this target box. */
+    /**
+     * Initializes the paint style of this target box.
+     *
+     * @param gameStyle The style of the game.
+     */
     private void generatePaint(TimingGameStyle gameStyle) {
         this.paint = new Paint();
         this.paint.setStrokeWidth(3);
@@ -56,7 +88,8 @@ class TargetZone {
         this.paint.setColor(gameStyle.getTargetZoneColor());
     }
 
-    Paint getPaint(){
+    // ====== GETTERS =====
+    Paint getPaint() {
         return this.paint;
     }
 
@@ -84,15 +117,6 @@ class TargetZone {
         return targetRect.centerX() - meter.getWidthMargins();
     }
 
-    /**
-     * Draws the target box onto the canvas.
-     *
-     * @param canvas The canvas on which to draw on.
-     */
-    void draw(Canvas canvas) {
-        Rect targetRect = getZoneRect();
-        canvas.drawRect(targetRect, paint);
-    }
 
     int getWidth() {
         return this.zoneWidth;
@@ -102,7 +126,16 @@ class TargetZone {
         return this.zoneStart;
     }
 
-    double getWidthRatio(){
+    double getWidthRatio() {
         return this.widthRatio;
     }
+
+    @Override
+    public List<AndroidDrawer> getDrawers() {
+        List<AndroidDrawer> drawers = new ArrayList<>();
+        drawers.add(new ZoneDrawer(getZoneRect(), getPaint()));
+        return drawers;
+    }
+
+    // ===== END OF GETTERS ======
 }
