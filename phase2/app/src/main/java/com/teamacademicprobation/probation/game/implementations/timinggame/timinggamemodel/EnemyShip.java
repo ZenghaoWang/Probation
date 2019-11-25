@@ -37,21 +37,21 @@ class EnemyShip extends Ship {
         super(screenWidth, screenHeight, WIDTHRATIO, size);
     }
 
-    /**
-     * Subtracts the health by one.
-     */
-    void takeDamage() {
-        this.health -= 1;
-    }
-
-    // ===== SETTER/GETTERS =====
-    void setHealth(int health) {
-        this.health = health;
-    }
-
-    int getHealth() {
-        return this.health;
-    }
+//    /**
+//     * Subtracts the health by one.
+//     */
+//    void takeDamage() {
+//        this.health -= 1;
+//    }
+//
+//    // ===== SETTER/GETTERS =====
+//    void setHealth(int health) {
+//        this.health = health;
+//    }
+//
+//    int getHealth() {
+//        return this.health;
+//    }
 
     // ====== END OF SETTER/GETTERS =====
 

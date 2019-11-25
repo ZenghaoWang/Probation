@@ -96,18 +96,12 @@ public class TimingGameView extends SurfaceView implements Runnable, TimingGameV
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            performClick();
+            this.timingGamePresenter.onTouch(motionEvent.getX());
             return true;
         }
         return false;
     }
 
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        this.timingGamePresenter.onTouch();
-        return true;
-    }
 
     @Override
     public void goToScoreScreen(String score) {

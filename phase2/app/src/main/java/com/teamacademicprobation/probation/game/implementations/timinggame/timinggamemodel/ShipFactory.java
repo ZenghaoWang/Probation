@@ -18,14 +18,16 @@ class ShipFactory {
      * The context to retrieve resources.
      */
     private Context context;
+    private TimingGameStyle gameStyle;
 
     /**
      * Initializes a new ShipFactory.
      *
      * @param context context to retrieve resources.
      */
-    ShipFactory(Context context) {
+    ShipFactory(Context context, TimingGameStyle gameStyle) {
         this.context = context;
+        this.gameStyle = gameStyle;
     }
 
     /**
@@ -40,10 +42,10 @@ class ShipFactory {
     EnemyShip createEnemyShip(int screenWidth, int screenHeight,
                               int level) {
         EnemyShip result;
-        if (level < TimingGame.BOSS_LEVEL) {
+        if ((level%TimingGame.BOSS_LEVEL) != 0) {
             result = createBasicEnemy(screenWidth, screenHeight, level);
         } else {
-            result = createBoss(screenWidth, screenHeight);
+            result = createBoss(screenWidth, screenHeight, level);
         }
         return result;
     }
@@ -61,6 +63,7 @@ class ShipFactory {
         Bitmap explosion = BitmapFactory.decodeResource(context.getResources(), R.drawable.explosion);
         playerShip.setExplosion(explosion);
         playerShip.setShip(ship, 0);
+        playerShip.setHealth(1, gameStyle);
         return playerShip;
     }
 
@@ -72,9 +75,9 @@ class ShipFactory {
      * @param screenHeight The height of the screen, in pixels.
      * @return Boss type enemy ship
      */
-    private EnemyShip createBoss(int screenWidth, int screenHeight) {
+    private EnemyShip createBoss(int screenWidth, int screenHeight, int level) {
         EnemyShip enemyShip = new EnemyShip(screenWidth, screenHeight, 236);
-        enemyShip.setHealth(TimingGame.BOSS_LEVEL + 2);
+        enemyShip.setHealth(level + 2, gameStyle);
         Bitmap ship = BitmapFactory.decodeResource(context.getResources(), R.drawable.boss_ship);
         Bitmap explosion = BitmapFactory.decodeResource(context.getResources(), R.drawable.explosion);
         enemyShip.setExplosion(explosion);
@@ -96,7 +99,7 @@ class ShipFactory {
         setRandomShip(enemyShip);
         Bitmap explosion = BitmapFactory.decodeResource(context.getResources(), R.drawable.explosion);
         enemyShip.setExplosion(explosion);
-        enemyShip.setHealth(level);
+        enemyShip.setHealth(level, gameStyle);
         return enemyShip;
     }
 

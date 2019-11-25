@@ -3,9 +3,9 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.view.MotionEvent;
 
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel.TimingGame;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 class TimingGamePresenter {
 
-    private TimingGame timingGame;
+    private TimingGameModel timingGameModel;
     private TimingGameView gameView;
 
     /**
@@ -28,8 +28,9 @@ class TimingGamePresenter {
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         this.gameView = gameView;
-        this.timingGame = new TimingGame(screenWidth, screenHeight, playerID);
-        this.timingGame.buildShips(gameView.getContext());
+        this.timingGameModel = new TimingGameModel(screenWidth, screenHeight, playerID);
+        this.timingGameModel.buildShips(gameView.getContext());
+        this.timingGameModel.buildPowerUpSelect(gameView.getContext());
     }
 
 
@@ -37,9 +38,9 @@ class TimingGamePresenter {
      * Updates timing game, and goes to the score screen if completed.
      */
     void update() {
-        this.timingGame.update();
-        if (this.timingGame.isCompleted()) {
-            String score = "" + this.timingGame.getScore();
+        this.timingGameModel.update();
+        if (this.timingGameModel.isCompleted()) {
+            String score = "" + this.timingGameModel.getScore();
             this.gameView.goToScoreScreen(score);
         }
     }
@@ -51,7 +52,7 @@ class TimingGamePresenter {
      */
     void draw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
-        List<AndroidDrawer> drawers = this.timingGame.getDrawers();
+        List<AndroidDrawer> drawers = this.timingGameModel.getDrawers();
         for (AndroidDrawer drawer : drawers) {
             drawer.draw(canvas);
         }
@@ -60,7 +61,7 @@ class TimingGamePresenter {
     /**
      * Updates the timing game once a tap is detected.
      */
-    void onTouch() {
-        this.timingGame.onTouch();
+    void onTouch(double touchX) {
+        this.timingGameModel.onTouch(touchX);
     }
 }

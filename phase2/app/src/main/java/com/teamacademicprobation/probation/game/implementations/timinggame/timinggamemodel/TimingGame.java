@@ -4,19 +4,13 @@ import android.content.Context;
 
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
-import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-// TODO: ADD DOCUMENTATION
+
 // TODO: IMPLEMENT BONUS BOX
-// TODO: IMPLEMENT EXTRA HEALTH FOR PLAYER
-// TODO: IMPLEMENT EXTRA ACCURACY
-// TODO; HEALTH BAR
-// TODO: IMPLEMENT CURR LEVEL, ENEMY NAME GENERATOR
 // TODO: IMPLEMENT SAVE / PREFERENCES
 // TODO: CLEAN UP THE CODE
 
@@ -44,18 +38,11 @@ public class TimingGame implements Drawable {
     /**
      * The end level of the game.
      */
-    static final int BOSS_LEVEL = 5;
+    static final int BOSS_LEVEL = 3;
+
 
     private TimingGameScoreBoard scoreBoard;
 
-    /**
-     * An object that allows the game to save data.
-     */
-    private PlayerStatsAccess playerAccess;
-    /**
-     * The player ID of the player currently playing this game.
-     */
-    private String currPlayerID;
 
     // ===== Objects for the game =====
     private Meter meter;
@@ -65,9 +52,10 @@ public class TimingGame implements Drawable {
     private Bullet currBullet;
 
     /**
-     * Represents if the game has been completed or not.
+     * Represents if the stage has been completed or not.
      */
-    private boolean completed;
+    private boolean stageCompleted;
+
 
     private int screenWidth;
     private int screenHeight;
@@ -78,9 +66,8 @@ public class TimingGame implements Drawable {
      *
      * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
-     * @param currPlayerID The playerID of the player currently playing this game.
      */
-    public TimingGame(int screenWidth, int screenHeight, String currPlayerID) {
+    public TimingGame(int screenWidth, int screenHeight) {
 
         // Change for preferences
         this.gameStyle = new TimingGameStyle(TimingGameStyles.STYLE3); // CHANGE THIS FOR DIFF COLOR
@@ -90,9 +77,6 @@ public class TimingGame implements Drawable {
 
         this.meter = new Meter(screenWidth, screenHeight, gameStyle);
         this.scoreBoard = new TimingGameScoreBoard(screenWidth, screenHeight);
-
-        this.playerAccess = new PlayerManager();
-        this.currPlayerID = currPlayerID;
     }
 
     /**
@@ -101,10 +85,9 @@ public class TimingGame implements Drawable {
      * @param context The context to be able to get resources.
      */
     public void buildShips(Context context) {
-        this.shipFactory = new ShipFactory(context);
+        this.shipFactory = new ShipFactory(context, gameStyle);
         this.playerShip = shipFactory.createPlayerShip(screenWidth, screenHeight);
         this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, currLevel);
-
     }
 
     /**
@@ -123,7 +106,7 @@ public class TimingGame implements Drawable {
      */
     private void updateBullet() {
         if (this.currBullet != null && this.currBullet.contact()) {
-            damageTarget();
+            damageBulletTarget();
             this.currBullet = null;
         }
     }
@@ -150,7 +133,7 @@ public class TimingGame implements Drawable {
     private void updatePlayer() {
         if (this.playerShip.isDestroyed()) {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
-                this.completed = true;
+                this.stageCompleted = true;
             }
             this.currWaitingFrame++;
         }
@@ -159,15 +142,21 @@ public class TimingGame implements Drawable {
     /**
      * Damages the target of the bullet.
      */
-    private void damageTarget() {
+    private void damageBulletTarget() {
         if (this.currBullet instanceof PlayerBullet) {
-            this.enemyShip.takeDamage();
-            if (this.enemyShip.getHealth() == 0) {
-                this.enemyShip.setDestroyed(true);
+            damageTarget(enemyShip, playerShip);
+            if(enemyShip.isDestroyed()){
                 this.updateScore();
             }
         } else {
-            this.playerShip.setDestroyed(true);
+            damageTarget(playerShip, enemyShip);
+        }
+    }
+
+    private void damageTarget(Ship target, Ship shooter){
+        target.takeDamage(shooter.getDamage());
+        if(target.getHealth() == 0){
+            target.setDestroyed(true);
         }
     }
 
@@ -185,18 +174,18 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Updates the scoreboard, and sets to complete if the game has been completed.
+     * Updates the scoreboard, and sets to complete if the game has been stageCompleted.
      */
     private void updateScore() {
         this.scoreBoard.earnPoint();
-        if (this.scoreBoard.getScore() >= BOSS_LEVEL) {
-            this.completed = true;
+        if (this.scoreBoard.getScore() % BOSS_LEVEL == 0) {
+            this.stageCompleted = true;
         }
     }
 
     // ===== GETTERS ======
     public boolean isCompleted() {
-        return this.completed;
+        return this.stageCompleted;
     }
 
     public int getScore() {
@@ -215,5 +204,22 @@ public class TimingGame implements Drawable {
         }
 
         return drawers;
+    }
+
+    public void upgradePlayer(PowerUpSelect.PowerUps selection) {
+        if(selection == PowerUpSelect.PowerUps.DAMAGE){
+            this.playerShip.increaseDamage(1);
+        }
+        else{
+            this.playerShip.setHealth(this.playerShip.getHealth()+1);
+        }
+    }
+
+    public void setCompleted(boolean completed) {
+        this.stageCompleted = completed;
+    }
+
+    public boolean playerDestroyed(){
+        return playerShip.isDestroyed();
     }
 }

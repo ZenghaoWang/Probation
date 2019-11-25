@@ -1,7 +1,6 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
@@ -41,6 +40,10 @@ class Ship implements Drawable {
     private int size;
 
     /**
+     * The health of the ship.
+     */
+    private HealthBar health;
+    /**
      * Represents if the ship has been destroyed or not.
      */
     private boolean destroyed;
@@ -49,6 +52,8 @@ class Ship implements Drawable {
      * The style of how to draw the image of the ship.
      */
     private Paint paint;
+
+    private int damage;
 
 
     /**
@@ -80,17 +85,10 @@ class Ship implements Drawable {
         paint.setAntiAlias(false);
         paint.setFilterBitmap(false);
 
+        this.damage = 1;
+
     }
 
-    /**
-     * Sets the image of the ship.
-     *
-     * @param ship  The image of the ship.
-     * @param angle The angle the ship should be rotated.
-     */
-    void setShip(Bitmap ship, int angle) {
-        this.ship = rotateAndScale(ship, angle);
-    }
 
     /**
      * Rotates and scales the image of the ship.
@@ -117,6 +115,16 @@ class Ship implements Drawable {
 
     // ===== SETTERS/GETTERS =====
 
+    /**
+     * Sets the image of the ship.
+     *
+     * @param ship  The image of the ship.
+     * @param angle The angle the ship should be rotated.
+     */
+    void setShip(Bitmap ship, int angle) {
+        this.ship = rotateAndScale(ship, angle);
+    }
+
     void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
     }
@@ -124,6 +132,19 @@ class Ship implements Drawable {
     boolean isDestroyed() {
         return this.destroyed;
     }
+
+    int getHealth(){return health.getcurrHealth();}
+
+    void setHealth(int health, TimingGameStyle gameStyle){
+        this.health = new HealthBar(size, 20, x, y+size+40, gameStyle);
+        this.health.setMaxHealth(health);
+    }
+
+    void setHealth(int health){
+        this.health.setMaxHealth(health);
+    }
+
+    void takeDamage(int damage){this.health.takeDamage(damage);}
 
     @Override
     public List<AndroidDrawer> getDrawers() {
@@ -135,8 +156,17 @@ class Ship implements Drawable {
             shipDrawer = new ShipDrawer(explosion, x, y, paint);
         }
         drawers.add(shipDrawer);
+        drawers.addAll(health.getDrawers());
         return drawers;
 
+    }
+
+    void increaseDamage(int damage) {
+        this.damage += damage;
+    }
+
+    int getDamage(){
+        return this.damage;
     }
 
     // ====== END OF SETTERS/GETTERS =====

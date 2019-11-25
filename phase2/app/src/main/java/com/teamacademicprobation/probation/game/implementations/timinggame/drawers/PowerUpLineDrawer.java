@@ -1,0 +1,24 @@
+package com.teamacademicprobation.probation.game.implementations.timinggame.drawers;
+
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
+public class PowerUpLineDrawer implements AndroidDrawer {
+
+    private int x;
+    private int y;
+    private int length;
+
+    public PowerUpLineDrawer(int x, int y, int length, Paint paint) {
+        this.x = x;
+        this.y = y;
+        this.length = length;
+        this.paint = paint;
+    }
+
+    private Paint paint;
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.drawLine(x, y, x, y+length, paint);
+    }
+}
