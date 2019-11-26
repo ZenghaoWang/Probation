@@ -164,6 +164,9 @@ public class TimingGame implements Drawable {
      * The action performed once the player has tapped the screen.
      */
     public void onTouch() {
+        if(isAnimating()){
+            return;
+        }
         if (this.meter.cursorInTarget()) {
             this.currBullet = new PlayerBullet(this.screenWidth, this.screenHeight, gameStyle);
         } else {
@@ -171,6 +174,10 @@ public class TimingGame implements Drawable {
         }
 
         this.meter.newTarget();
+    }
+
+    private boolean isAnimating() {
+        return this.currWaitingFrame != 0 || this.currBullet != null;
     }
 
     /**
@@ -221,5 +228,21 @@ public class TimingGame implements Drawable {
 
     public boolean playerDestroyed(){
         return playerShip.isDestroyed();
+    }
+
+    public int getLevel() {
+        return this.currLevel;
+    }
+
+    public int getPlayerHealth() {
+        return this.playerShip.getHealth();
+    }
+
+    public int getPlayerDamage() {
+        return this.playerShip.getDamage();
+    }
+
+    public Integer getPlayerMaxHealth() {
+        return this.playerShip.getMaxHealth();
     }
 }

@@ -169,5 +169,9 @@ class Ship implements Drawable {
         return this.damage;
     }
 
+    int getMaxHealth() {
+        return this.health.getMaxHealth();
+    }
+
     // ====== END OF SETTERS/GETTERS =====
 }

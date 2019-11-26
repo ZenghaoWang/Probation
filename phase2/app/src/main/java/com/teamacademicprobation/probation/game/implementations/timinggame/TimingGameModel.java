@@ -11,9 +11,11 @@ import com.teamacademicprobation.probation.game.implementations.timinggame.timin
 import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class TimingGameModel implements Drawable {
+public class TimingGameModel implements Drawable{
 
     private TimingGame timingGame;
 
@@ -24,6 +26,8 @@ public class TimingGameModel implements Drawable {
     private static final int STAGES = 4;
 
     private boolean stageCompleted;
+
+    private static final String GAMEID = "Timing Game";
 
     /**
      * An object that allows the game to save data.
@@ -81,5 +85,24 @@ public class TimingGameModel implements Drawable {
         else{
             timingGame.onTouch();
         }
+
+    }
+
+    void updatePlayerStats() {
+        Map<String, Integer> statMap = new HashMap<>();
+        statMap.put("SCORE", timingGame.getScore());
+        statMap.put("CURRENT_STAGE", this.currStage);
+        statMap.put("CURRENT_LEVEL", timingGame.getLevel());
+        statMap.put("PLAYER_CURR_HEALTH", timingGame.getPlayerHealth());
+        statMap.put("PLAYER_MAX_HEALTH", timingGame.getPlayerMaxHealth());
+        statMap.put("PLAYER_DAMAGE", timingGame.getPlayerDamage());
+
+        this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
+
+    }
+
+
+    void endGame() {
+        this.playerAccess.endGame(currPlayerID, true);
     }
 }

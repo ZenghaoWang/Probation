@@ -71,4 +71,8 @@ class HealthBar implements Drawable {
         return new Rect(widthMargins, heightMargins, widthMargins+width, heightMargins+height);
 
     }
+
+    int getMaxHealth() {
+        return this.maxHealth;
+    }
 }

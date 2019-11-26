@@ -39,6 +39,7 @@ class TimingGamePresenter {
     void update() {
         this.timingGameModel.update();
         if (this.timingGameModel.isCompleted()) {
+            this.timingGameModel.endGame();
             String score = "" + this.timingGameModel.getScore();
             this.gameView.goToScoreScreen(score);
         }
@@ -61,6 +62,8 @@ class TimingGamePresenter {
      * Updates the timing game once a tap is detected.
      */
     void onTouch(double touchX) {
+
         this.timingGameModel.onTouch(touchX);
+        this.timingGameModel.updatePlayerStats();
     }
 }
