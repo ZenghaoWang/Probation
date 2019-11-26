@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+
 public class HealthBarDrawer implements AndroidDrawer {
 
     private Rect healthFrameRect;

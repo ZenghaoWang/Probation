@@ -3,9 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.view.MotionEvent;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
 import java.util.List;
 

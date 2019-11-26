@@ -2,8 +2,8 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.timi
 
 import android.content.Context;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;

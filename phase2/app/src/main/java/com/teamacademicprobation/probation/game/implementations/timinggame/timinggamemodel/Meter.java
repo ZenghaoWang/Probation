@@ -1,11 +1,10 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.MeterDrawer;
 
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ public class Meter implements Drawable {
      */
     private TargetZone targetZone;
 
-    private BonusZone bonusZone;
     /**
      * The sliding line.
      */
@@ -66,7 +64,6 @@ public class Meter implements Drawable {
     // ===== GENERATION METHODS =====
     private void generateContents(TimingGameStyle gameStyle) {
         this.targetZone = new TargetZone(this, gameStyle);
-        this.bonusZone = new BonusZone(this, gameStyle);
         this.cursor = new Cursor(gameStyle);
     }
 
@@ -127,39 +124,10 @@ public class Meter implements Drawable {
      * Randomly make the target box move locations.
      */
     void newTarget() {
-
         this.targetZone.generateBoxStart();
-        do {
-            this.bonusZone.generateBoxStart();
-        } while (this.overlapping());
     }
 
-    /**
-     * Determines if the target zone and the bonus zone overlap, with some margin.
-     *
-     * @return true if overlapping
-     */
-    private boolean overlapping() {
-        if (this.targetZone.getStart() <= this.bonusZone.getStart()) {
-            return bonusZone.getStart() - targetZone.getStart() < targetZone.getWidthRatio() + 0.1;
-        } else {
-            return targetZone.getStart() - bonusZone.getStart() < bonusZone.getWidthRatio() + 0.1;
-        }
-    }
 
-    /**
-     * Determines if the cursor is in the bonus zone.
-     *
-     * @return true if cursor in bonus.
-     */
-    public boolean cursorInBonus() {
-        if (this.isBonusVisible()) {
-            int cursorBonusDistance = Math.abs(this.getCursorDistanceFromBonus());
-            int bonusBoxWidth = this.getBonusBoxWidth();
-            return cursorBonusDistance <= bonusBoxWidth / 2;
-        }
-        return false;
-    }
 
     /**
      * Determines if the cursor is in the target zone.
@@ -190,28 +158,10 @@ public class Meter implements Drawable {
         return this.heightMargins;
     }
 
-    private int getBonusBoxWidth() {
-        return this.bonusZone.getWidth();
-    }
-
-    private int getCursorDistanceFromBonus() {
-        return cursor.cursorPosition - bonusZone.getTargetCenter();
-    }
-
-    private boolean isBonusVisible() {
-        return bonusZone.isVisible();
-    }
-
-    public void setBonusVisible(boolean b) {
-        this.bonusZone.setVisible(b);
-    }
 
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
-        if (bonusZone.isVisible()) {
-            drawers.addAll(bonusZone.getDrawers());
-        }
         drawers.addAll(targetZone.getDrawers());
         AndroidDrawer meterDrawer = new MeterDrawer(getMeterRect(), paint, this.cursor.getCoordinates(),
                 this.cursor.paint);

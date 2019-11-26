@@ -6,9 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.DamageBoostDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.HealthBoostDrawer;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.PowerUpLineDrawer;
 

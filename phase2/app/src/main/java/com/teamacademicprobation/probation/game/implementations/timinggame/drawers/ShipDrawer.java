@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+
 /**
  * An implementation of AndroidDrawer that draws the spaceships.
  */

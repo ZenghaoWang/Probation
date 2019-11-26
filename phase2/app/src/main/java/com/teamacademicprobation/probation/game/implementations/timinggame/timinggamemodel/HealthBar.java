@@ -3,11 +3,10 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.timi
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.HealthBarDrawer;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,10 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.Drawable;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.ZoneDrawer;
 
 import java.util.ArrayList;

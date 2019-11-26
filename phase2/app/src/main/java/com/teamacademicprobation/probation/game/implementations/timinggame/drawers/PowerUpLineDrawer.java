@@ -3,6 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.draw
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+
 public class PowerUpLineDrawer implements AndroidDrawer {
 
     private int x;

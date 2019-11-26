@@ -1,4 +1,4 @@
-package com.teamacademicprobation.probation.game.implementations.timinggame.drawers;
+package com.teamacademicprobation.probation.game.implementations;
 
 
 import android.graphics.Canvas;
