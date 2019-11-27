@@ -131,7 +131,6 @@ class TapGame implements Drawable {
      */
     private void setCompleted() {
         this.gameComplete = true;
-        playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
     }
 
     /**
@@ -143,10 +142,13 @@ class TapGame implements Drawable {
     void updateScore(double touchX, double touchY) {
         if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof NormalMole) {
             this.scoreBoard.earnPoint();
+            updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof KingMole) {
             this.scoreBoard.earnFivePoints();
+            updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof BombMole)
             this.scoreBoard.losePoint();
+        updatePlayerStats();
     }
 
     /**
@@ -171,6 +173,17 @@ class TapGame implements Drawable {
         drawers.addAll(scoreBoard.getDrawers());
         drawers.addAll(targetCounter.getDrawers());
         return drawers;
+    }
+
+    void updatePlayerStats() {
+        this.playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
+    }
+
+    /**
+     *
+     */
+    void endGame() {
+        this.playerAccess.endGame(currPlayerID, true);
     }
 }
 
