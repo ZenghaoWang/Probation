@@ -36,7 +36,6 @@ class TriviaGamePresenter {
      */
     void updateView() {
         model.getRandomQuestion();
-        model.updateStats();
         if (model.isCompleted()) {
             model.endGame();
             view.goToScoreScreen(model.generateScoreMessage());
@@ -55,10 +54,13 @@ class TriviaGamePresenter {
     /**
      * Evaluate whether the user-inputted answer is correct and display the appropriate toast
      * message on-screen.
+     * Updates high school stats accordingly.
      */
     void answerQuestion(String answer) {
         boolean answerCorrect = model.answerQuestion(answer);
         String message;
+        model.updateStats();
+
         if (answerCorrect) {
             message = CORRECT_ANSWER_MESSAGE;
         } else {
