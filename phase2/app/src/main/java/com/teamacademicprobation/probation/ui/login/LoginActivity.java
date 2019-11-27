@@ -11,6 +11,9 @@ import com.teamacademicprobation.probation.ui.MainActivity;
 
 import java.io.File;
 
+/**
+ * A login activity.
+ */
 public class LoginActivity extends AppCompatActivity implements LoginView {
   private EditText username;
   private EditText password;
@@ -30,11 +33,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     error = findViewById(R.id.txtErrorMsg);
   }
 
+  /**
+   * Method that is called when the login button is clicked.
+   * @param view
+   */
   public void loginClick(View view) {
-
     loginPresenter.login(username.getText().toString(), password.getText().toString());
   }
 
+  /**
+   * Method that is called when the register button is called.
+   * @param view
+   */
   public void registerClick(View view) {
 
     loginPresenter.register(username.getText().toString(), password.getText().toString());

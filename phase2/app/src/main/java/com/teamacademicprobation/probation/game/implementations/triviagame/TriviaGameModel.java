@@ -2,7 +2,6 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.util.Log;
 
-import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 
@@ -17,31 +16,31 @@ class TriviaGameModel {
     private static final String TAG = "TriviaGameModel";
 
     private String playerID;
-    private QuestionSet questionset;
+    private QuestionSet questionSet;
     private PlayerStatsAccess playerAccess;
 
     private int numQuestionsAnsweredCorrectly;
     private int totalNumQuestionsAnswered;
-    private int numQuestionsremaining;
+    private int numQuestionsRemaining;
     private Question currentQuestion;
-    private boolean finished;
+    private boolean completed;
 
     /**
      * * Construct a new TriviaGameModel.
      *
-     * @param questionset The set of questions that this game will use.
+     * @param questionSet The set of questions that this game will use.
      * @param playerID    The ID of the player who is currently playing.
      */
-    TriviaGameModel(QuestionSet questionset, String playerID) {
-        this.questionset = questionset;
+    TriviaGameModel(QuestionSet questionSet, String playerID) {
+        this.questionSet = questionSet;
         this.playerID = playerID;
         this.playerAccess = new PlayerManager();
 
         totalNumQuestionsAnswered = 0;
         numQuestionsAnsweredCorrectly = 0;
-        numQuestionsremaining = questionset.getNumQuestions();
+        numQuestionsRemaining = questionSet.getNumQuestions();
 
-        this.finished = false;
+        this.completed = false;
     }
 
     // Start of Getters
@@ -69,15 +68,15 @@ class TriviaGameModel {
 
     /**
      * Grabs a new question if possible.
-     * If out of questions, the game is finished.
+     * If out of questions, the game is completed.
      */
     void getRandomQuestion() {
         try {
-            currentQuestion = questionset.getRandomQuestion();
-            numQuestionsremaining -= 1;
+            currentQuestion = questionSet.getRandomQuestion();
+            numQuestionsRemaining -= 1;
         } catch (OutOfQuestionsException e) {
             Log.e(TAG, "Out of questions!");
-            finished = true;
+            completed = true;
         }
     }
 
@@ -100,10 +99,10 @@ class TriviaGameModel {
 
 
     /**
-     * @return Whether the game is finished.
+     * @return Whether the game is completed.
      */
-    boolean isFinished() {
-        return finished;
+    boolean isCompleted() {
+        return completed;
     }
 
 
@@ -140,7 +139,7 @@ class TriviaGameModel {
      * @return A message that indicates how many questions are left to answer.
      */
     String generateQuestionsRemainingString() {
-        return numQuestionsremaining + " Questions Left";
+        return numQuestionsRemaining + " Questions Left";
     }
 
     /**

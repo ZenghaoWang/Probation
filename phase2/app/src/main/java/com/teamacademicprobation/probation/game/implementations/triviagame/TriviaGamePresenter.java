@@ -36,7 +36,7 @@ class TriviaGamePresenter {
      */
     void updateView() {
         model.getRandomQuestion();
-        if (model.isFinished()) {
+        if (model.isCompleted()) {
             view.goToScoreScreen(model.generateScoreMessage());
             model.updateStats();
         } else {

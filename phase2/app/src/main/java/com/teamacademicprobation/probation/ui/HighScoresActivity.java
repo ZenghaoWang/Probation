@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.player.Player;
-import com.teamacademicprobation.probation.player.PlayerAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;

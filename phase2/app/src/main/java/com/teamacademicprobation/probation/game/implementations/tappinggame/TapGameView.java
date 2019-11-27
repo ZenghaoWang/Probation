@@ -54,7 +54,7 @@ public class TapGameView extends SurfaceView implements Runnable {
      */
     public void goToScoreScreen(String score) {
         Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-        intent.putExtra("score", "You scored:" + score);
+        intent.putExtra(ScoreScreenActivity.SCORE_KEY, "You scored:" + score);
         getContext().startActivity(intent);
     }
 

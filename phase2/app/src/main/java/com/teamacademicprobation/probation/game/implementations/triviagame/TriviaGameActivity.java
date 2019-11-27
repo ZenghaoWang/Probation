@@ -19,7 +19,7 @@ import com.teamacademicprobation.probation.ui.login.LoginActivity;
  * The front-end for the trivia game.
  */
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
-    private static TriviaGamePresenter triviaGamePresenter;
+    private TriviaGamePresenter triviaGamePresenter; // This was static.
     private Button answer1;
     private Button answer2;
     private Button answer3;
@@ -73,7 +73,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
      */
     public void goToScoreScreen(String scoreMessage) {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
-        intent.putExtra("score", scoreMessage);
+        intent.putExtra(ScoreScreenActivity.SCORE_KEY, scoreMessage);
         startActivity(intent);
     }
 

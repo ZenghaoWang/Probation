@@ -15,6 +15,8 @@ import com.teamacademicprobation.probation.R;
  */
 public class ScoreScreenActivity extends AppCompatActivity {
 
+    public static final String SCORE_KEY = "score";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class ScoreScreenActivity extends AppCompatActivity {
     private void displayScoreMessage() {
         TextView scoreMessage = findViewById(R.id.scoreMessage);
         Intent intent = getIntent();
-        scoreMessage.setText(intent.getStringExtra("score"));
+        scoreMessage.setText(intent.getStringExtra(SCORE_KEY));
     }
 
     /**
