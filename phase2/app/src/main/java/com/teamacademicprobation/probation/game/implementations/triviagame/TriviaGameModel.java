@@ -149,5 +149,12 @@ class TriviaGameModel {
         playerAccess.updateStats(playerID, GAMEID, "score", generateScorePercentage());
     }
 
+    /**
+     * Ends the game
+     */
+    void endGame(){
+        this.playerAccess.endGame(playerID, true);
+    }
+
 
 }

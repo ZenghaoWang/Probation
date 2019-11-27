@@ -36,9 +36,10 @@ class TriviaGamePresenter {
      */
     void updateView() {
         model.getRandomQuestion();
+        model.updateStats();
         if (model.isCompleted()) {
+            model.endGame();
             view.goToScoreScreen(model.generateScoreMessage());
-            model.updateStats();
         } else {
             view.setQuestion(model.getCurrentQuestion());
             view.setAnswer1(model.getAnswer1());
@@ -65,4 +66,5 @@ class TriviaGamePresenter {
         }
         view.showToast(message);
     }
+
 }
