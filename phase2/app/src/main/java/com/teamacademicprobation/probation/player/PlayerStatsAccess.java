@@ -11,7 +11,7 @@ public interface PlayerStatsAccess {
 
   void endGame(String playerID, boolean save);
 
-  Map<String, Integer> getBest(String playerID, String gameID);
+  String getCurrGameID(String playerID);
 
-  List<String> getGamesPlayed(String playerID);
+  Map<String, Integer> getCurrStats(String playerID);
 }

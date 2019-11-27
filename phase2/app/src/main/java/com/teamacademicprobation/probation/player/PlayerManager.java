@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * An implementation of PlayerAccess.
  */ //TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
-public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess {
+public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess, GameStatsAccess{
 
   /**
    * The DataAccessObject that will be responsible for writing/reading from the database.
@@ -136,6 +136,19 @@ public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, Play
     }
   }
 
+  @Override
+  public String getCurrGameID(String playerID) {
+    Player currPlayer = getPlayer(playerID);
+    return currPlayer.getCurrGameID();
+  }
+
+  @Override
+  public Map<String, Integer> getCurrStats(String playerID) {
+    Player currPlayer = getPlayer(playerID);
+    String currGameID = currPlayer.getCurrGameID();
+    return currPlayer.getCurrStats().get(currGameID);
+  }
+
   /**
    * Returns a map of the best scores for a given game, given a player.
    *
@@ -144,7 +157,7 @@ public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, Play
    * @return
    */
   @Override
-  public Map<String, Integer> getBest(String playerID, String gameID) {
+  public Map<String, Integer> getBestStats(String playerID, String gameID) {
     Player currPlayer = getPlayer(playerID);
     return currPlayer.getBestStats(gameID);
   }

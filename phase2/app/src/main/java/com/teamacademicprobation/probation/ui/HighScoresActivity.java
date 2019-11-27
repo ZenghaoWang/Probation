@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.player.Player;
 import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerStatsAccess;
+import com.teamacademicprobation.probation.player.GameStatsAccess;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 import java.util.ArrayList;
@@ -47,11 +47,11 @@ public class HighScoresActivity extends AppCompatActivity {
 
     String[] result;
     String playerID = getIntent().getStringExtra(LoginActivity.PLAYER_ID_KEY);
-    PlayerStatsAccess playerAccess = new PlayerManager();
+    GameStatsAccess gameStatsAccess = new PlayerManager();
     List<String> statsToShow = new ArrayList<>();
-    List<String> gameIDs = playerAccess.getGamesPlayed(playerID);
+    List<String> gameIDs = gameStatsAccess.getGamesPlayed(playerID);
     for (String gameID : gameIDs) {
-      buildStrings(playerID, playerAccess, statsToShow, gameID);
+      buildStrings(playerID, gameStatsAccess, statsToShow, gameID);
     }
     result = new String[statsToShow.size()];
     statsToShow.toArray(result);
@@ -63,14 +63,14 @@ public class HighScoresActivity extends AppCompatActivity {
    * appends it to the list statsToShow.
    *
    * @param playerID The playerID of this game.
-   * @param playerAccess An object that allows some access into the player.
+   * @param gameStatsAccess An object that allows some access into the player.
    * @param statsToShow The list to append the results onto.
    * @param gameID The gameID of the game to retrieve statistics from.
    */
   private void buildStrings(
-      String playerID, PlayerStatsAccess playerAccess, List<String> statsToShow, String gameID) {
+      String playerID, GameStatsAccess gameStatsAccess, List<String> statsToShow, String gameID) {
     StringBuilder toShow = new StringBuilder(gameID + ": ");
-    Map<String, Integer> gameStatMap = playerAccess.getBest(playerID, gameID);
+    Map<String, Integer> gameStatMap = gameStatsAccess.getBestStats(playerID, gameID);
     for (String statID : gameStatMap.keySet()) {
       toShow.append(statID).append(": ").append(gameStatMap.get(statID));
     }
