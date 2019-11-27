@@ -40,6 +40,7 @@ class TapGamePresenter {
     void update() {
         this.tapGame.update();
         if (this.tapGame.getGameComplete()) {
+            this.tapGame.endGame();
             String score = "" + this.tapGame.getScore();
             this.tapGameView.goToScoreScreen(score);
         }
