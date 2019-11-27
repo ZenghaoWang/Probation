@@ -1,43 +1,46 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 
-import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.game.ScoreBoard;
-import com.teamacademicprobation.probation.player.PlayerAccess;
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.BackGround;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.BombMole;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.KingMole;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.Mole;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMole;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMoleCounter;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TapScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerStatsAccess;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * A Tapping game where the player tries to tap the target object and avoid tapping non-target.
  */
-class TapGame {
+class TapGame implements Drawable {
     /**
      * The gameID of this game.
      */
-    private static final String GAME_ID = "TapGame";
+    private static final String GAMEID = "TapGame";
     /**
      * Represents if the game is completed.
      */
     private boolean gameComplete;
 
-    private NormalMole normalMole;
-    private KingMole kingMole;
-    private BombMole bombMole;
-    private ScoreBoard scoreBoard;
+    private Mole currMole;
+    private BackGround backGround;
+    private TapScoreBoard scoreBoard;
     private Random r = new Random();
     private NormalMoleCounter targetCounter;
     private int x;
     private int y;
-    private PlayerStatsAccess playerAccess;
     private String currPlayerID;
     private Context context;
-    private Bitmap backGroundBitmap;
+    private PlayerStatsAccess playerAccess;
 
     /**
      * Constructor for the Tap game.
@@ -47,13 +50,11 @@ class TapGame {
         this.y = y;
         this.context = context;
         this.gameComplete = false;
-        this.scoreBoard = new ScoreBoard(x, y);
+        this.scoreBoard = new TapScoreBoard(x, y);
         this.targetCounter = new NormalMoleCounter(x, y);
-        this.playerAccess = new PlayerManager();
+        this.backGround = new BackGround(context, x, y);
         this.currPlayerID = currPlayerID;
-        this.backGroundBitmap =
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.tap_background);
-        this.backGroundBitmap = Bitmap.createScaledBitmap(this.backGroundBitmap, x, y, true);
+        this.playerAccess = new PlayerManager();
     }
 
     /**
@@ -72,43 +73,6 @@ class TapGame {
         return this.scoreBoard.getScore();
     }
 
-    /**
-     * Return targetObject.
-     *
-     * @return NormalMole
-     */
-    private NormalMole getNormalMole() {
-        return this.normalMole;
-    }
-
-    /**
-     * Return targetObject.
-     *
-     * @return nonTargetObject
-     */
-    private BombMole getBombMole() {
-        return this.bombMole;
-    }
-
-    private KingMole getKingMole() {
-        return kingMole;
-    }
-
-    /**
-     * Draw the TapGame objects on the canvas.
-     */
-    void draw(Canvas canvas) {
-        canvas.drawBitmap(this.backGroundBitmap, 0, 0, null);
-        this.scoreBoard.draw(canvas);
-        this.targetCounter.draw(canvas);
-        if (this.normalMole != null) {
-            this.normalMole.draw(canvas);
-        } else if (this.bombMole != null) {
-            this.bombMole.draw(canvas);
-        } else if (this.kingMole != null) {
-            this.kingMole.draw(canvas);
-        }
-    }
 
     /**
      * Updates the TapGame.
@@ -129,30 +93,33 @@ class TapGame {
         }
     }
 
+    /**
+     * Sets the current Mole to a KingMole.
+     */
     private void createKingMole() {
-        this.normalMole = null;
-        this.bombMole = null;
-        this.kingMole =
+        this.currMole =
                 new KingMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
                         r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2);
     }
 
+    /**
+     * Sets the current Mole to a NormalMole.
+     */
     private void createNormalMole() {
-        this.bombMole = null;
-        this.kingMole = null;
-        normalMole =
+        currMole =
                 new NormalMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
                         r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2);
     }
 
+    /**
+     * Sets the current Mole to a BombMole.
+     */
     private void createBombMole() {
-        this.normalMole = null;
-        this.kingMole = null;
-        this.bombMole =
+        this.currMole =
                 new BombMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
@@ -164,37 +131,46 @@ class TapGame {
      */
     private void setCompleted() {
         this.gameComplete = true;
-        playerAccess.updateStats(currPlayerID, GAME_ID, "score", this.scoreBoard.getScore());
+        playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
     }
 
     /**
-     * Checks if the user tapped on the non-target or target object.
+     * Updates the score accordingly to what type of mole the user tapped.
      *
-     * @param touch_x the x-coordinate where the user touched.
-     * @param touch_y the x-coordinate where the user touched
+     * @param touchX the x-coordinate where the user touched.
+     * @param touchY the x-coordinate where the user touched
      */
-    void check_touch(double touch_x, double touch_y) {
-        if (this.getNormalMole() != null) {
-            if (this.getNormalMole().getX() < touch_x
-                    && touch_x < this.getNormalMole().getX() + this.getNormalMole().getSize()
-                    && this.getNormalMole().getY() < touch_y
-                    && touch_y < this.getNormalMole().getY() + this.getNormalMole().getSize()) {
-                this.scoreBoard.earnPoint();
-            }
-        } else if (this.getKingMole() != null) {
-            if (this.getKingMole().getX() < touch_x
-                    && touch_x < this.getKingMole().getX() + this.getKingMole().getSize()
-                    && this.getKingMole().getY() < touch_y
-                    && touch_y < this.getKingMole().getY() + this.getKingMole().getSize()) {
-                this.scoreBoard.earnFivePoints();
-            }
-        } else if (this.getBombMole() != null)
-            if (this.getBombMole().getX() < touch_x
-                    && touch_x < this.getBombMole().getX() + this.getBombMole().getSize()
-                    && this.getBombMole().getY() < touch_y
-                    && touch_y < this.getBombMole().getY() + this.getBombMole().getSize()) {
-                this.scoreBoard.losePoint();
-            }
+    void updateScore(double touchX, double touchY) {
+        if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof NormalMole) {
+            this.scoreBoard.earnPoint();
+        } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof KingMole) {
+            this.scoreBoard.earnFivePoints();
+        } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof BombMole)
+            this.scoreBoard.losePoint();
+    }
+
+    /**
+     * Checks if the user tapped on a mole.
+     *
+     * @param touchX the x-coordinate where the user touched.
+     * @param touchY the x-coordinate where the user touched.
+     * @param mole   the mole that the user tapped.
+     */
+    private boolean checkTouch(double touchX, double touchY, Mole mole) {
+        return mole.getX() < touchX
+                && touchX < mole.getX() + mole.getSize()
+                && mole.getY() < touchY
+                && touchY < mole.getY() + mole.getSize();
+    }
+
+    @Override
+    public List<AndroidDrawer> getDrawers() {
+        List<AndroidDrawer> drawers = new ArrayList<>();
+        drawers.addAll(backGround.getDrawers());
+        drawers.addAll(currMole.getDrawers());
+        drawers.addAll(scoreBoard.getDrawers());
+        drawers.addAll(targetCounter.getDrawers());
+        return drawers;
     }
 }
 

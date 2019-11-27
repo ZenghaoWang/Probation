@@ -1,8 +1,8 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,12 +11,12 @@ import android.view.SurfaceView;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
+@SuppressLint("ViewConstructor")
 public class TapGameView extends SurfaceView implements Runnable {
     volatile boolean playing;
     private Thread gameThread = null;
     private SurfaceHolder surfaceHolder;
-    private TapGame tapGame;
-    private Canvas canvas;
+    private TapGamePresenter tapGamePresenter;
 
     /**
      * Initializes the view and starts the tapping game in the context environment.
@@ -27,9 +27,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     public TapGameView(Context context, String currPlayerID) {
         super(context);
         surfaceHolder = getHolder();
-        int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-        tapGame = new TapGame(context, screenWidth, screenHeight, currPlayerID);
+        this.tapGamePresenter = new TapGamePresenter(this, currPlayerID);
     }
 
     /**
@@ -48,18 +46,15 @@ public class TapGameView extends SurfaceView implements Runnable {
      * Updates the game.
      */
     private void update() {
-        tapGame.update();
-        if (tapGame.getGameComplete()) {
-            goToScoreScreen();
-        }
+        this.tapGamePresenter.update();
     }
 
     /**
      * Switches to the ScoreScreenActivity.
      */
-    private void goToScoreScreen() {
+    public void goToScoreScreen(String score) {
         Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
-        intent.putExtra("score", "You scored:" + this.tapGame.getScore());
+        intent.putExtra("score", "You scored:" + score);
         getContext().startActivity(intent);
     }
 
@@ -68,8 +63,8 @@ public class TapGameView extends SurfaceView implements Runnable {
      */
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
-            canvas = surfaceHolder.lockCanvas();
-            tapGame.draw(canvas);
+            Canvas canvas = surfaceHolder.lockCanvas();
+            this.tapGamePresenter.draw(canvas);
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -97,12 +92,11 @@ public class TapGameView extends SurfaceView implements Runnable {
         gameThread.start();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            double touch_x = event.getX();
-            double touch_y = event.getY();
-            tapGame.check_touch(touch_x, touch_y);
+            this.tapGamePresenter.updateScore(event.getX(), event.getY());
             return true;
         }
         return false;

@@ -68,18 +68,6 @@ public class ScoreBoard {
     }
   }
 
-  /**
-   * Draws the scoreboard onto the canvas.
-   *
-   * @param canvas The canvas on which to draw onto.
-   */
-  public void draw(Canvas canvas) {
-    int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
-    int numChars = ("" + score).length();
-
-    canvas.drawText("Score:" + this.score, this.x - (charWidth * numChars), this.y, paint);
-  }
-
   protected int getX() {
     int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
     int numChars = ("" + score).length();
