@@ -21,28 +21,28 @@
             android:id="@+id/btnTrivia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startGame"
+            android:onClick="onClick"
             android:text="Trivia" />
 
         <Button
             android:id="@+id/btnTiming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startGame"
+            android:onClick="onClick"
             android:text="Timing" />
 
         <Button
             android:id="@+id/btnTapping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startGame"
+            android:onClick="onClick"
             android:text="Tapping" />
 
         <Button
             android:id="@+id/bestgames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="enterScoreScreen"
+            android:onClick="onClick"
             android:text="View High Scores" />
     </LinearLayout>
 
