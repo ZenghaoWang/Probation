@@ -9,7 +9,7 @@ import com.teamacademicprobation.probation.game.implementations.timinggame.timin
 import com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel.TimingGameStyle;
 import com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel.TimingGameStyles;
 import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerStatsAccess;
+import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class TimingGameModel implements Drawable{
     /**
      * An object that allows the game to save data.
      */
-    private PlayerStatsAccess playerAccess;
+    private PlayerGameStatsAccess playerAccess;
     /**
      * The player ID of the player currently playing this game.
      */

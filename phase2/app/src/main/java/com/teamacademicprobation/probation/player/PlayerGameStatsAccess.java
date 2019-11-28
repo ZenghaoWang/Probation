@@ -3,7 +3,7 @@ package com.teamacademicprobation.probation.player;
 import java.util.List;
 import java.util.Map;
 
-public interface PlayerStatsAccess {
+public interface PlayerGameStatsAccess {
 
   void updateStats(String playerID, String gameID, String statID, int stat);
 

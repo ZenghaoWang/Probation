@@ -12,7 +12,7 @@ import com.teamacademicprobation.probation.game.implementations.tappinggame.tapg
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMoleCounter;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TapScoreBoard;
 import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerStatsAccess;
+import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ class TapGame implements Drawable {
     private int y;
     private String currPlayerID;
     private Context context;
-    private PlayerStatsAccess playerAccess;
+    private PlayerGameStatsAccess playerAccess;
 
     /**
      * Constructor for the Tap game.

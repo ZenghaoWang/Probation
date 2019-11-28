@@ -218,7 +218,7 @@ public class TimingGame implements Drawable {
             this.playerShip.increaseDamage(1);
         }
         else{
-            this.playerShip.setHealth(this.playerShip.getHealth()+1);
+            this.playerShip.setHealth(this.playerShip.getMaxHealth()+1);
         }
     }
 
