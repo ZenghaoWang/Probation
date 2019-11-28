@@ -3,7 +3,7 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 import android.util.Log;
 
 import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerStatsAccess;
+import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 
 // MVP structure from https://github.com/antoniolg/androidmvp
 
@@ -15,7 +15,7 @@ class TriviaGameModel {
 
   private String playerID;
   private QuestionSet questionSet;
-  private PlayerStatsAccess playerAccess;
+  private PlayerGameStatsAccess playerAccess;
 
   private int numQuestionsAnsweredCorrectly;
   private int totalNumQuestionsAnswered;

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * An implementation of PlayerAccess.
  */ //TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
-public class PlayerManager implements PlayerLoginAccess, PlayerStatsAccess, PlayerPreferencesAccess, GameStatsAccess{
+public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, PlayerPreferencesAccess, PlayerTotalStatsAccess {
 
   /**
    * The DataAccessObject that will be responsible for writing/reading from the database.
