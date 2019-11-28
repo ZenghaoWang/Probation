@@ -10,7 +10,6 @@ import com.teamacademicprobation.probation.game.implementations.tappinggame.tapg
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * A Mole object that the players will tap when playing the game.
  */
@@ -35,7 +34,6 @@ public class Mole implements Drawable {
      * The bitmap of the bole to be drawn.
      */
     private Bitmap bitmap;
-
 
     /**
      * Initializes the x and y coordinates of the Mole.
@@ -90,7 +88,6 @@ public class Mole implements Drawable {
         return Bitmap.createScaledBitmap(getBitmap(), this.size, this.size, true);
     }
 
-
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
@@ -98,5 +95,5 @@ public class Mole implements Drawable {
         moleDrawer = new MoleDrawer(getResizedBitmap(), x, y, paint);
         drawers.add(moleDrawer);
         return drawers;
-    }
+  }
 }

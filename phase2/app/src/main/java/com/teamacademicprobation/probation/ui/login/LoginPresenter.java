@@ -15,6 +15,7 @@ class LoginPresenter {
 
   /**
    * Initializes this login presenter.
+   *
    * @param loginView The view that instantiated this presenter
    * @param dataFile The file to save data into.
    */
@@ -24,10 +25,10 @@ class LoginPresenter {
     PlayerManager.setDataFile(dataFile);
   }
 
-  /**
-   * Logs into the game.
-   * It does not log into the game if the username or password is empty, or if the
-   * password is invalid.
+    /**
+     * Logs into the game. It does not log into the game if the username or password is empty, or if
+     * the password is invalid.
+     *
    * @param username The username written in the text field.
    * @param password The password written in the text field.
    */
@@ -44,9 +45,10 @@ class LoginPresenter {
     }
   }
 
-  /**
-   * Registers a new player, and logs them into the game.
-   * It does not register if the username has already been taken.
+    /**
+     * Registers a new player, and logs them into the game. It does not register if the username has
+     * already been taken.
+     *
    * @param username The username written in the text field.
    * @param password The password written in the text field.
    */

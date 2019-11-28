@@ -8,6 +8,9 @@ import android.graphics.Color;
  */
 public class TimingGameStyle {
 
+    private static final int STYLE1_ACCENT = Color.rgb(87, 255, 241);
+    private static final int STYLE2_ACCENT = Color.rgb(255, 31, 31);
+    private static final int STYLE3_ACCENT = Color.rgb(11, 222, 0);
     private int meterColor;
     private int bonusZoneColor;
     private int cursorColor;
@@ -15,12 +18,6 @@ public class TimingGameStyle {
     private int bulletColor;
     private int healthBarColor;
     private int healthFrameColor;
-
-
-    private static final int STYLE1_ACCENT = Color.rgb(87, 255, 241);
-    private static final int STYLE2_ACCENT = Color.rgb(255, 31, 31);
-    private static final int STYLE3_ACCENT = Color.rgb(11, 222, 0);
-
 
     /**
      * Initializes a new TimingGameStyle based on the preferences.

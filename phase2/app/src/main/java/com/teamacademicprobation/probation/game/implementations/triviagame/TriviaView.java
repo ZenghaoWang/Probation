@@ -1,6 +1,6 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
-//MVP structure from https://github.com/antoniolg/androidmvp
+// MVP structure from https://github.com/antoniolg/androidmvp
 
 /**
  * An interface implemented by trivia game UIs.
@@ -35,5 +35,4 @@ public interface TriviaView {
     void setScore(String newText);
 
     void setQuestionsRemaining(String newText);
-
 }

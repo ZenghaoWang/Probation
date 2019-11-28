@@ -1,11 +1,13 @@
 package com.teamacademicprobation.probation.ui.login;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
+
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.MainActivity;
 
@@ -15,11 +17,11 @@ import java.io.File;
  * A login activity.
  */
 public class LoginActivity extends AppCompatActivity implements LoginView {
+    public static final String FILE_PATH = "PlayerData.txt";
+    public static final String PLAYER_ID_KEY = "PlayerID";
   private EditText username;
   private EditText password;
   private TextView error;
-  public static final String FILE_PATH = "PlayerData.txt";
-  public static final String PLAYER_ID_KEY = "PlayerID";
   private LoginPresenter loginPresenter;
 
   @Override
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
   /**
    * Method that is called when the login button is clicked.
+   *
    * @param view
    */
   public void loginClick(View view) {
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
   /**
    * Method that is called when the register button is called.
+   *
    * @param view
    */
   public void registerClick(View view) {

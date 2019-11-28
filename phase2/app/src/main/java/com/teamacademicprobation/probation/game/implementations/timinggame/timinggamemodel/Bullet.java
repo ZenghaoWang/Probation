@@ -3,8 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.timi
 import android.graphics.Paint;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.BulletDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
+import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.BulletDrawer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +12,16 @@ import java.util.List;
 /**
  * A class that represents a shot bullet.
  */
-
 class Bullet implements Drawable {
 
-    /**
-     * The radius of the bullet.
-     */
-    private static final int RADIUS = 16;
     /**
      * The number of frames that the bullet should be on screen for.
      */
     static final int FRAMES = 10;
+    /**
+     * The radius of the bullet.
+     */
+    private static final int RADIUS = 16;
     /**
      * The current frame the bullet is on.
      */
@@ -43,7 +42,6 @@ class Bullet implements Drawable {
      * The style of this bullet.
      */
     private Paint paint;
-
 
     /**
      * Initializes a new bullet.
@@ -96,5 +94,5 @@ class Bullet implements Drawable {
             drawers.add(drawer);
         }
         return drawers;
-    }
+  }
 }

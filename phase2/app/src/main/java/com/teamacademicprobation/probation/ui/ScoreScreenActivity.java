@@ -36,6 +36,7 @@ public class ScoreScreenActivity extends AppCompatActivity {
 
     /**
      * Return to the home-screen.
+     *
      * @param view The return to main menu button.
      */
     public void returnToHomeScreen(View view) {

@@ -35,8 +35,8 @@ public class NormalMoleCounter implements Drawable {
     private int y;
 
     /**
-     * Initializes the x and y coordinates, normalMoleCount, paint. The x and y coordinates are in ratios
-     * of the screenWidth and screenHeight.
+     * Initializes the x and y coordinates, normalMoleCount, paint. The x and y coordinates are in
+     * ratios of the screenWidth and screenHeight.
      *
      * @param screenWidth  The width of the screen in pixels.
      * @param screenHeight The height of the screen in pixels.
@@ -64,7 +64,6 @@ public class NormalMoleCounter implements Drawable {
      *
      * @return normalMoleCount
      */
-
     public int getNormalMoleLimit() {
         return normalMoleLimit;
     }
@@ -79,8 +78,10 @@ public class NormalMoleCounter implements Drawable {
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
-        AndroidDrawer drawer = new MoleCounterDrawer(this.x, this.y, this.getNormalMoleLimit(), this.getNormalMoleCount(), this.paint);
+        AndroidDrawer drawer =
+                new MoleCounterDrawer(
+                        this.x, this.y, this.getNormalMoleLimit(), this.getNormalMoleCount(), this.paint);
         drawers.add(drawer);
         return drawers;
-    }
+  }
 }

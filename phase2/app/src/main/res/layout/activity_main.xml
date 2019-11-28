@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,29 +21,29 @@
             android:id="@+id/btnTrivia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Trivia"
-            android:onClick="startGame"/>
+            android:onClick="startGame"
+            android:text="Trivia" />
 
         <Button
             android:id="@+id/btnTiming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Timing"
-            android:onClick="startGame" />
+            android:onClick="startGame"
+            android:text="Timing" />
 
         <Button
             android:id="@+id/btnTapping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tapping"
-            android:onClick="startGame" />
+            android:onClick="startGame"
+            android:text="Tapping" />
 
         <Button
             android:id="@+id/bestgames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View High Scores"
-            android:onClick="enterScoreScreen"/>
+            android:onClick="enterScoreScreen"
+            android:text="View High Scores" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

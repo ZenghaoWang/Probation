@@ -3,8 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 import java.util.ArrayList;
 
 /**
- * Represents a single multiple-choice trivia question.
- * A questions has 4 possible answers, one of which is correct.
+ * Represents a single multiple-choice trivia question. A questions has 4 possible answers, one of
+ * which is correct.
  */
 class Question {
     private String question;
@@ -16,9 +16,9 @@ class Question {
     /**
      * Constructs a question.
      *
-     * @param question         The question.
-     * @param potentialAnswers 4 potential answers.
-     * @param correctAnswerIndex  The index of the correct answer.
+     * @param question           The question.
+     * @param potentialAnswers   4 potential answers.
+     * @param correctAnswerIndex The index of the correct answer.
      */
     Question(String question, ArrayList<String> potentialAnswers, int correctAnswerIndex) {
         this.question = question;

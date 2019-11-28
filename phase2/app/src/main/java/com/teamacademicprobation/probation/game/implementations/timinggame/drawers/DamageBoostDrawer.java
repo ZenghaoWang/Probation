@@ -8,12 +8,11 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
 public class DamageBoostDrawer implements AndroidDrawer {
 
-    private Bitmap increaseDamage;
     private static final String MESSAGE = "+1 Damage";
+    private Bitmap increaseDamage;
     private int x;
     private int y;
     private Paint paint;
-
 
     public DamageBoostDrawer(Bitmap increaseDamage, int x, int y, Paint paint) {
         this.increaseDamage = increaseDamage;
@@ -25,6 +24,6 @@ public class DamageBoostDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(increaseDamage, x, y, null);
-        canvas.drawText(MESSAGE, x-20, y-90, paint);
+        canvas.drawText(MESSAGE, x - 20, y - 90, paint);
     }
 }

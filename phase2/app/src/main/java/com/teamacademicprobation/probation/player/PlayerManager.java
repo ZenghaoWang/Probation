@@ -11,13 +11,25 @@ import java.util.Map;
 
 /**
  * An implementation of PlayerAccess.
- */ //TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
-public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, PlayerPreferencesAccess, PlayerTotalStatsAccess {
+ */
+// TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
+public class PlayerManager
+        implements PlayerLoginAccess,
+        PlayerGameStatsAccess,
+        PlayerPreferencesAccess,
+        PlayerTotalStatsAccess {
 
-  /**
-   * The DataAccessObject that will be responsible for writing/reading from the database.
-   */
+    /** The DataAccessObject that will be responsible for writing/reading from the database. */
   private static DataAccessObject dataAccess = new DataManager();
+
+    /**
+     * Sets the data file.
+     *
+     * @param dataFile
+     */
+    public static void setDataFile(File dataFile) {
+        dataAccess.setData(dataFile);
+    }
 
   /**
    * Creates a new player, and saves it into the database.
@@ -41,9 +53,9 @@ public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, 
    * Updates the statistics of a player (a single statistic)
    *
    * @param playerID The playerID of the player to save into.
-   * @param gameID   The game that calls this method.
-   * @param statID   The stat that the game wants to save.
-   * @param stat     The stat value.
+   * @param gameID The game that calls this method.
+   * @param statID The stat that the game wants to save.
+   * @param stat The stat value.
    */
   @Override
   public void updateStats(String playerID, String gameID, String statID, int stat) {
@@ -66,8 +78,8 @@ public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, 
    * Updates the statistics of a player (a map of statistics)
    *
    * @param playerID The playerID of the player to save into.
-   * @param gameID   The game that calls this method.
-   * @param stats    A map of the statistics plus their values
+   * @param gameID The game that calls this method.
+   * @param stats A map of the statistics plus their values
    */
   @Override
   public void updateStats(String playerID, String gameID, Map<String, Integer> stats) {
@@ -107,7 +119,6 @@ public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, 
     } catch (NullPointerException e) {
       Log.e("PlayerManager", "No player with this playerID.");
     }
-
   }
 
   /**
@@ -153,7 +164,7 @@ public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, 
    * Returns a map of the best scores for a given game, given a player.
    *
    * @param playerID the playerID to retrieve information from.
-   * @param gameID   the gameID of the best scores to retrieve.
+   * @param gameID the gameID of the best scores to retrieve.
    * @return
    */
   @Override
@@ -184,14 +195,5 @@ public class PlayerManager implements PlayerLoginAccess, PlayerGameStatsAccess, 
   public void updatePreferences(String playerID, Map<String, String> preferences) {
     Player playerToUpdate = getPlayer(playerID);
     playerToUpdate.updatePreferences(preferences);
-  }
-
-  /**
-   * Sets the data file.
-   *
-   * @param dataFile
-   */
-  public static void setDataFile(File dataFile) {
-    dataAccess.setData(dataFile);
   }
 }

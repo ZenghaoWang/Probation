@@ -8,8 +8,8 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
 public class HealthBoostDrawer implements AndroidDrawer {
 
-    private Bitmap increaseHealth;
     private static final String MESSAGE = "+1 Health";
+    private Bitmap increaseHealth;
     private int x;
     private int y;
     private Paint paint;
@@ -24,6 +24,6 @@ public class HealthBoostDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(increaseHealth, x, y, null);
-        canvas.drawText(MESSAGE, x, y-90, paint);
+        canvas.drawText(MESSAGE, x, y - 90, paint);
     }
 }

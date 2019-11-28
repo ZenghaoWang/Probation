@@ -8,19 +8,20 @@ import com.teamacademicprobation.probation.game.implementations.Drawable;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 // TODO: IMPLEMENT BONUS BOX
 // TODO: IMPLEMENT SAVE / PREFERENCES
 // TODO: CLEAN UP THE CODE
 
 /**
- * Timing game version 2! When the cursor is at the area, tap to shoot a bullet. Each enemy's
- * health is increased by 1 when you destroy the previous one! The boss has 7 health for now.
+ * Timing game version 2! When the cursor is at the area, tap to shoot a bullet. Each enemy's health
+ * is increased by 1 when you destroy the previous one! The boss has 7 health for now.
  */
-
 public class TimingGame implements Drawable {
 
+    /**
+     * The end level of the game.
+     */
+    static final int BOSS_LEVEL = 3;
     /**
      * Number of frames to wait before any action is done.
      */
@@ -29,20 +30,11 @@ public class TimingGame implements Drawable {
      * The current frame when waiting.
      */
     private int currWaitingFrame = 0;
-
-
     /**
      * The current level of the game.
      */
     private int currLevel = 1;
-    /**
-     * The end level of the game.
-     */
-    static final int BOSS_LEVEL = 3;
-
-
     private TimingGameScoreBoard scoreBoard;
-
 
     // ===== Objects for the game =====
     private Meter meter;
@@ -55,7 +47,6 @@ public class TimingGame implements Drawable {
      * Represents if the stage has been completed or not.
      */
     private boolean stageCompleted;
-
 
     private int screenWidth;
     private int screenHeight;
@@ -101,8 +92,8 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Checks if the bullet has made contact, and damages the target if it does.
-     * Resets currBullet to null.
+     * Checks if the bullet has made contact, and damages the target if it does. Resets currBullet to
+     * null.
      */
     private void updateBullet() {
         if (this.currBullet != null && this.currBullet.contact()) {
@@ -112,8 +103,8 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Checks if the enemy has been destroyed. If the enemy is destroyed, wait a bit, then
-     * create a new enemy ship.
+     * Checks if the enemy has been destroyed. If the enemy is destroyed, wait a bit, then create a
+     * new enemy ship.
      */
     private void updateEnemy() {
         if (this.enemyShip.isDestroyed()) {
@@ -127,8 +118,8 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Checks in the player has been destroyed. If the player is destroyed, wait a bit then
-     * end the game.
+     * Checks in the player has been destroyed. If the player is destroyed, wait a bit then end the
+     * game.
      */
     private void updatePlayer() {
         if (this.playerShip.isDestroyed()) {
@@ -145,7 +136,7 @@ public class TimingGame implements Drawable {
     private void damageBulletTarget() {
         if (this.currBullet instanceof PlayerBullet) {
             damageTarget(enemyShip, playerShip);
-            if(enemyShip.isDestroyed()){
+            if (enemyShip.isDestroyed()) {
                 this.updateScore();
             }
         } else {
@@ -153,9 +144,9 @@ public class TimingGame implements Drawable {
         }
     }
 
-    private void damageTarget(Ship target, Ship shooter){
+    private void damageTarget(Ship target, Ship shooter) {
         target.takeDamage(shooter.getDamage());
-        if(target.getHealth() == 0){
+        if (target.getHealth() == 0) {
             target.setDestroyed(true);
         }
     }
@@ -164,7 +155,7 @@ public class TimingGame implements Drawable {
      * The action performed once the player has tapped the screen.
      */
     public void onTouch() {
-        if(isAnimating()){
+        if (isAnimating()) {
             return;
         }
         if (this.meter.cursorInTarget()) {
@@ -195,6 +186,10 @@ public class TimingGame implements Drawable {
         return this.stageCompleted;
     }
 
+    public void setCompleted(boolean completed) {
+        this.stageCompleted = completed;
+    }
+
     public int getScore() {
         return this.scoreBoard.getScore();
     }
@@ -214,19 +209,14 @@ public class TimingGame implements Drawable {
     }
 
     public void upgradePlayer(PowerUpSelect.PowerUps selection) {
-        if(selection == PowerUpSelect.PowerUps.DAMAGE){
+        if (selection == PowerUpSelect.PowerUps.DAMAGE) {
             this.playerShip.increaseDamage(1);
-        }
-        else{
-            this.playerShip.setHealth(this.playerShip.getMaxHealth()+1);
+        } else {
+            this.playerShip.setHealth(this.playerShip.getMaxHealth() + 1);
         }
     }
 
-    public void setCompleted(boolean completed) {
-        this.stageCompleted = completed;
-    }
-
-    public boolean playerDestroyed(){
+    public boolean playerDestroyed() {
         return playerShip.isDestroyed();
     }
 

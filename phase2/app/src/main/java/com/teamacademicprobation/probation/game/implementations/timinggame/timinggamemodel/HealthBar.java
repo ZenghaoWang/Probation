@@ -39,17 +39,11 @@ class HealthBar implements Drawable {
         this.barPaint.setStyle(Paint.Style.FILL);
     }
 
-
     int getcurrHealth() {
         return health;
     }
 
-    void setMaxHealth(int health) {
-        this.maxHealth = health;
-        this.health = health;
-    }
-
-    void takeDamage(int damage){
+    void takeDamage(int damage) {
         this.health = (this.health - damage >= 0) ? (this.health - damage) : 0;
     }
 
@@ -62,17 +56,24 @@ class HealthBar implements Drawable {
     }
 
     private Rect getBarRect() {
-        return new Rect(widthMargins, heightMargins, widthMargins+(width*health/maxHealth), heightMargins + height);
-
+        return new Rect(
+                widthMargins,
+                heightMargins,
+                widthMargins + (width * health / maxHealth),
+                heightMargins + height);
     }
 
     private Rect getFrameRect() {
 
-        return new Rect(widthMargins, heightMargins, widthMargins+width, heightMargins+height);
-
+        return new Rect(widthMargins, heightMargins, widthMargins + width, heightMargins + height);
     }
 
     int getMaxHealth() {
         return this.maxHealth;
+    }
+
+    void setMaxHealth(int health) {
+        this.maxHealth = health;
+        this.health = health;
     }
 }

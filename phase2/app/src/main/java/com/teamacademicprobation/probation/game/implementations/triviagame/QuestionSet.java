@@ -37,9 +37,9 @@ class QuestionSet {
     return questions.remove(rand.nextInt(questions.size()));
   }
 
-  /**
-   * @return The number of questions in the set.
-   */
+    /**
+     * @return The number of questions in the set.
+     */
   int getNumQuestions() {
     return questions.size() + 1;
   }

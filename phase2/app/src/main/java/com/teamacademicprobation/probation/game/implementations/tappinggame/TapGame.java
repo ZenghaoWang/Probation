@@ -11,8 +11,8 @@ import com.teamacademicprobation.probation.game.implementations.tappinggame.tapg
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMole;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMoleCounter;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TapScoreBoard;
-import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
+import com.teamacademicprobation.probation.player.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,6 @@ class TapGame implements Drawable {
     int getScore() {
         return this.scoreBoard.getScore();
     }
-
 
     /**
      * Updates the TapGame.
@@ -184,6 +183,5 @@ class TapGame implements Drawable {
      */
     void endGame() {
         this.playerAccess.endGame(currPlayerID, true);
-    }
+  }
 }
-

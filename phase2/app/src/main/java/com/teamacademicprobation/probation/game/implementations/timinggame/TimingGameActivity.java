@@ -1,11 +1,11 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
@@ -47,5 +47,5 @@ public class TimingGameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         timingGameView.resume();
-    }
+  }
 }

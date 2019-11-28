@@ -1,6 +1,5 @@
 package com.teamacademicprobation.probation.game;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
@@ -74,14 +73,11 @@ public class ScoreBoard {
     return this.x - (charWidth * numChars);
   }
 
-  protected int getY(){
+    protected int getY() {
     return y;
-  }
+    }
 
-  protected Paint getPaint(){
+    protected Paint getPaint() {
     return paint;
   }
-
-
-
 }

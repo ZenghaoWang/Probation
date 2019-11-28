@@ -17,12 +17,11 @@ import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 @SuppressLint("ViewConstructor")
 public class TimingGameView extends SurfaceView implements Runnable, TimingGameViewInterface {
 
-
+    private static final String TAG = "TimingGame";
     private Thread gameThread = null;
     private volatile boolean running;
     private TimingGamePresenter timingGamePresenter;
     private SurfaceHolder surfaceHolder;
-    private static final String TAG = "TimingGame";
 
     public TimingGameView(Context context, String playerID) {
         super(context);
@@ -38,7 +37,6 @@ public class TimingGameView extends SurfaceView implements Runnable, TimingGameV
             control();
         }
     }
-
 
     /**
      * Updates the game.
@@ -102,13 +100,10 @@ public class TimingGameView extends SurfaceView implements Runnable, TimingGameV
         return false;
     }
 
-
     @Override
     public void goToScoreScreen(String score) {
         Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
         intent.putExtra(ScoreScreenActivity.SCORE_KEY, "You scored:" + score);
         getContext().startActivity(intent);
-    }
-
+  }
 }
-

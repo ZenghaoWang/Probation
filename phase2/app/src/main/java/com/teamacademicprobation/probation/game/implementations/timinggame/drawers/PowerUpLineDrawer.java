@@ -10,6 +10,7 @@ public class PowerUpLineDrawer implements AndroidDrawer {
     private int x;
     private int y;
     private int length;
+    private Paint paint;
 
     public PowerUpLineDrawer(int x, int y, int length, Paint paint) {
         this.x = x;
@@ -18,9 +19,8 @@ public class PowerUpLineDrawer implements AndroidDrawer {
         this.paint = paint;
     }
 
-    private Paint paint;
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawLine(x, y, x, y+length, paint);
+        canvas.drawLine(x, y, x, y + length, paint);
     }
 }

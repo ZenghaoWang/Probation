@@ -5,7 +5,6 @@ import android.graphics.Paint;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
-
 /**
  * An implementation of AndroidDrawer that draws the mole-counter.
  */
@@ -46,6 +45,5 @@ public class MoleCounterDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawText("Normal Moles Left:" + moleLeft, this.x, this.y, paint);
-    }
+  }
 }
-

@@ -8,7 +8,6 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 /**
  * An implementation of AndroidDrawer that draws bullets.
  */
-
 public class BulletDrawer implements AndroidDrawer {
 
     /**
@@ -28,7 +27,6 @@ public class BulletDrawer implements AndroidDrawer {
      */
     private Paint paint;
 
-
     /**
      * Initializes a new BulletDrawer.
      *
@@ -47,5 +45,5 @@ public class BulletDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawCircle(x, y, radius, paint);
-    }
+  }
 }

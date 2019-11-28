@@ -21,8 +21,8 @@ class Ship implements Drawable {
      */
     private Bitmap ship;
     /**
-     * The explosion effect of the ship, to be drawn when the ship is destroyed. The bitmap
-     * must be a square.
+     * The explosion effect of the ship, to be drawn when the ship is destroyed. The bitmap must be a
+     * square.
      */
     private Bitmap explosion;
 
@@ -55,7 +55,6 @@ class Ship implements Drawable {
 
     private int damage;
 
-
     /**
      * Initializes a new ship with the default size.
      *
@@ -86,9 +85,7 @@ class Ship implements Drawable {
         paint.setFilterBitmap(false);
 
         this.damage = 1;
-
     }
-
 
     /**
      * Rotates and scales the image of the ship.
@@ -125,26 +122,30 @@ class Ship implements Drawable {
         this.ship = rotateAndScale(ship, angle);
     }
 
-    void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
-    }
-
     boolean isDestroyed() {
         return this.destroyed;
     }
 
-    int getHealth(){return health.getcurrHealth();}
+    void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
 
-    void setHealth(int health, TimingGameStyle gameStyle){
-        this.health = new HealthBar(size, 20, x, y+size+40, gameStyle);
+    int getHealth() {
+        return health.getcurrHealth();
+    }
+
+    void setHealth(int health) {
         this.health.setMaxHealth(health);
     }
 
-    void setHealth(int health){
+    void setHealth(int health, TimingGameStyle gameStyle) {
+        this.health = new HealthBar(size, 20, x, y + size + 40, gameStyle);
         this.health.setMaxHealth(health);
     }
 
-    void takeDamage(int damage){this.health.takeDamage(damage);}
+    void takeDamage(int damage) {
+        this.health.takeDamage(damage);
+    }
 
     @Override
     public List<AndroidDrawer> getDrawers() {
@@ -158,14 +159,13 @@ class Ship implements Drawable {
         drawers.add(shipDrawer);
         drawers.addAll(health.getDrawers());
         return drawers;
-
     }
 
     void increaseDamage(int damage) {
         this.damage += damage;
     }
 
-    int getDamage(){
+    int getDamage() {
         return this.damage;
     }
 

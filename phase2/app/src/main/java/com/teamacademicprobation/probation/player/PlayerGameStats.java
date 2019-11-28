@@ -1,8 +1,8 @@
 package com.teamacademicprobation.probation.player;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -13,14 +13,11 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
 
   // The time and date of the game's initiation.
   private final Date startTime;
-
-  // The total score in this game (the value of all stats added together)
-  private int totalScore;
-
   private final String gameID;
-
   // A map of all recorded stats for one instance of a game.
   private final Map<String, Integer> statsMap = new HashMap<>();
+    // The total score in this game (the value of all stats added together)
+    private int totalScore;
 
   /** Instantiates a PlayerGameStats object with statistics time, score, and items set to 0. */
   PlayerGameStats(String id) {
@@ -71,7 +68,7 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
   }
 
   void update(Map<String, Integer> newStats) {
-    for (String statID : newStats.keySet()){
+      for (String statID : newStats.keySet()) {
       statsMap.put(statID, newStats.get(statID));
       updateTotalScore(newStats.get(statID));
     }

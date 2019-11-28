@@ -32,7 +32,6 @@ class TimingGamePresenter {
         this.timingGameModel.buildPowerUpSelect(gameView.getContext());
     }
 
-
     /**
      * Updates timing game, and goes to the score screen if completed.
      */
@@ -65,5 +64,5 @@ class TimingGamePresenter {
 
         this.timingGameModel.onTouch(touchX);
         this.timingGameModel.updatePlayerStats();
-    }
+  }
 }

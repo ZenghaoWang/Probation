@@ -21,7 +21,6 @@ class TapGamePresenter {
         this.tapGame = new TapGame(tapGameView.getContext(), screenWidth, screenHeight, playerID);
     }
 
-
     /**
      * Draws the game onto the canvas.
      *
@@ -51,5 +50,5 @@ class TapGamePresenter {
      */
     void updateScore(double touchX, double touchY) {
         this.tapGame.updateScore(touchX, touchY);
-    }
+  }
 }

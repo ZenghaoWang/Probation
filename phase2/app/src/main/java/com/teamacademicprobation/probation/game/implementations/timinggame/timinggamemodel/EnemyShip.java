@@ -3,7 +3,6 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.timi
 /**
  * A representation of the enemy ship.
  */
-
 class EnemyShip extends Ship {
 
     /**
@@ -14,7 +13,6 @@ class EnemyShip extends Ship {
      * The current health of the ship.
      */
     private int health;
-
 
     /**
      * Initializes a new enemy ship with the default size.
@@ -37,23 +35,22 @@ class EnemyShip extends Ship {
         super(screenWidth, screenHeight, WIDTHRATIO, size);
     }
 
-//    /**
-//     * Subtracts the health by one.
-//     */
-//    void takeDamage() {
-//        this.health -= 1;
-//    }
-//
-//    // ===== SETTER/GETTERS =====
-//    void setHealth(int health) {
-//        this.health = health;
-//    }
-//
-//    int getHealth() {
-//        return this.health;
-//    }
+    //    /**
+    //     * Subtracts the health by one.
+    //     */
+    //    void takeDamage() {
+    //        this.health -= 1;
+    //    }
+    //
+    //    // ===== SETTER/GETTERS =====
+    //    void setHealth(int health) {
+    //        this.health = health;
+    //    }
+    //
+    //    int getHealth() {
+    //        return this.health;
+    //    }
 
     // ====== END OF SETTER/GETTERS =====
-
 
 }

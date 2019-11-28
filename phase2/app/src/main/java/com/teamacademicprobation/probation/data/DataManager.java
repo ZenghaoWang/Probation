@@ -28,12 +28,11 @@ import java.util.Map;
  * "BestSession": {"GameID": {"StatID" : "statistic"}}}
  */
 public class DataManager implements DataAccessObject {
+    private static final String TAG = "DataManager";
     /**
      * The DataFile for reading and writing.
      */
     private File DataFile;
-
-    private static final String TAG = "DataManager";
 
     @Override
     public void setData(File dataFile) {
@@ -57,7 +56,6 @@ public class DataManager implements DataAccessObject {
 
         JSONObject JSONdata = readJSON(); // Get the old JSON.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {
-            ;
             if (JSONdata == null) {
                 JSONdata = new JSONObject();
             }
@@ -125,7 +123,6 @@ public class DataManager implements DataAccessObject {
         return result.toString();
     }
 
-
     @Override
     public String getIDfromUsername(String username) {
         JSONObject allPlayersData = readJSON();
@@ -147,7 +144,6 @@ public class DataManager implements DataAccessObject {
 
         return null;
     }
-
 
     @Override
     public boolean usernameTaken(String username) {

@@ -3,8 +3,8 @@ package com.teamacademicprobation.probation.game.implementations.timinggame.timi
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.ZoneDrawer;
 
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ class TargetZone implements Drawable {
      */
     private double widthRatio;
 
-
     /**
      * Initializes a new target zone with the default width ratio.
      *
@@ -62,7 +61,6 @@ class TargetZone implements Drawable {
         this.widthRatio = widthRatio;
         this.generateBoxStart();
         this.generatePaint(gameStyle);
-
     }
 
     /**
@@ -72,7 +70,6 @@ class TargetZone implements Drawable {
         do {
             this.zoneStart = Math.random();
         } while (this.zoneStart >= (1 - widthRatio));
-
     }
 
     /**
@@ -98,7 +95,8 @@ class TargetZone implements Drawable {
      * @return Rect
      */
     private Rect getZoneRect() {
-        int left = Math.toIntExact(Math.round(meter.getWidthMargins() + (zoneStart * meter.getWidth())));
+        int left =
+                Math.toIntExact(Math.round(meter.getWidthMargins() + (zoneStart * meter.getWidth())));
         int top = meter.getHeightMargins();
         int right = left + zoneWidth;
         int bottom = top + meter.getHeight();
@@ -115,7 +113,6 @@ class TargetZone implements Drawable {
         Rect targetRect = getZoneRect();
         return targetRect.centerX() - meter.getWidthMargins();
     }
-
 
     int getWidth() {
         return this.zoneWidth;

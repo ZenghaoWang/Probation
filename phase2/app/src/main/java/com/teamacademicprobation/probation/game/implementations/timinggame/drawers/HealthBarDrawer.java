@@ -13,7 +13,8 @@ public class HealthBarDrawer implements AndroidDrawer {
     private Paint framePaint;
     private Paint barPaint;
 
-    public HealthBarDrawer(Rect healthFrameRect, Rect healthBarRect, Paint framePaint, Paint barPaint) {
+    public HealthBarDrawer(
+            Rect healthFrameRect, Rect healthBarRect, Paint framePaint, Paint barPaint) {
         this.healthFrameRect = healthFrameRect;
         this.healthBarRect = healthBarRect;
         this.framePaint = framePaint;

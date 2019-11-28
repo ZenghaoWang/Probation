@@ -12,8 +12,8 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 public class ShipDrawer implements AndroidDrawer {
 
     /**
-     * The image of the spaceship to be drawn. This can either be the actual spaceship or
-     * the explosion effect.
+     * The image of the spaceship to be drawn. This can either be the actual spaceship or the
+     * explosion effect.
      */
     private Bitmap state;
     /**
@@ -47,5 +47,5 @@ public class ShipDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);
-    }
+  }
 }

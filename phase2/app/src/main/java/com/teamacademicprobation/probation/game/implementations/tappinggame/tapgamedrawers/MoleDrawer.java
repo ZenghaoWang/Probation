@@ -45,6 +45,5 @@ public class MoleDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);
-
-    }
+  }
 }

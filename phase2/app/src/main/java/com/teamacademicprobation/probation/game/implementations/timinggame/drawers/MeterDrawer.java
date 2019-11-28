@@ -9,7 +9,6 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 /**
  * An implementation of AndroidDrawer that draws the meter.
  */
-
 public class MeterDrawer implements AndroidDrawer {
 
     /**
@@ -21,10 +20,10 @@ public class MeterDrawer implements AndroidDrawer {
      */
     private Paint meterPaint;
     /**
-     * The coordinates of the cursor. The size of cursorCoordinates must be 4,
-     * and are in the following order:
-     * <p>
-     * [startX, starY, endX, endY].
+     * The coordinates of the cursor. The size of cursorCoordinates must be 4, and are in the
+     * following order:
+     *
+     * <p>[startX, starY, endX, endY].
      */
     private int[] cursorCoordinates;
     /**
@@ -67,10 +66,12 @@ public class MeterDrawer implements AndroidDrawer {
      *
      * @param canvas The canvas onto which to draw on.
      */
-
     private void drawCursor(Canvas canvas) {
-        canvas.drawLine(cursorCoordinates[0], cursorCoordinates[1], cursorCoordinates[2],
-                cursorCoordinates[3], cursorPaint);
-    }
-
+        canvas.drawLine(
+                cursorCoordinates[0],
+                cursorCoordinates[1],
+                cursorCoordinates[2],
+                cursorCoordinates[3],
+                cursorPaint);
+  }
 }

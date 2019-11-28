@@ -9,20 +9,20 @@ import java.util.ArrayList;
  */
 class TriviaGamePresenter {
 
-    //Messages for the toast pop-up upon answering a question
+    // Messages for the toast pop-up upon answering a question
     private static final String CORRECT_ANSWER_MESSAGE = "Correct!";
+    private static final String WRONG_ANSWER_MESSAGE = "Wrong answer :(((";
     // The UI interface associated with this TriviaGamePresenter instance.
     private TriviaView view;
     // The back-end
     private TriviaGameModel model;
-    private static final String WRONG_ANSWER_MESSAGE = "Wrong answer :(((";
-
 
     /**
      * Constructs a TriviaGamePresenter on the creation of a given game instance being played by
      * playerID.
-     *  @param view     The UI interface which initialized this presenter.
-     * @param playerID The ID of the player currently playing. Used for stat-tracking
+     *
+     * @param view        The UI interface which initialized this presenter.
+     * @param playerID    The ID of the player currently playing. Used for stat-tracking
      * @param builderList A list of all question categories to be included.
      */
     TriviaGamePresenter(TriviaView view, String playerID, ArrayList<QuestionSetBuilder> builderList) {
@@ -30,11 +30,9 @@ class TriviaGamePresenter {
         this.view = view;
     }
 
-
     /**
-     * Called when a button is clicked on the view. Gets a new question, sends the player to the
-     * score screen if there are no more questions, and updates the elements on the screen
-     * otherwise.
+     * Called when a button is clicked on the view. Gets a new question, sends the player to the score
+     * screen if there are no more questions, and updates the elements on the screen otherwise.
      */
     void updateView() {
         model.getRandomQuestion();
@@ -52,11 +50,9 @@ class TriviaGamePresenter {
         }
     }
 
-
     /**
-     * Evaluate whether the user-inputted answer is correct and display the appropriate toast
-     * message on-screen.
-     * Updates high school stats accordingly.
+     * Evaluate whether the user-inputted answer is correct and display the appropriate toast message
+     * on-screen. Updates high school stats accordingly.
      */
     void answerQuestion(String answer) {
         boolean answerCorrect = model.answerQuestion(answer);
@@ -69,6 +65,5 @@ class TriviaGamePresenter {
             message = WRONG_ANSWER_MESSAGE;
         }
         view.showToast(message);
-    }
-
+  }
 }

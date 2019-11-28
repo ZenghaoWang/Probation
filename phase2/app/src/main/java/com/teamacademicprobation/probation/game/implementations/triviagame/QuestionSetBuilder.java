@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * An abstract builder to construct sets of questions for the trivia game.
- * Do not instantiate directly.
+ * An abstract builder to construct sets of questions for the trivia game. Do not instantiate
+ * directly.
  */
 abstract class QuestionSetBuilder implements Serializable {
     ArrayList<Question> questions;

@@ -3,7 +3,7 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GeoQuestionSetBuilder extends QuestionSetBuilder {
+class GeoQuestionSetBuilder extends QuestionSetBuilder {
     @Override
     void constructQuestions() {
         this.questions.add(

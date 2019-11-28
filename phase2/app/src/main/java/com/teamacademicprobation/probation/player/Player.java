@@ -1,4 +1,6 @@
-package com.teamacademicprobation.probation.player; //TODO: Push changes made to Player, PlayerStats, PlayerBuilder, etc. after you make sure everything runs
+package com.teamacademicprobation.probation.player; // TODO: Push changes made to Player,
+// PlayerStats, PlayerBuilder, etc. after you
+// make sure everything runs
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,33 +13,17 @@ import java.util.Random;
  */
 public class Player {
 
-  /**
-   * The statistics of this player.
-   */
+    private static final int playerIDlen = 5;
+    /** The statistics of this player. */
   private PlayerStats playerStats;
-
-  /**
-   * The preferences of this player.
-   */
-
+    /** The preferences of this player. */
   private PlayerPreferences playerPreferences;
-
-  /**
-   * The username of this player.
-   */
+    /** The username of this player. */
   private String username;
-
-  /**
-   * The password of this player.
-   */
+    /** The password of this player. */
   private String password;
-
-  /**
-   * The random playerID of this player
-   */
+    /** The random playerID of this player */
   private String playerID;
-
-  private static final int playerIDlen = 5;
 
   public Player() {
     this("defaultUser", "defaultPass");
@@ -53,43 +39,36 @@ public class Player {
 
   // ==== SETTER METHODS, CALLED WHEN PlayerBuilder PASSES INFO TO BUILD A PLAYER
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public void setPlayerID(String playerID) {
-    this.playerID = playerID;
-  }
-
   public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
     this.playerStats.setCurrStats(currGameID, currGameStats);
   }
-
-  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
-    this.playerStats.setBestStats(bestGameStats);
-  }
-
-  public void setPreferences(Map<String, String> playerPreferences) {
-    this.playerPreferences.setPreferences(playerPreferences);
-  }
-
-  // ==== GETTER METHODS, CALLED BY OTHER CLASSES TO OBTAIN INFO ON Player, ESPECIALLY WHEN SAVING PLAYER INFO
 
   public String getUsername() {
     return this.username;
   } // returns player's username
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
   public String getPassword() {
     return this.password;
   } // returns player's password
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
   public String getPlayerID() {
     return this.playerID;
   } // returns player's ID
+
+    // ==== GETTER METHODS, CALLED BY OTHER CLASSES TO OBTAIN INFO ON Player, ESPECIALLY WHEN SAVING
+    // PLAYER INFO
+
+    public void setPlayerID(String playerID) {
+        this.playerID = playerID;
+    }
 
   /**
    * Returns a map of the player's preferences
@@ -97,8 +76,12 @@ public class Player {
    * @return player's preferences in a Map<String, String>
    */
   public Map<String, String> getPreferences() {
-    return this.playerPreferences.getPreferences();
+      return this.playerPreferences.getPreferences();
   }
+
+    public void setPreferences(Map<String, String> playerPreferences) {
+        this.playerPreferences.setPreferences(playerPreferences);
+    }
 
   public String getCurrGameID() {
     return this.playerStats.getCurrGameID();
@@ -128,13 +111,18 @@ public class Player {
    * @return a map of the player's best game stats in a Map<"GameID", Map<"StatID", Integer>>
    */
   public Map<String, Map<String, Integer>> getBestStats() {
-    return this.playerStats.getBestStats();
+      return this.playerStats.getBestStats();
   }
+
+    public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
+        this.playerStats.setBestStats(bestGameStats);
+    }
 
   /**
    * Returns a map of all the information contained in this player
    *
-   * @return A map containing info of player in the format of Map<String, Object> to be written into a JSON
+   * @return A map containing info of player in the format of Map<String, Object> to be written into
+   *     a JSON
    */
   public Map<String, Object> getData() {
     Map<String, Object> result = new HashMap<>();
@@ -178,16 +166,12 @@ public class Player {
     this.playerStats.newCurrGame(currGameID);
   }
 
-  /**
-   * Lets you update the player's current game session with a new game.
-   */
+    /** Lets you update the player's current game session with a new game. */
   public void endCurrGame(boolean save) {
     this.playerStats.endCurrGame(save);
   }
 
-  /**
-   * Updates PlayerPreferences.
-   */
+    /** Updates PlayerPreferences. */
   public void updatePreferences(String preferenceKey, String preferenceSetting) {
     this.playerPreferences.updatePreferences(preferenceKey, preferenceSetting);
   }
@@ -195,7 +179,8 @@ public class Player {
   /**
    * Updates PlayerPreferences.
    *
-   * @param newPreferences A map with the following format: {gameID: {PreferenceID: Preference value}}
+   * @param newPreferences A map with the following format: {gameID: {PreferenceID: Preference
+   *     value}}
    */
   public void updatePreferences(Map<String, String> newPreferences) {
     this.playerPreferences.updatePreferences(newPreferences);
@@ -205,7 +190,7 @@ public class Player {
    * Updates the PlayerStats for the current game.
    *
    * @param statID the statistic to be updated
-   * @param value  the new value of the statistic
+   * @param value the new value of the statistic
    */
   public void updateCurrStats(String statID, int value) {
     this.playerStats.updateCurrGame(statID, value);
@@ -220,7 +205,7 @@ public class Player {
     this.playerStats.updateCurrGame(gameStatsMap);
   }
 
-  //TODO: DELETE THIS METHOD AND ITS USAGES
+    // TODO: DELETE THIS METHOD AND ITS USAGES
   public List<String> getGamesPlayed() {
     List<String> result = new ArrayList<>();
     for (String gameID : this.playerStats.getBestStats().keySet()) {

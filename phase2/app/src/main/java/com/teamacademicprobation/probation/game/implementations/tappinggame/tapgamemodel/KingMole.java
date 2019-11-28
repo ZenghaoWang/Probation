@@ -6,8 +6,7 @@ import android.graphics.BitmapFactory;
 import com.teamacademicprobation.probation.R;
 
 /**
- * A KingMole object that when the players tap, they earn five points. KingMole object extends
- * Mole.
+ * A KingMole object that when the players tap, they earn five points. KingMole object extends Mole.
  */
 public class KingMole extends Mole {
     /**

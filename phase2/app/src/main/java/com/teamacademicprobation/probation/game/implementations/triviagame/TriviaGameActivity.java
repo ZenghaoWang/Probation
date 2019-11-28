@@ -15,7 +15,7 @@ import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 import java.util.ArrayList;
 
-//MVP structure from https://github.com/antoniolg/androidmvp
+// MVP structure from https://github.com/antoniolg/androidmvp
 
 /**
  * The front-end for the trivia game.
@@ -29,7 +29,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private TextView question;
     private TextView score;
     private TextView questionsRemaining;
-
 
     /**
      * Set up the screen, capture all the elements, initialize the Presenter with the ID of the
@@ -57,9 +56,9 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         triviaGamePresenter.updateView();
     }
 
-
     /**
      * Updates the screen after a question is answered.
+     *
      * @param answerClicked The answerClicked that was clicked.
      */
     public void onAnswer(View answerClicked) {
@@ -69,9 +68,9 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         triviaGamePresenter.updateView();
     }
 
-
     /**
      * Head to the score screen.
+     *
      * @param scoreMessage The message that will appear on the score screen.
      */
     public void goToScoreScreen(String scoreMessage) {
@@ -79,7 +78,6 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         intent.putExtra(ScoreScreenActivity.SCORE_KEY, scoreMessage);
         startActivity(intent);
     }
-
 
     /**
      * Shows a toast pop-up on-screen.

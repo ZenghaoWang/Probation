@@ -28,8 +28,9 @@ public class TapScoreBoard extends ScoreBoard implements Drawable {
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
-        AndroidDrawer drawer = new TapScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
+        AndroidDrawer drawer =
+                new TapScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
         drawers.add(drawer);
         return drawers;
-    }
+  }
 }

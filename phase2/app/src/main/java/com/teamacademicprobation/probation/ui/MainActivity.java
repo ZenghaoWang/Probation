@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.TapGameActivity;
 import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameActivity;
-
 import com.teamacademicprobation.probation.game.implementations.triviagame.TriviaGameSelectionScreenActivity;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
       case R.id.btnTrivia:
         activityClass = TriviaGameSelectionScreenActivity.class;
     }
-
 
     Intent intent = new Intent(this, activityClass);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

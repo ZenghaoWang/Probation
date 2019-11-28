@@ -15,22 +15,21 @@ import java.util.Map;
  *
  * <p>The player data is in the following format:
  *
- * <p>{"Username": "playerUsername, "Password": "playerPassword", "PreferencesActivity" : {"PreferenceKey" :
- * "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic"}}, "BestSession":
- * {"GameID": {"StatID" : "statistic"}}
+ * <p>{"Username": "playerUsername, "Password": "playerPassword", "PreferencesActivity" :
+ * {"PreferenceKey" : "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic"}},
+ * "BestSession": {"GameID": {"StatID" : "statistic"}}
  */
 public class PlayerBuilder {
 
-  /**
-   * The player this player builder is building.
-   */
-  private Player player;
-
   private static final String TAG = "PlayerBuilder";
+    /**
+     * The player this player builder is building.
+     */
+    private Player player;
 
-  /**
-   * Initializes the player builder with a default player.
-   */
+    /**
+     * Initializes the player builder with a default player.
+     */
   public PlayerBuilder() {
     this.player = new Player();
   }
@@ -43,7 +42,7 @@ public class PlayerBuilder {
    * Starts building this player given it's playerData and playerID.
    *
    * @param playerData The JSONObject that represents the data.
-   * @param playerID   The playerID of this player.
+   * @param playerID The playerID of this player.
    */
   public void buildPlayer(JSONObject playerData, String playerID) {
     buildPlayerID(playerID);
@@ -122,7 +121,7 @@ public class PlayerBuilder {
    * values are the corresponding integer.
    *
    * @param gameStatistics The statistics of this player. It is in the format: {"StatID1": "S,
-   *                       "Stat2": int}
+   *     "Stat2": int}
    * @return Map<String, Integer> </String,> specified above.
    */
   private Map<String, Integer> buildGameStatMap(JSONObject gameStatistics) {

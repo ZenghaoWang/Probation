@@ -8,7 +8,6 @@ import com.teamacademicprobation.probation.R;
 
 import java.util.Random;
 
-
 /**
  * A Factory design pattern that generates new ships.
  */
@@ -18,6 +17,7 @@ class ShipFactory {
      * The context to retrieve resources.
      */
     private Context context;
+
     private TimingGameStyle gameStyle;
 
     /**
@@ -31,18 +31,17 @@ class ShipFactory {
     }
 
     /**
-     * Creates an enemy ship based on the level. If the level is equal or greater than
-     * the level the boss should be, return a boss enemy ship.
+     * Creates an enemy ship based on the level. If the level is equal or greater than the level the
+     * boss should be, return a boss enemy ship.
      *
      * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
      * @param level        The level of the enemy.
      * @return Enemy ship of appropriate level.
      */
-    EnemyShip createEnemyShip(int screenWidth, int screenHeight,
-                              int level) {
+    EnemyShip createEnemyShip(int screenWidth, int screenHeight, int level) {
         EnemyShip result;
-        if ((level%TimingGame.BOSS_LEVEL) != 0) {
+        if ((level % TimingGame.BOSS_LEVEL) != 0) {
             result = createBasicEnemy(screenWidth, screenHeight, level);
         } else {
             result = createBoss(screenWidth, screenHeight, level);
@@ -68,8 +67,8 @@ class ShipFactory {
     }
 
     /**
-     * Creates a new boss enemy ship. A boss enemy ship has more health than a normal enemy, and
-     * has a special image.
+     * Creates a new boss enemy ship. A boss enemy ship has more health than a normal enemy, and has a
+     * special image.
      *
      * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
@@ -86,8 +85,8 @@ class ShipFactory {
     }
 
     /**
-     * Creates a new basic enemy type with a randomized space ship. The enemy ship has the same
-     * number of health as the current level.
+     * Creates a new basic enemy type with a randomized space ship. The enemy ship has the same number
+     * of health as the current level.
      *
      * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
@@ -129,8 +128,7 @@ class ShipFactory {
         enemyShip.setShip(ship, 180);
     }
 
-
     void setContext(Context context) {
         this.context = context;
-    }
+  }
 }

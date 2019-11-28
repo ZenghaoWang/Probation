@@ -8,7 +8,6 @@ import com.teamacademicprobation.probation.game.implementations.timinggame.drawe
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * An implementation of ScoreBoard for timing game.
  */
@@ -27,9 +26,9 @@ class TimingGameScoreBoard extends ScoreBoard implements Drawable {
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
-        AndroidDrawer drawer = new ScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
+        AndroidDrawer drawer =
+                new ScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
         drawers.add(drawer);
         return drawers;
-
-    }
+  }
 }

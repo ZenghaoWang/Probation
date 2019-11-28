@@ -1,7 +1,6 @@
 package com.teamacademicprobation.probation.player;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -23,19 +22,19 @@ public class PlayerPreferences {
 
   // ==== SETTER METHODS
 
-  public void setPreferences(Map<String, String> playerPreferences) {
-    this.preferenceMap = playerPreferences;
-  }
-
-  // ==== GETTER METHODS
-
   public String getPreference(String preferenceKey) {
     return this.preferenceMap.get(preferenceKey);
   }
 
+    // ==== GETTER METHODS
+
   public Map<String, String> getPreferences() {
     return this.preferenceMap;
   }
+
+    public void setPreferences(Map<String, String> playerPreferences) {
+        this.preferenceMap = playerPreferences;
+    }
 
   // ==== UPDATE METHODS
 

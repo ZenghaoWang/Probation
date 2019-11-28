@@ -85,7 +85,6 @@ public class Meter implements Drawable {
 
     // ===== END OF GENERATION METHODS =====
 
-
     /**
      * Updates this meter.
      */
@@ -127,8 +126,6 @@ public class Meter implements Drawable {
         this.targetZone.generateBoxStart();
     }
 
-
-
     /**
      * Determines if the cursor is in the target zone.
      *
@@ -138,7 +135,6 @@ public class Meter implements Drawable {
         int cursorTargetDistance = Math.abs(this.getCursorDistanceFromTarget());
         int targetBoxWidth = this.getTargetBoxWidth();
         return cursorTargetDistance <= targetBoxWidth / 2;
-
     }
 
     // ====== GETTERS/SETTERS  ======
@@ -158,18 +154,15 @@ public class Meter implements Drawable {
         return this.heightMargins;
     }
 
-
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
         drawers.addAll(targetZone.getDrawers());
-        AndroidDrawer meterDrawer = new MeterDrawer(getMeterRect(), paint, this.cursor.getCoordinates(),
-                this.cursor.paint);
+        AndroidDrawer meterDrawer =
+                new MeterDrawer(getMeterRect(), paint, this.cursor.getCoordinates(), this.cursor.paint);
         drawers.add(meterDrawer);
 
         return drawers;
-
-
     }
 
     // ====== END OF GETTERS =====
@@ -178,22 +171,16 @@ public class Meter implements Drawable {
      * The cursor of this object.
      */
     private class Cursor {
-        /**
-         * The x position of this cursor in relation to the meter.
-         */
+        /** The x position of this cursor in relation to the meter. */
         private int cursorPosition;
-        /**
-         * The velocity of the cusor.
-         */
+        /** The velocity of the cusor. */
         private int cursorVelocity;
-        /**
-         * The paint object that describes the style of the score.
-         */
+        /** The paint object that describes the style of the score. */
         private Paint paint;
 
         /**
-         * Initializes the position of this cursor and its velocity. The cursor starts by moving
-         * right, and starts at the left-most edge of the meter.
+         * Initializes the position of this cursor and its velocity. The cursor starts by moving right,
+         * and starts at the left-most edge of the meter.
          */
         private Cursor(TimingGameStyle gameStyle) {
             this.cursorPosition = 0;
@@ -215,8 +202,8 @@ public class Meter implements Drawable {
         }
 
         /**
-         * Moves the cursor according to its velocity. If the cursor's position is less than 0 or more than
-         * the width of the meter, turn around.
+         * Moves the cursor according to its velocity. If the cursor's position is less than 0 or more
+         * than the width of the meter, turn around.
          */
         private void update() {
             this.cursorPosition += this.cursorVelocity;
@@ -235,12 +222,13 @@ public class Meter implements Drawable {
         int[] getCoordinates() {
             int currX = cursorPosition + widthMargins;
 
-            double margins = 0.2; // The ratio of how long the "extensions" are compared to the height of th ebox.
+            double margins =
+                    0.2; // The ratio of how long the "extensions" are compared to the height of th ebox.
             long yMargins = Math.round(height * margins);
             int topY = Math.toIntExact(Math.round(heightMargins - yMargins));
             int bottomY = Math.toIntExact(Math.round(heightMargins + height + yMargins));
 
             return new int[]{currX, topY, currX, bottomY};
         }
-    }
+  }
 }

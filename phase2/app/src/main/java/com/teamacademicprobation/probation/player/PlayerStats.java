@@ -11,19 +11,16 @@ import java.util.Objects;
  */
 public class PlayerStats {
 
+    // A list of all the player's completed games.
+    private final ArrayList<PlayerGameStats> completedGames;
   private PlayerGameStats currGame;
-
   // A map of each type of game along with the player's best scores within that game.
   private Map<String, PlayerGameStats> bestGame = new HashMap<>();
-
   private Map<String, PlayerGameStats> avgGame = new HashMap<>();
 
-  // A list of all the player's completed games.
-  private final ArrayList<PlayerGameStats> completedGames;
-
-  /**
-   * Instantiates a PlayerStats object with an empty list of completed games.
-   */
+    /**
+     * Instantiates a PlayerStats object with an empty list of completed games.
+     */
   PlayerStats() {
     currGame = new PlayerGameStats("");
     bestGame.put("", currGame);
@@ -33,25 +30,19 @@ public class PlayerStats {
 
   // ==== GETTER METHODS for Player when retrieving data to be saved into the JSON
 
-  /**
-   * @return ths player's current gameID
-   */
+    /** @return ths player's current gameID */
   public String getCurrGameID() {
     return currGame.getGameID();
   }
 
-  /**
-   * @return a map of all the statistics of the current game along with their values
-   */
+    /** @return a map of all the statistics of the current game along with their values */
   public Map<String, Map<String, Integer>> getCurrStats() {
     Map<String, Map<String, Integer>> currStats = new HashMap<>();
     currStats.put(currGame.getGameID(), currGame.getAllStats());
     return currStats;
   }
 
-  /**
-   * @return a map of all the statistics of a particular game
-   */
+    /** @return a map of all the statistics of a particular game */
   public Map<String, Integer> getBestStats(String gameID) {
     return bestGame.get(gameID).getAllStats();
   }
@@ -73,18 +64,18 @@ public class PlayerStats {
 
   // ==== SETTER METHODS
 
-  public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
-    this.newCurrGame(currGameID);
-    this.updateCurrGame(currGameStats);
-  }
-
-  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
-    for (String gameKey : bestGameStats.keySet()) {
-      PlayerGameStats gameStats = new PlayerGameStats(gameKey);
-      gameStats.update(bestGameStats.get(gameKey));
-      this.bestGame.put(gameKey, gameStats);
+    public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
+        for (String gameKey : bestGameStats.keySet()) {
+            PlayerGameStats gameStats = new PlayerGameStats(gameKey);
+            gameStats.update(bestGameStats.get(gameKey));
+            this.bestGame.put(gameKey, gameStats);
+        }
     }
-  }
+
+    public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
+        this.newCurrGame(currGameID);
+        this.updateCurrGame(currGameStats);
+    }
 
   // ==== UPDATE METHODS
 
@@ -97,9 +88,7 @@ public class PlayerStats {
     currGame = new PlayerGameStats(gameID);
   }
 
-  /**
-   * Occurs at the end of the current game session.
-   */
+    /** Occurs at the end of the current game session. */
   public void endCurrGame(boolean save) {
     if (save) {
       completedGames.add(currGame); // adds this game to the list of this player's completed games
@@ -107,16 +96,16 @@ public class PlayerStats {
       updateBestGame(currGame); // updates the player's best game statistics with this game in mind
     }
 
-    currGame =
-            new PlayerGameStats(
-                    ""); // sets the current game to null (meaning there is currently no level being played)
+      currGame =
+              new PlayerGameStats(
+                      ""); // sets the current game to null (meaning there is currently no level being played)
   }
 
   /**
    * Updates a single statistic within the current game.
    *
    * @param statID the statistic to be updated.
-   * @param value  the value we want associated with that statistic.
+   * @param value the value we want associated with that statistic.
    */
   public void updateCurrGame(String statID, int value) {
     currGame.update(statID, value);
@@ -147,5 +136,4 @@ public class PlayerStats {
       bestGame.put(gameID, otherGameStats);
     }
   }
-
 }
