@@ -13,8 +13,9 @@ class QuestionSet {
 
   /**
    * Creates a set of questions with question types of each builder in builderList.
-   * @param builderList A list of builders, which will add a certain category of questions to the
-   *     set.
+   *
+   * @param builderList A list of builders; each builder will add a certain category of questions to
+   *     the set.
    */
   QuestionSet(ArrayList<QuestionSetBuilder> builderList) {
     for (QuestionSetBuilder builder : builderList) {
@@ -36,8 +37,10 @@ class QuestionSet {
     return questions.remove(rand.nextInt(questions.size()));
   }
 
-  /** @return The number of questions in the set */
+  /**
+   * @return The number of questions in the set.
+   */
   int getNumQuestions() {
-      return questions.size() + 1;
+    return questions.size() + 1;
   }
 }

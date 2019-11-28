@@ -7,18 +7,57 @@
     android:onClick="onClick"
     tools:context=".game.implementations.triviagame.TriviaGameSelectionScreenActivity">
 
-    <Button
-        android:id="@+id/all_questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="onClick"
-        android:text="All Questions"
+    <LinearLayout
+        android:layout_width="348dp"
+        android:layout_height="345dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/all_questions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="onClick"
+            android:text="All Questions" />
+
+        <Button
+            android:id="@+id/stem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="onClick"
+            android:text="STEM" />
+
+        <Button
+            android:id="@+id/geography"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="onClick"
+            android:text="Geography" />
+
+        <Button
+            android:id="@+id/misc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:onClick="onClick"
+            android:text="Misc" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
