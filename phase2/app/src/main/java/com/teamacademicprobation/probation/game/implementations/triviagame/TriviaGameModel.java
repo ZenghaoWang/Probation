@@ -2,8 +2,8 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.util.Log;
 
-import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
+import com.teamacademicprobation.probation.player.PlayerManager;
 
 // MVP structure from https://github.com/antoniolg/androidmvp
 
@@ -67,7 +67,7 @@ class TriviaGameModel {
   void getRandomQuestion() {
     try {
       currentQuestion = questionSet.getRandomQuestion();
-      numQuestionsRemaining -= 1;
+      numQuestionsRemaining = questionSet.getNumQuestions();
     } catch (OutOfQuestionsException e) {
       Log.e(TAG, "Out of questions!");
       completed = true;
@@ -122,7 +122,7 @@ class TriviaGameModel {
 
   /** @return A message that indicates how many questions are left to answer. */
   String generateQuestionsRemainingString() {
-    return numQuestionsRemaining + " Questions Left";
+    return ("Questions Remaining: " + numQuestionsRemaining);
   }
 
   /** Send the percentage of correct answers for this game to the score tracker. */

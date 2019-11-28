@@ -38,6 +38,6 @@ class QuestionSet {
 
   /** @return The number of questions in the set */
   int getNumQuestions() {
-    return questions.size();
+      return questions.size() + 1;
   }
 }

@@ -99,8 +99,8 @@
 
     <TextView
         android:id="@+id/questionsRemaining"
-        android:layout_width="143dp"
-        android:layout_height="18dp"
+        android:layout_width="181dp"
+        android:layout_height="20dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/questions_remaining"
