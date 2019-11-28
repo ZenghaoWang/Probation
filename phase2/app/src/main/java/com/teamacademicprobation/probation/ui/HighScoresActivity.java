@@ -68,10 +68,10 @@ public class HighScoresActivity extends AppCompatActivity {
    * @param gameID The gameID of the game to retrieve statistics from.
    */
   private void buildStrings(
-          String playerID,
-          PlayerTotalStatsAccess playerTotalStatsAccess,
-          List<String> statsToShow,
-          String gameID) {
+      String playerID,
+      PlayerTotalStatsAccess playerTotalStatsAccess,
+      List<String> statsToShow,
+      String gameID) {
     StringBuilder toShow = new StringBuilder(gameID + ": ");
     Map<String, Integer> gameStatMap = playerTotalStatsAccess.getBestStats(playerID, gameID);
     for (String statID : gameStatMap.keySet()) {

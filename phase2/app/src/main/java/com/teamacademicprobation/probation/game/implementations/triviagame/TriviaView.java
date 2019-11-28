@@ -8,7 +8,7 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 public interface TriviaView {
 
     /**
-     * Send the app to the score screenl
+     * Send the app to the score screen
      *
      * @param scoreMessage the message to be displayed on the score screen.
      */
@@ -20,6 +20,9 @@ public interface TriviaView {
      * @param message The message for the toast to show.
      */
     void showToast(String message);
+
+
+    void playSound(Boolean isCorrect);
 
     // Setters for the elements on the screen.
     void setQuestion(String newText);

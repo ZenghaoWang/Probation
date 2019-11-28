@@ -1,6 +1,7 @@
 package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private TextView question;
     private TextView score;
     private TextView questionsRemaining;
+    private MediaPlayer incorrectSound;
+
 
     /**
      * Set up the screen, capture all the elements, initialize the Presenter with the ID of the
@@ -54,6 +57,9 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
 
         triviaGamePresenter = new TriviaGamePresenter(this, playerID, builderList);
         triviaGamePresenter.updateView();
+
+        incorrectSound = MediaPlayer.create(this, R.raw.bruh);
+
     }
 
     /**
@@ -87,6 +93,18 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     @Override
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Called when a question is answered.
+     * @param isCorrect Determines what kind of noise to play.
+     */
+    @Override
+    public void playSound(Boolean isCorrect) {
+        if (isCorrect) {
+            // TODO: replace placeholder noise
+            incorrectSound.start();
+        } else incorrectSound.start();
     }
 
     // Start of Setters

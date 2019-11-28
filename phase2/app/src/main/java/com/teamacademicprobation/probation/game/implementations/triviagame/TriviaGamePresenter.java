@@ -56,9 +56,10 @@ class TriviaGamePresenter {
      */
     void answerQuestion(String answer) {
         boolean answerCorrect = model.answerQuestion(answer);
-        String message;
+        view.playSound(answerCorrect);
         model.updateStats();
 
+        String message;
         if (answerCorrect) {
             message = CORRECT_ANSWER_MESSAGE;
         } else {
