@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/vaporwave"
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -15,35 +16,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btnTrivia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="Trivia" />
+            android:text="Trivia"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnTiming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="Timing" />
+            android:text="Timing"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnTapping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="Tapping" />
+            android:text="Tapping"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/bestgames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="View High Scores" />
+            android:text="View High Scores"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
