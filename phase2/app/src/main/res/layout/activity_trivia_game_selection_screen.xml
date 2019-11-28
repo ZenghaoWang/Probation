@@ -4,60 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/vaporwave"
     android:onClick="onClick"
     tools:context=".game.implementations.triviagame.TriviaGameSelectionScreenActivity">
 
     <LinearLayout
-        android:layout_width="348dp"
-        android:layout_height="345dp"
+        android:layout_width="347dp"
+        android:layout_height="254dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18">
 
         <Button
             android:id="@+id/all_questions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="All Questions" />
+            android:outlineAmbientShadowColor="#AA1B1B"
+            android:outlineProvider="bounds"
+            android:text="All Questions"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/stem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="STEM" />
+            android:text="STEM"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/geography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="Geography" />
+            android:text="Geography"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/misc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+            android:background="@color/magenta"
+            android:fontFamily="serif-monospace"
             android:onClick="onClick"
-            android:text="Misc" />
+            android:text="Misc"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="gold">#50DD8F41</color>
-    <color name="magenta">#50e81ee1</color>
+    <color name="magenta">#50E81EE1</color>
+    <color name="yellow">#50ffd447</color>
+
 </resources>
