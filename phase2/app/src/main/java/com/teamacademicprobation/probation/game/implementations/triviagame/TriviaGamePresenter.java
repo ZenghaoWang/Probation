@@ -2,6 +2,8 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 // MVP structure from https://github.com/antoniolg/androidmvp
 
+import java.util.ArrayList;
+
 /**
  * Passes information between the front-end(TriviaGameActivity) and TriviaGameModel.
  */
@@ -19,12 +21,12 @@ class TriviaGamePresenter {
     /**
      * Constructs a TriviaGamePresenter on the creation of a given game instance being played by
      * playerID.
-     *
-     * @param view     The UI interface which initialized this presenter.
+     *  @param view     The UI interface which initialized this presenter.
      * @param playerID The ID of the player currently playing. Used for stat-tracking
+     * @param builderList A list of all question categories to be included.
      */
-    TriviaGamePresenter(TriviaView view, String playerID) {
-        model = new TriviaGameModel(new DefaultQuestionSet(), playerID);
+    TriviaGamePresenter(TriviaView view, String playerID, ArrayList<QuestionSetBuilder> builderList) {
+        model = new TriviaGameModel(new QuestionSet(builderList), playerID);
         this.view = view;
     }
 

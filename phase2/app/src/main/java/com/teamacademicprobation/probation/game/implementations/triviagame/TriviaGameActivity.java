@@ -2,6 +2,7 @@ package com.teamacademicprobation.probation.game.implementations.triviagame;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 //MVP structure from https://github.com/antoniolg/androidmvp
 
@@ -41,7 +45,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
 
         Intent intent = getIntent();
         String playerID = intent.getStringExtra(LoginActivity.PLAYER_ID_KEY);
-
+        ArrayList<QuestionSetBuilder> builderList = (ArrayList<QuestionSetBuilder>) intent.getSerializableExtra("builderList");
         answer1 = findViewById(R.id.answer1);
         answer2 = findViewById(R.id.answer2);
         answer3 = findViewById(R.id.answer3);
@@ -50,7 +54,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         score = findViewById(R.id.current_score);
         questionsRemaining = findViewById(R.id.questionsRemaining);
 
-        triviaGamePresenter = new TriviaGamePresenter(this, playerID);
+        triviaGamePresenter = new TriviaGamePresenter(this, playerID, builderList);
         triviaGamePresenter.updateView();
     }
 
