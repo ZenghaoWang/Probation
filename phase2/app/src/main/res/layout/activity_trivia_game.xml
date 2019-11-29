@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/trivia_background"
+    android:background="@drawable/vaporwave"
     tools:resources=".game.implementations.triviagame.TriviaGameActivity">
 
     <TextView
@@ -14,8 +14,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:fontFamily="monospace"
         android:text="@string/current_question"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +47,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/gold"
+                android:fontFamily="serif-monospace"
                 android:onClick="onAnswer"
-                android:text="@string/potential_answer" />
+                android:text="@string/potential_answer"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/answer2"
@@ -54,8 +59,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/gold"
+                android:fontFamily="serif-monospace"
                 android:onClick="onAnswer"
-                android:text="@string/potential_answer" />
+                android:text="@string/potential_answer"
+                android:textColor="@android:color/white" />
         </TableRow>
 
         <TableRow
@@ -70,8 +77,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/gold"
+                android:fontFamily="serif-monospace"
                 android:onClick="onAnswer"
-                android:text="@string/potential_answer" />
+                android:text="@string/potential_answer"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/answer4"
@@ -80,8 +89,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/gold"
+                android:fontFamily="serif-monospace"
                 android:onClick="onAnswer"
-                android:text="@string/potential_answer" />
+                android:text="@string/potential_answer"
+                android:textColor="@android:color/white" />
         </TableRow>
     </TableLayout>
 
@@ -91,7 +102,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:fontFamily="serif-monospace"
         android:text="@string/trivia_current_score"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -99,11 +113,14 @@
 
     <TextView
         android:id="@+id/questionsRemaining"
-        android:layout_width="181dp"
-        android:layout_height="20dp"
+        android:layout_width="210dp"
+        android:layout_height="19dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="serif-monospace"
         android:text="@string/questions_remaining"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/question"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
