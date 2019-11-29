@@ -5,12 +5,14 @@ import android.content.Context;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.BackGround;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.Bird;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.BombMole;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.KingMole;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.Mole;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMole;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.NormalMoleCounter;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TapScoreBoard;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TouchableObject;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 
@@ -29,13 +31,16 @@ class TapGame implements Drawable {
     /**
      * Represents if the game is completed.
      */
+    private final int moleSize = 250;
+    private final int birdSize = 250;
+    private boolean birdTouched;
     private boolean gameComplete;
-
+    private Bird bird;
     private Mole currMole;
     private BackGround backGround;
     private TapScoreBoard scoreBoard;
     private Random r = new Random();
-    private NormalMoleCounter targetCounter;
+    private NormalMoleCounter normalMoleCounter;
     private int x;
     private int y;
     private String currPlayerID;
@@ -51,10 +56,11 @@ class TapGame implements Drawable {
         this.context = context;
         this.gameComplete = false;
         this.scoreBoard = new TapScoreBoard(x, y);
-        this.targetCounter = new NormalMoleCounter(x, y);
+        this.normalMoleCounter = new NormalMoleCounter(x, y);
         this.backGround = new BackGround(context, x, y);
         this.currPlayerID = currPlayerID;
         this.playerAccess = new PlayerManager();
+        this.birdTouched = false;
     }
 
     /**
@@ -77,18 +83,35 @@ class TapGame implements Drawable {
      * Updates the TapGame.
      */
     void update() {
-        double c = Math.random(); // Randomly choose if a Target or Non-target should be created.
+        randomCreateMole();
+        randomCreateBird();
+        if (this.bird != null && this.bird.getX() >= 0) {
+            bird.move();
+        } else {
+            this.bird = null;
+        }
+        // If target objects reach the limit. The game is completed
+        if (normalMoleCounter.getNormalMoleLeft() == 0) {
+            this.setCompleted();
+        }
+    }
+
+    private void randomCreateMole() {
+        double c = Math.random();
         if (c > 0.7) {
             createBombMole();
         } else if (0.1 < c && c <= 0.7) {
             createNormalMole();
-            targetCounter.addCount();
+            normalMoleCounter.reduceOneMole();
         } else if (c <= 0.1) {
             createKingMole();
         }
-        // If target objects reach the limit. The game is completed
-        if (targetCounter.getNormalMoleCount() == this.targetCounter.getNormalMoleLimit()) {
-            this.setCompleted();
+    }
+
+    private void randomCreateBird() {
+        double c = Math.random();
+        if (c >= 0.9 && this.bird == null) {
+            this.bird = new Bird(context, this.x, 100, birdSize);
         }
     }
 
@@ -100,7 +123,7 @@ class TapGame implements Drawable {
                 new KingMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2);
+                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
     }
 
     /**
@@ -111,7 +134,7 @@ class TapGame implements Drawable {
                 new NormalMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2);
+                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
     }
 
     /**
@@ -122,7 +145,7 @@ class TapGame implements Drawable {
                 new BombMole(
                         context,
                         r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2);
+                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
     }
 
     /**
@@ -138,30 +161,36 @@ class TapGame implements Drawable {
      * @param touchX the x-coordinate where the user touched.
      * @param touchY the x-coordinate where the user touched
      */
-    void updateScore(double touchX, double touchY) {
+    void updateOnTouch(double touchX, double touchY) {
         if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof NormalMole) {
             this.scoreBoard.earnPoint();
             updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof KingMole) {
             this.scoreBoard.earnFivePoints();
             updatePlayerStats();
-        } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof BombMole)
+        } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof BombMole) {
             this.scoreBoard.losePoint();
-        updatePlayerStats();
+            updatePlayerStats();
+        } else if (checkTouch(touchX, touchY, this.bird) && !this.birdTouched) {
+            this.birdTouched = true;
+            this.normalMoleCounter.addFiveMoles();
+            System.out.println("im here");
+        }
     }
+
 
     /**
      * Checks if the user tapped on a mole.
      *
-     * @param touchX the x-coordinate where the user touched.
-     * @param touchY the x-coordinate where the user touched.
-     * @param mole   the mole that the user tapped.
+     * @param touchX          the x-coordinate where the user touched.
+     * @param touchY          the x-coordinate where the user touched.
+     * @param touchableObject the touchableOject that the user tapped.
      */
-    private boolean checkTouch(double touchX, double touchY, Mole mole) {
-        return mole.getX() < touchX
-                && touchX < mole.getX() + mole.getSize()
-                && mole.getY() < touchY
-                && touchY < mole.getY() + mole.getSize();
+    private boolean checkTouch(double touchX, double touchY, TouchableObject touchableObject) {
+        return touchableObject.getX() < touchX
+                && touchX < touchableObject.getX() + touchableObject.getSize()
+                && touchableObject.getY() < touchY
+                && touchY < touchableObject.getY() + touchableObject.getSize();
     }
 
     @Override
@@ -170,11 +199,14 @@ class TapGame implements Drawable {
         drawers.addAll(backGround.getDrawers());
         drawers.addAll(currMole.getDrawers());
         drawers.addAll(scoreBoard.getDrawers());
-        drawers.addAll(targetCounter.getDrawers());
+        drawers.addAll(normalMoleCounter.getDrawers());
+        if (this.bird != null) {
+            drawers.addAll(bird.getDrawers());
+        }
         return drawers;
     }
 
-    void updatePlayerStats() {
+    private void updatePlayerStats() {
         this.playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
     }
 
@@ -183,5 +215,5 @@ class TapGame implements Drawable {
      */
     void endGame() {
         this.playerAccess.endGame(currPlayerID, true);
-  }
+    }
 }

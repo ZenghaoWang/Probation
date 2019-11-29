@@ -18,11 +18,7 @@ public class NormalMoleCounter implements Drawable {
     /**
      * The number of NormalMole in the game, game ends when 30 targets appear.
      */
-    private final int normalMoleLimit = 30;
-    /**
-     * The number of NormalMole that appeared in the game
-     */
-    private int normalMoleCount;
+    private int normalMoleLeft = 30;
 
     private Paint paint;
     /**
@@ -34,6 +30,7 @@ public class NormalMoleCounter implements Drawable {
      */
     private int y;
 
+
     /**
      * Initializes the x and y coordinates, normalMoleCount, paint. The x and y coordinates are in
      * ratios of the screenWidth and screenHeight.
@@ -42,7 +39,6 @@ public class NormalMoleCounter implements Drawable {
      * @param screenHeight The height of the screen in pixels.
      */
     public NormalMoleCounter(int screenWidth, int screenHeight) {
-        this.normalMoleCount = 0;
         this.x = (int) (screenWidth * 0.01);
         this.y = (int) (screenHeight * 0.03);
         paint = new Paint();
@@ -51,28 +47,26 @@ public class NormalMoleCounter implements Drawable {
     }
 
     /**
-     * Returns the normalMoleCount.
+     * Returns the normalMoleLeft.
      *
-     * @return normalMoleCount
+     * @return normalMoleLeft
      */
-    public int getNormalMoleCount() {
-        return this.normalMoleCount;
-    }
-
-    /**
-     * Returns the normalMoleLimit.
-     *
-     * @return normalMoleCount
-     */
-    public int getNormalMoleLimit() {
-        return normalMoleLimit;
+    public int getNormalMoleLeft() {
+        return normalMoleLeft;
     }
 
     /**
      * Adds a count to the normalMoleCount
      */
-    public void addCount() {
-        this.normalMoleCount++;
+    public void reduceOneMole() {
+        this.normalMoleLeft--;
+    }
+
+    /**
+     * Adds a count to the normalMoleCount
+     */
+    public void addFiveMoles() {
+        this.normalMoleLeft = this.normalMoleLeft + 5;
     }
 
     @Override
@@ -80,7 +74,7 @@ public class NormalMoleCounter implements Drawable {
         List<AndroidDrawer> drawers = new ArrayList<>();
         AndroidDrawer drawer =
                 new MoleCounterDrawer(
-                        this.x, this.y, this.getNormalMoleLimit(), this.getNormalMoleCount(), this.paint);
+                        this.x, this.y, this.normalMoleLeft, this.paint);
         drawers.add(drawer);
         return drawers;
   }

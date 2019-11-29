@@ -16,8 +16,8 @@ public class KingMole extends Mole {
      * @param x       The x coordinate of Mole in pixels.
      * @param y       The y coordinate of Mole in pixels.
      */
-    public KingMole(Context context, int x, int y) {
-        super(x, y);
+    public KingMole(Context context, int x, int y, int size) {
+        super(x, y, size);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.king_mole));
     }
 }

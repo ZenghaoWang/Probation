@@ -17,8 +17,8 @@ public class NormalMole extends Mole {
      * @param x       x-coordinate for NormalMole
      * @param y       y-coordinate for NormalMole
      */
-    public NormalMole(Context context, int x, int y) {
-        super(x, y);
+    public NormalMole(Context context, int x, int y, int size) {
+        super(x, y, size);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.mole));
   }
 }

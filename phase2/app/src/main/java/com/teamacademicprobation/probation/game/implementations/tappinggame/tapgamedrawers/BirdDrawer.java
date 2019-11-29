@@ -6,10 +6,7 @@ import android.graphics.Paint;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
-/**
- * An implementation of AndroidDrawer that draws the moles
- */
-public class MoleDrawer implements AndroidDrawer {
+public class BirdDrawer implements AndroidDrawer {
     /**
      * The image of the mole to be drawn.
      */
@@ -28,14 +25,14 @@ public class MoleDrawer implements AndroidDrawer {
     private Paint paint;
 
     /**
-     * Initializes a new MoleDrawer.
+     * Initializes a new ScoreBoardDrawer.
      *
      * @param state The image of the mole to be drawn.
      * @param x     The x coordinate of the start of the text
      * @param y     The y coordinate of the start of the text.
      * @param paint The style of the scoreboard.
      */
-    public MoleDrawer(Bitmap state, int x, int y, Paint paint) {
+    public BirdDrawer(Bitmap state, int x, int y, Paint paint) {
         this.state = state;
         this.x = x;
         this.y = y;

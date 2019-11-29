@@ -1,19 +1,19 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 
+import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
-import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.MoleDrawer;
+import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.BirdDrawer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A Mole object that the players will tap when playing the game.
- */
-public class Mole extends TouchableObject implements Drawable {
+public class Bird extends TouchableObject implements Drawable {
     /**
      * The paint of the mole to be drawn.
      */
@@ -23,14 +23,17 @@ public class Mole extends TouchableObject implements Drawable {
      */
     private Bitmap bitmap;
 
+    private final int speed = 200;
+
     /**
      * Initializes the x and y coordinates of the Mole.
      *
      * @param x The x coordinate of Mole in pixels.
      * @param y The y coordinate of Mole in pixels.
      */
-    Mole(int x, int y, int size) {
+    public Bird(Context context, int x, int y, int size) {
         super(x, y, size);
+        this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.bird));
     }
 
 
@@ -49,6 +52,11 @@ public class Mole extends TouchableObject implements Drawable {
     }
 
 
+    public void move() {
+        int newX = this.getX() - speed;
+        this.setX(newX);
+    }
+
     /**
      * Resize the bitmap to the desired size.
      */
@@ -59,9 +67,9 @@ public class Mole extends TouchableObject implements Drawable {
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
-        AndroidDrawer moleDrawer;
-        moleDrawer = new MoleDrawer(getResizedBitmap(), this.getX(), this.getY(), paint);
-        drawers.add(moleDrawer);
+        AndroidDrawer birdDrawer;
+        birdDrawer = new BirdDrawer(getResizedBitmap(), this.getX(), this.getY(), paint);
+        drawers.add(birdDrawer);
         return drawers;
-  }
+    }
 }
