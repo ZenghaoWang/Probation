@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,57 +8,100 @@
     tools:resources=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay" />
 
-    <include layout="@layout/content_main" />
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_marginTop="0dp"-->
+    <!--        android:orientation="vertical">-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <Button
-            android:id="@+id/btnTrivia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/magenta"
-            android:fontFamily="serif-monospace"
-            android:onClick="onClick"
-            android:text="Trivia"
-            android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/btnTrivia"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/magenta"
+        android:fontFamily="serif-monospace"
+        android:onClick="onClick"
+        android:text="Trivia"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_welcome_player" />
 
-        <Button
-            android:id="@+id/btnTiming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/magenta"
-            android:fontFamily="serif-monospace"
-            android:onClick="onClick"
-            android:text="Timing"
-            android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/btnTiming"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/magenta"
+        android:fontFamily="serif-monospace"
+        android:onClick="onClick"
+        android:text="Timing"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTrivia" />
 
-        <Button
-            android:id="@+id/btnTapping"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/magenta"
-            android:fontFamily="serif-monospace"
-            android:onClick="onClick"
-            android:text="Tapping"
-            android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/btnTapping"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/magenta"
+        android:fontFamily="serif-monospace"
+        android:onClick="onClick"
+        android:text="Tapping"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTiming" />
 
-        <Button
-            android:id="@+id/bestgames"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/magenta"
-            android:fontFamily="serif-monospace"
-            android:onClick="onClick"
-            android:text="View High Scores"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/bestgames"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/magenta"
+        android:fontFamily="serif-monospace"
+        android:onClick="onClick"
+        android:text="View High Scores"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/btnTapping" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/include"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/game_title" />
+
+    <TextView
+        android:id="@+id/txt_welcome_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome, %player"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
