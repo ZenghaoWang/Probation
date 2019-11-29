@@ -142,6 +142,14 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     public void setQuestionsRemaining(String newText) {
         this.questionsRemaining.setText(newText);
     }
+    
+    @Override
+    public void disableInterface() {
+        this.answer1.setEnabled(false);
+        this.answer2.setEnabled(false);
+        this.answer3.setEnabled(false);
+        this.answer4.setEnabled(false);
+    }
     // End of Setters
 
 }
