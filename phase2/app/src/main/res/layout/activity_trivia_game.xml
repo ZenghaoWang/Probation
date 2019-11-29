@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/trivia_background"
-    tools:context=".game.implementations.triviagame.TriviaGameActivity">
+    tools:resources=".game.implementations.triviagame.TriviaGameActivity">
 
     <TextView
         android:id="@+id/question"

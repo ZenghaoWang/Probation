@@ -1,6 +1,6 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
@@ -21,7 +21,7 @@ public class PowerUpSelect implements Drawable {
     private int screenWidth;
     private int screenHeight;
     private PowerUps selection;
-    private Context context;
+    private Resources resources;
     private Bitmap increaseDamage;
     private Bitmap increaseHealth;
     private TimingGameStyle gameStyle;
@@ -32,15 +32,15 @@ public class PowerUpSelect implements Drawable {
         this.gameStyle = gameStyle;
     }
 
-    public void buildPowerUpImages(Context context) {
-        this.context = context;
+    public void buildPowerUpImages(Resources resources) {
+        this.resources = resources;
         this.generateImages();
     }
 
     private void generateImages() {
         increaseDamage =
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.damage_upgrade);
-        increaseHealth = BitmapFactory.decodeResource(context.getResources(), R.drawable.heart_upgrade);
+                BitmapFactory.decodeResource(resources, R.drawable.damage_upgrade);
+        increaseHealth = BitmapFactory.decodeResource(resources, R.drawable.heart_upgrade);
 
         increaseDamage = Bitmap.createScaledBitmap(increaseDamage, SIZE, SIZE, false);
         increaseHealth = Bitmap.createScaledBitmap(increaseHealth, SIZE, SIZE, false);

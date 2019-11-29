@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/vaporwave"
     android:onClick="onClick"
-    tools:context=".game.implementations.triviagame.TriviaGameSelectionScreenActivity">
+    tools:resources=".game.implementations.triviagame.TriviaGameSelectionScreenActivity">
 
     <LinearLayout
         android:layout_width="347dp"

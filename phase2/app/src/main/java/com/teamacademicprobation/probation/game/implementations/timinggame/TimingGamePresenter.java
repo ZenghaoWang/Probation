@@ -14,7 +14,7 @@ import java.util.List;
 class TimingGamePresenter {
 
     private TimingGameModel timingGameModel;
-    private TimingGameView gameView;
+    private TimingGameViewInterface gameView;
 
     /**
      * Initializes a new TimingGamePresenter.
@@ -28,9 +28,9 @@ class TimingGamePresenter {
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         this.gameView = gameView;
         this.timingGameModel = new TimingGameModel(screenWidth, screenHeight, playerID);
-        this.timingGameModel.buildShips(gameView.getContext());
+        this.timingGameModel.buildShips(gameView.getContext().getResources());
         this.timingGameModel.loadPlayerData();
-        this.timingGameModel.buildPowerUpSelect(gameView.getContext());
+        this.timingGameModel.buildPowerUpSelect(gameView.getContext().getResources());
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame;
 
-import android.content.Context;
+import android.content.res.Resources;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class TimingGameModel implements Drawable, TimingGameListener {
 
-    private static final int STAGES = 4;
+    private static final int STAGES = 10;
     private static final String GAMEID = "Timing Game";
     private TimingGame timingGame;
     private PowerUpSelect powerUpSelect;
@@ -54,7 +54,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     }
 
     void loadPlayerData() {
-        if(this.playerAccess.getCurrGameID(currPlayerID).equals(GAMEID)) {
+        if (currPlayerID != null && this.playerAccess.getCurrGameID(currPlayerID).equals(GAMEID)) {
             Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID);
             loadMetaData(statMap);
             loadPlayerShipData(statMap);
@@ -102,12 +102,12 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         return this.stageCompleted ? powerUpSelect.getDrawers() : timingGame.getDrawers();
     }
 
-    void buildShips(Context context) {
-        timingGame.buildShips(context);
+    void buildShips(Resources resources) {
+        timingGame.buildShips(resources);
     }
 
-    void buildPowerUpSelect(Context context) {
-        this.powerUpSelect.buildPowerUpImages(context);
+    void buildPowerUpSelect(Resources resources) {
+        this.powerUpSelect.buildPowerUpImages(resources);
     }
 
     boolean isCompleted() {
@@ -146,7 +146,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     }
 
     @Override
-    public void notifyListener(){
+    public void notifyListener() {
         this.updatePlayerStats();
     }
 

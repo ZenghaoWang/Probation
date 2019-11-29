@@ -126,14 +126,13 @@ public class DataManager implements DataAccessObject {
     @Override
     public String getIDfromUsername(String username) {
         JSONObject allPlayersData = readJSON();
-
         try {
             Iterator<String> keys = allPlayersData.keys();
             while (keys.hasNext()) {
-                String curr_gameID = keys.next();
-                String curr_username = allPlayersData.getJSONObject(curr_gameID).getString("Username");
-                if (curr_username.equals(username)) {
-                    return curr_gameID;
+                String currPlayerID = keys.next();
+                String currUsername = allPlayersData.getJSONObject(currPlayerID).getString("Username");
+                if (currUsername.equals(username)) {
+                    return currPlayerID;
                 }
             }
         } catch (JSONException e) {
@@ -154,9 +153,9 @@ public class DataManager implements DataAccessObject {
         try {
             Iterator<String> keys = allPlayersData.keys();
             while (keys.hasNext()) {
-                String curr_gameID = keys.next();
-                String curr_username = allPlayersData.getJSONObject(curr_gameID).getString("Username");
-                if (curr_username.equals(username)) {
+                String currPlayerID = keys.next();
+                String currUsername = allPlayersData.getJSONObject(currPlayerID).getString("Username");
+                if (currUsername.equals(username)) {
                     return true;
                 }
             }

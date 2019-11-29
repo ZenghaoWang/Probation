@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/depression"
-    tools:context=".ui.ScoreScreenActivity">
+    tools:resources=".ui.ScoreScreenActivity">
 
     <TextView
         android:id="@+id/scoreMessage"

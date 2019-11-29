@@ -1,6 +1,6 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import android.content.Context;
+import android.content.res.Resources;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
@@ -76,10 +76,10 @@ public class TimingGame implements Drawable {
     /**
      * Initializes the playerShip and enemyShip.
      *
-     * @param context The context to be able to get resources.
+     * @param resources The resources
      */
-    public void buildShips(Context context) {
-        this.shipFactory = new ShipFactory(context, gameStyle);
+    public void buildShips(Resources resources) {
+        this.shipFactory = new ShipFactory(resources, gameStyle);
         this.playerShip = shipFactory.createPlayerShip(screenWidth, screenHeight);
         this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, currLevel);
     }
