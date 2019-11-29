@@ -29,6 +29,7 @@ class TimingGamePresenter {
         this.gameView = gameView;
         this.timingGameModel = new TimingGameModel(screenWidth, screenHeight, playerID);
         this.timingGameModel.buildShips(gameView.getContext());
+        this.timingGameModel.loadPlayerData();
         this.timingGameModel.buildPowerUpSelect(gameView.getContext());
     }
 
@@ -61,8 +62,6 @@ class TimingGamePresenter {
      * Updates the timing game once a tap is detected.
      */
     void onTouch(double touchX) {
-
         this.timingGameModel.onTouch(touchX);
-        this.timingGameModel.updatePlayerStats();
   }
 }

@@ -15,7 +15,7 @@ import com.teamacademicprobation.probation.R;
  */
 public class ScoreScreenActivity extends AppCompatActivity {
 
-    public static final String SCORE_KEY = "score";
+    public static final String SCORE_KEY = "SCORE";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

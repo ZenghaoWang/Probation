@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
+import com.teamacademicprobation.probation.game.implementations.timinggame.TimingGameListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,8 @@ public class TimingGame implements Drawable {
     private int screenHeight;
     private TimingGameStyle gameStyle;
 
+    private TimingGameListener listener;
+
     /**
      * Initializes a new timing game.
      *
@@ -71,13 +74,24 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Initializes the ships.
+     * Initializes the playerShip and enemyShip.
      *
      * @param context The context to be able to get resources.
      */
     public void buildShips(Context context) {
         this.shipFactory = new ShipFactory(context, gameStyle);
         this.playerShip = shipFactory.createPlayerShip(screenWidth, screenHeight);
+        this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, currLevel);
+    }
+
+    /**
+     * Builds a new enemyShip based on the current level. If the buildShips method has not been
+     * called, it does nothing.
+     */
+    public void buildEnemyShip(){
+        if(shipFactory == null){
+            return;
+        }
         this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, currLevel);
     }
 
@@ -111,6 +125,7 @@ public class TimingGame implements Drawable {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
                 this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, ++this.currLevel);
                 this.currWaitingFrame = 0;
+                this.listener.notifyListener();
             } else {
                 this.currWaitingFrame++;
             }
@@ -149,15 +164,17 @@ public class TimingGame implements Drawable {
         if (target.getHealth() == 0) {
             target.setDestroyed(true);
         }
+        this.listener.notifyListener();
     }
 
     /**
      * The action performed once the player has tapped the screen.
      */
-    public void onTouch() {
+    public void onTouch(TimingGameListener listener) {
         if (isAnimating()) {
             return;
         }
+        this.listener = listener;
         if (this.meter.cursorInTarget()) {
             this.currBullet = new PlayerBullet(this.screenWidth, this.screenHeight, gameStyle);
         } else {
@@ -210,10 +227,11 @@ public class TimingGame implements Drawable {
 
     public void upgradePlayer(PowerUpSelect.PowerUps selection) {
         if (selection == PowerUpSelect.PowerUps.DAMAGE) {
-            this.playerShip.increaseDamage(1);
+            this.playerShip.setDamage(this.playerShip.getDamage()+1);
         } else {
             this.playerShip.setHealth(this.playerShip.getMaxHealth() + 1);
         }
+        this.listener.notifyListener();
     }
 
     public boolean playerDestroyed() {
@@ -234,5 +252,27 @@ public class TimingGame implements Drawable {
 
     public Integer getPlayerMaxHealth() {
         return this.playerShip.getMaxHealth();
+    }
+
+    public void setLevel(int level) {
+        this.currLevel = level;
+    }
+
+    public void setPlayerShip(int maxHealth, int currHealth, int currDamage) {
+        this.playerShip.setHealth(maxHealth);
+        this.playerShip.setCurrHealth(currHealth);
+        this.playerShip.setDamage(currDamage);
+    }
+
+    public void setScore(int score) {
+        this.scoreBoard.setScore(score);
+    }
+
+    public int getEnemyHealth() {
+        return this.enemyShip.getHealth();
+    }
+
+    public void setEnemyShipHealth(int health){
+        this.enemyShip.setCurrHealth(health);
     }
 }

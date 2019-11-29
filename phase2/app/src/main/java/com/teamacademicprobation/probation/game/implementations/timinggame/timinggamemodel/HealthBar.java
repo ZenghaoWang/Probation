@@ -76,4 +76,8 @@ class HealthBar implements Drawable {
         this.maxHealth = health;
         this.health = health;
     }
+
+    void setCurrHealth(int currHealth) {
+        this.health = currHealth;
+    }
 }

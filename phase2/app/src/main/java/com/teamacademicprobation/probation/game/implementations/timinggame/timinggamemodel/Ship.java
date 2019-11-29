@@ -161,9 +161,6 @@ class Ship implements Drawable {
         return drawers;
     }
 
-    void increaseDamage(int damage) {
-        this.damage += damage;
-    }
 
     int getDamage() {
         return this.damage;
@@ -171,6 +168,15 @@ class Ship implements Drawable {
 
     int getMaxHealth() {
         return this.health.getMaxHealth();
+    }
+
+    void setDamage(int currDamage) {
+        this.damage = currDamage;
+    }
+
+    void setCurrHealth(int currHealth) {
+        this.health.setCurrHealth(currHealth);
+
     }
 
     // ====== END OF SETTERS/GETTERS =====

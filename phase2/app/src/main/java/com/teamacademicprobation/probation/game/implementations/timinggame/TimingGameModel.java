@@ -10,12 +10,13 @@ import com.teamacademicprobation.probation.game.implementations.timinggame.timin
 import com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel.TimingGameStyles;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TimingGameModel implements Drawable {
+public class TimingGameModel implements Drawable, TimingGameListener {
 
     private static final int STAGES = 4;
     private static final String GAMEID = "Timing Game";
@@ -32,6 +33,14 @@ public class TimingGameModel implements Drawable {
      */
     private String currPlayerID;
 
+    private static final String CURR_STAGE = "CURR_STAGE";
+    private static final String CURR_LEVEL = "CURRENT_LEVEL";
+    private static final String PLAYER_CURR_HEALTH = "PLAYER_CURRENT_HEALTH";
+    private static final String PLAYER_CURR_DAMAGE = "PLAYER_CURRENT_DAMAGE";
+    private static final String PLAYER_MAX_HEALTH = "PLAYER_MAX_HEALTH";
+    private static final String ENEMY_CURR_HEALTH = "ENEMY_CURRENT_HEALTH";
+
+
     TimingGameModel(int screenWidth, int screenHeight, String playerID) {
         this.timingGame = new TimingGame(screenWidth, screenHeight);
         this.powerUpSelect =
@@ -41,6 +50,41 @@ public class TimingGameModel implements Drawable {
                         new TimingGameStyle(TimingGameStyles.STYLE3)); // TODO: FIX THIS FOR PREFERENCES
         this.currPlayerID = playerID;
         this.playerAccess = new PlayerManager();
+
+    }
+
+    void loadPlayerData() {
+        if(this.playerAccess.getCurrGameID(currPlayerID).equals(GAMEID)) {
+            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID);
+            loadMetaData(statMap);
+            loadPlayerShipData(statMap);
+            loadEnemyShipData(statMap);
+            System.out.println(statMap);
+        }
+
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void loadMetaData(Map<String, Integer> statMap) {
+        this.currStage = (statMap.get(CURR_STAGE) != null) ? statMap.get(CURR_STAGE) : 1;
+        this.timingGame.setLevel((statMap.get(CURR_LEVEL) != null) ? statMap.get(CURR_LEVEL) : 1);
+        int score = (statMap.get(ScoreScreenActivity.SCORE_KEY) != null) ? statMap.get(ScoreScreenActivity.SCORE_KEY) : 0;
+        this.timingGame.setScore(score);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void loadEnemyShipData(Map<String, Integer> statMap) {
+        this.timingGame.buildEnemyShip();
+        int enemyHealth = (statMap.get(ENEMY_CURR_HEALTH) != null) ? statMap.get(ENEMY_CURR_HEALTH) : 1;
+        this.timingGame.setEnemyShipHealth(enemyHealth);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void loadPlayerShipData(Map<String, Integer> statMap) {
+        int playerMaxHealth = (statMap.get(PLAYER_MAX_HEALTH) != null) ? statMap.get(PLAYER_MAX_HEALTH) : 1;
+        int playerHealth = (statMap.get(PLAYER_CURR_HEALTH) != null) ? statMap.get(PLAYER_CURR_HEALTH) : 1;
+        int playerDamage = (statMap.get(PLAYER_CURR_DAMAGE) != null) ? statMap.get(PLAYER_CURR_DAMAGE) : 1;
+        this.timingGame.setPlayerShip(playerMaxHealth, playerHealth, playerDamage);
     }
 
     void update() {
@@ -80,18 +124,19 @@ public class TimingGameModel implements Drawable {
             timingGame.upgradePlayer(powerUpSelect.getSelection());
             this.stageCompleted = false;
         } else {
-            timingGame.onTouch();
+            timingGame.onTouch(this);
         }
     }
 
-    void updatePlayerStats() {
+    private void updatePlayerStats() {
         Map<String, Integer> statMap = new HashMap<>();
-        statMap.put("SCORE", timingGame.getScore());
-        statMap.put("CURRENT_STAGE", this.currStage);
-        statMap.put("CURRENT_LEVEL", timingGame.getLevel());
-        statMap.put("PLAYER_CURR_HEALTH", timingGame.getPlayerHealth());
-        statMap.put("PLAYER_MAX_HEALTH", timingGame.getPlayerMaxHealth());
-        statMap.put("PLAYER_DAMAGE", timingGame.getPlayerDamage());
+        statMap.put(ScoreScreenActivity.SCORE_KEY, timingGame.getScore());
+        statMap.put(CURR_STAGE, this.currStage);
+        statMap.put(CURR_LEVEL, timingGame.getLevel());
+        statMap.put(PLAYER_CURR_HEALTH, timingGame.getPlayerHealth());
+        statMap.put(PLAYER_MAX_HEALTH, timingGame.getPlayerMaxHealth());
+        statMap.put(PLAYER_CURR_DAMAGE, timingGame.getPlayerDamage());
+        statMap.put(ENEMY_CURR_HEALTH, timingGame.getEnemyHealth());
 
         this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
     }
@@ -99,4 +144,10 @@ public class TimingGameModel implements Drawable {
     void endGame() {
         this.playerAccess.endGame(currPlayerID, true);
     }
+
+    @Override
+    public void notifyListener(){
+        this.updatePlayerStats();
+    }
+
 }
