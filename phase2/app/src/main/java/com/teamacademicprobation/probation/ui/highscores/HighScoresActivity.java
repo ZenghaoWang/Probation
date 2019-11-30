@@ -20,6 +20,9 @@ public class HighScoresActivity extends AppCompatActivity {
     String playerID;
     HighScoresModel model;
 
+  /**
+   * Generate strings and display them on the ListView.
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -28,9 +31,9 @@ public class HighScoresActivity extends AppCompatActivity {
     playerID = getIntent().getStringExtra(LoginActivity.PLAYER_ID_KEY);
     model = new HighScoresModel(playerID);
 
-    ListView list = findViewById(R.id.statsListView);
+    ListView scoreList = findViewById(R.id.statsListView);
     ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, model.getScoreStrings());
-    list.setAdapter(adapter);
+    scoreList.setAdapter(adapter);
   }
 
 
