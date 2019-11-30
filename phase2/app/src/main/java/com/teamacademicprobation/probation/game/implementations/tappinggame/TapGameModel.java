@@ -236,7 +236,7 @@ class TapGameModel implements Drawable {
 
 
     @SuppressWarnings("ConstantConditions")
-    void loadMetaData(Map<String, Integer> statMap) {
+    private void loadMetaData(Map<String, Integer> statMap) {
         int score = (statMap.get(ScoreScreenActivity.SCORE_KEY) != null) ? statMap.get(ScoreScreenActivity.SCORE_KEY) : 0;
         int moleLeft = (statMap.get(CURR_MOLE_COUNT) != null) ? statMap.get(CURR_MOLE_COUNT) : 30;
         int birdTouch = (statMap.get(BIRD_TOUCHED) != null) ? statMap.get(BIRD_TOUCHED) : 0;
