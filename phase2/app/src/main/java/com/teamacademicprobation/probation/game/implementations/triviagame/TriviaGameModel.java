@@ -132,7 +132,7 @@ class TriviaGameModel {
 
   /** Ends the game */
   void endGame() {
-    this.playerAccess.endGame(playerID, true);
+    this.playerAccess.endGame(playerID, GAMEID,true);
   }
   
   

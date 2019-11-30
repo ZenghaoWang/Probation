@@ -54,8 +54,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     }
 
     void loadPlayerData() {
-        if (currPlayerID != null && this.playerAccess.getCurrGameID(currPlayerID).equals(GAMEID)) {
-            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID);
+        if (currPlayerID != null && this.playerAccess.isBeingPlayed(currPlayerID, GAMEID)) {
+            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID, GAMEID);
             loadMetaData(statMap);
             loadPlayerShipData(statMap);
             loadEnemyShipData(statMap);
@@ -142,11 +142,11 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     }
 
     void endGame() {
-        this.playerAccess.endGame(currPlayerID, true);
+        this.playerAccess.endGame(currPlayerID, GAMEID, true);
     }
 
     @Override
-    public void notifyListener() {
+    public void updateListener() {
         this.updatePlayerStats();
     }
 

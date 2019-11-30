@@ -125,7 +125,7 @@ public class TimingGame implements Drawable {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
                 this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, ++this.currLevel);
                 this.currWaitingFrame = 0;
-                this.listener.notifyListener();
+                this.listener.updateListener();
             } else {
                 this.currWaitingFrame++;
             }
@@ -164,7 +164,7 @@ public class TimingGame implements Drawable {
         if (target.getHealth() == 0) {
             target.setDestroyed(true);
         }
-        this.listener.notifyListener();
+        this.listener.updateListener();
     }
 
     /**
@@ -231,7 +231,7 @@ public class TimingGame implements Drawable {
         } else {
             this.playerShip.setHealth(this.playerShip.getMaxHealth() + 1);
         }
-        this.listener.notifyListener();
+        this.listener.updateListener();
     }
 
     public boolean playerDestroyed() {

@@ -214,6 +214,6 @@ class TapGame implements Drawable {
      *
      */
     void endGame() {
-        this.playerAccess.endGame(currPlayerID, true);
+        this.playerAccess.endGame(currPlayerID, GAMEID,true);
     }
 }

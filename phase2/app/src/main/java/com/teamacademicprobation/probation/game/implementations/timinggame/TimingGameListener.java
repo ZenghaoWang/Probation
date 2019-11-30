@@ -8,5 +8,5 @@ package com.teamacademicprobation.probation.game.implementations.timinggame;
  */
 public interface TimingGameListener {
 
-    void notifyListener();
+    void updateListener();
 }
