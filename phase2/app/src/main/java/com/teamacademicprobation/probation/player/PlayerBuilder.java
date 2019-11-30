@@ -67,7 +67,7 @@ public class PlayerBuilder {
       buildTotalGameStats(totalGameStats);
     } catch (JSONException e) {
       JSONObject totalGameStats = new JSONObject();
-      buildBestGameStats(totalGameStats);
+      buildTotalGameStats(totalGameStats);
     }
 
     try {
@@ -103,19 +103,19 @@ public class PlayerBuilder {
 
   private void buildTotalGameStats(JSONObject totalGameStats) {
     Iterator<String> gameIDs = totalGameStats.keys();
-    Map<String, Map<String, Integer>> allBestGameStats = new HashMap<>();
+    Map<String, Map<String, Integer>> allTotalGameStats = new HashMap<>();
 
     while (gameIDs.hasNext()) {
-      String bestGameID = gameIDs.next();
+      String totalGameID = gameIDs.next();
       Map<String, Integer> totalGameStatsMap = null;
       try {
-        totalGameStatsMap = buildGameStatMap(totalGameStats.getJSONObject(bestGameID));
+        totalGameStatsMap = buildGameStatMap(totalGameStats.getJSONObject(totalGameID));
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-      allBestGameStats.put(bestGameID, totalGameStatsMap);
+      allTotalGameStats.put(totalGameID, totalGameStatsMap);
     }
-    player.setBestStats(allBestGameStats);
+    player.setBestStats(allTotalGameStats);
   }
 
   /**
