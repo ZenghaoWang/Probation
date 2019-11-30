@@ -3,6 +3,7 @@ package com.teamacademicprobation.probation.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +15,17 @@ import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    TextView welcomeMessage = findViewById(R.id.txt_welcome_player);
+    welcomeMessage.setText(String.format("Welcome %s", getUsername()));
+
   }
+
 
 
   public void onClick(View v) {
@@ -47,5 +54,10 @@ public class MainActivity extends AppCompatActivity {
   private String getPlayerID() {
     Intent contextIntent = getIntent();
     return contextIntent.getStringExtra(LoginActivity.PLAYER_ID_KEY);
+  }
+
+  private String getUsername() {
+    Intent contextIntent = getIntent();
+    return contextIntent.getStringExtra(LoginActivity.PLAYER_USERNAME_KEY);
   }
 }

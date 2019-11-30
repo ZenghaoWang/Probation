@@ -39,7 +39,7 @@ class LoginPresenter {
 
     String playerID = playerAccess.login(username.trim(), password);
     if (playerID != null) {
-      loginView.goToMainView(playerID);
+      loginView.goToMainView(playerID, username.trim());
     } else {
       loginView.setErrorMessage("Invalid username or password.");
     }
@@ -59,7 +59,7 @@ class LoginPresenter {
 
     String playerID = playerAccess.createNewPlayer(username.trim(), password);
     if (playerID != null) {
-      loginView.goToMainView(playerID);
+      loginView.goToMainView(playerID, username.trim());
     } else {
       loginView.setErrorMessage("Username has already been taken.");
     }

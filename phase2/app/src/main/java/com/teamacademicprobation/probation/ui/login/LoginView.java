@@ -5,7 +5,7 @@ package com.teamacademicprobation.probation.ui.login;
  */
 interface LoginView {
 
-  void goToMainView(String playerID);
+  void goToMainView(String playerID, String username);
 
   void setErrorMessage(String errorMessage);
 }

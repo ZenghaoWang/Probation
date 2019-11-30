@@ -109,7 +109,7 @@ public class PlayerStats {
   public void endCurrGame(boolean save) {
     if (save) {
       updateBestGame(currGame); // updates the player's best game statistics with this game in mind
-      updateTotalGame(currGame);
+//      updateTotalGame(currGame);
     }
 
     currGame =
@@ -142,6 +142,7 @@ public class PlayerStats {
    * @param otherGameStats the statistics of the game to be compared with the best game statistics
    */
   private void updateBestGame(PlayerGameStats otherGameStats) {
+    bestGame.put(currGame.getGameID(), otherGameStats);
     String gameID = otherGameStats.getGameID();
 
     if (bestGame.containsKey(gameID)) {

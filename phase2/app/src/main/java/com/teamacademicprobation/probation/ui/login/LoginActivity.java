@@ -19,6 +19,7 @@ import java.io.File;
 public class LoginActivity extends AppCompatActivity implements LoginView {
     public static final String FILE_PATH = "PlayerData.txt";
     public static final String PLAYER_ID_KEY = "PlayerID";
+  public static final String PLAYER_USERNAME_KEY = "PlayerUsername";
   private EditText username;
   private EditText password;
   private TextView error;
@@ -55,9 +56,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
   }
 
   @Override
-  public void goToMainView(String playerID) {
+  public void goToMainView(String playerID, String username) {
     Intent main = new Intent(this, MainActivity.class);
     main.putExtra(PLAYER_ID_KEY, playerID);
+    main.putExtra(PLAYER_USERNAME_KEY, username);
     startActivity(main);
   }
 
