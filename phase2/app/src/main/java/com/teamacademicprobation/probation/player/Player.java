@@ -41,6 +41,14 @@ public class Player {
     this.playerStats.setCurrStats(currGameID, currGameStats);
   }
 
+  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
+    this.playerStats.setBestStats(bestGameStats);
+  }
+
+  public void setTotalStats(Map<String, Map<String, Integer>> totalGameStats) {
+    this.playerStats.setTotalStats(totalGameStats);
+  }
+
   public String getUsername() {
     return this.username;
   } // returns player's username
@@ -118,10 +126,6 @@ public class Player {
 
   public Map<String, Map<String, Integer>> getTotalStats() {
     return this.playerStats.getTotalStats();
-  }
-
-  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
-    this.playerStats.setBestStats(bestGameStats);
   }
 
   /**

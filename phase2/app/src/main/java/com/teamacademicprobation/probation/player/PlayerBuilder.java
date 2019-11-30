@@ -115,7 +115,7 @@ public class PlayerBuilder {
       }
       allTotalGameStats.put(totalGameID, totalGameStatsMap);
     }
-    player.setBestStats(allTotalGameStats);
+    player.setTotalStats(allTotalGameStats);
   }
 
   /**
