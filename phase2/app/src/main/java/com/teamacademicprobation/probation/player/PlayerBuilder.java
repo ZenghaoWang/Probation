@@ -17,19 +17,16 @@ import java.util.Map;
  *
  * <p>{"Username": "playerUsername, "Password": "playerPassword", "PreferencesActivity" :
  * {"PreferenceKey" : "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic"}},
- * "BestSession": {"GameID": {"StatID" : "statistic"}}
+ * "BestSession": {"GameID": {"StatID" : "statistic"}} "TotalScores": {"GameID": {"StatID":
+ * "statistic"}}}
  */
 public class PlayerBuilder {
 
   private static final String TAG = "PlayerBuilder";
-    /**
-     * The player this player builder is building.
-     */
-    private Player player;
+  /** The player this player builder is building. */
+  private Player player;
 
-    /**
-     * Initializes the player builder with a default player.
-     */
+  /** Initializes the player builder with a default player. */
   public PlayerBuilder() {
     this.player = new Player();
   }
@@ -66,6 +63,14 @@ public class PlayerBuilder {
     }
 
     try {
+      JSONObject totalGameStats = playerData.getJSONObject("Total Scores");
+      buildTotalGameStats(totalGameStats);
+    } catch (JSONException e) {
+      JSONObject totalGameStats = new JSONObject();
+      buildBestGameStats(totalGameStats);
+    }
+
+    try {
       JSONObject currGameStats = playerData.getJSONObject("Current Session");
       buildCurrGameStats(currGameStats);
     } catch (JSONException e) {
@@ -92,6 +97,23 @@ public class PlayerBuilder {
         Log.e(TAG, e.toString());
       }
       allBestGameStats.put(bestGameID, bestGameStatsMap);
+    }
+    player.setBestStats(allBestGameStats);
+  }
+
+  private void buildTotalGameStats(JSONObject totalGameStats) {
+    Iterator<String> gameIDs = totalGameStats.keys();
+    Map<String, Map<String, Integer>> allBestGameStats = new HashMap<>();
+
+    while (gameIDs.hasNext()) {
+      String bestGameID = gameIDs.next();
+      Map<String, Integer> totalGameStatsMap = null;
+      try {
+        totalGameStatsMap = buildGameStatMap(totalGameStats.getJSONObject(bestGameID));
+      } catch (JSONException e) {
+        Log.e(TAG, e.toString());
+      }
+      allBestGameStats.put(bestGameID, totalGameStatsMap);
     }
     player.setBestStats(allBestGameStats);
   }

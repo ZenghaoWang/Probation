@@ -48,7 +48,7 @@ class TapGamePresenter {
     /**
      * Updates the tap game score once a tap is detected.
      */
-    void updateScore(double touchX, double touchY) {
-        this.tapGame.updateScore(touchX, touchY);
+    void updateOnTouch(double touchX, double touchY) {
+        this.tapGame.updateOnTouch(touchX, touchY);
   }
 }

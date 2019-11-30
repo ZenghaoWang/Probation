@@ -8,21 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-/**
- * A player for the game.
- */
+/** A player for the game. */
 public class Player {
 
-    private static final int playerIDlen = 5;
-    /** The statistics of this player. */
+  private static final int playerIDlen = 5;
+  /** The statistics of this player. */
   private PlayerStats playerStats;
-    /** The preferences of this player. */
+  /** The preferences of this player. */
   private PlayerPreferences playerPreferences;
-    /** The username of this player. */
+  /** The username of this player. */
   private String username;
-    /** The password of this player. */
+  /** The password of this player. */
   private String password;
-    /** The random playerID of this player */
+  /** The random playerID of this player */
   private String playerID;
 
   public Player() {
@@ -47,28 +45,28 @@ public class Player {
     return this.username;
   } // returns player's username
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   public String getPassword() {
     return this.password;
   } // returns player's password
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
   public String getPlayerID() {
     return this.playerID;
   } // returns player's ID
 
-    // ==== GETTER METHODS, CALLED BY OTHER CLASSES TO OBTAIN INFO ON Player, ESPECIALLY WHEN SAVING
-    // PLAYER INFO
+  // ==== GETTER METHODS, CALLED BY OTHER CLASSES TO OBTAIN INFO ON Player, ESPECIALLY WHEN SAVING
+  // PLAYER INFO
 
-    public void setPlayerID(String playerID) {
-        this.playerID = playerID;
-    }
+  public void setPlayerID(String playerID) {
+    this.playerID = playerID;
+  }
 
   /**
    * Returns a map of the player's preferences
@@ -76,12 +74,12 @@ public class Player {
    * @return player's preferences in a Map<String, String>
    */
   public Map<String, String> getPreferences() {
-      return this.playerPreferences.getPreferences();
+    return this.playerPreferences.getPreferences();
   }
 
-    public void setPreferences(Map<String, String> playerPreferences) {
-        this.playerPreferences.setPreferences(playerPreferences);
-    }
+  public void setPreferences(Map<String, String> playerPreferences) {
+    this.playerPreferences.setPreferences(playerPreferences);
+  }
 
   public String getCurrGameID() {
     return this.playerStats.getCurrGameID();
@@ -111,12 +109,20 @@ public class Player {
    * @return a map of the player's best game stats in a Map<"GameID", Map<"StatID", Integer>>
    */
   public Map<String, Map<String, Integer>> getBestStats() {
-      return this.playerStats.getBestStats();
+    return this.playerStats.getBestStats();
   }
 
-    public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
-        this.playerStats.setBestStats(bestGameStats);
-    }
+  public Map<String, Integer> getTotalStats(String gameID) {
+    return this.playerStats.getTotalStats(gameID);
+  }
+
+  public Map<String, Map<String, Integer>> getTotalStats() {
+    return this.playerStats.getTotalStats();
+  }
+
+  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
+    this.playerStats.setBestStats(bestGameStats);
+  }
 
   /**
    * Returns a map of all the information contained in this player
@@ -137,6 +143,7 @@ public class Player {
     // Add player's stats
     result.put("Current Session", this.getCurrStats());
     result.put("Best Session", this.getBestStats());
+    result.put("Total Scores", this.getTotalStats());
 
     return result;
   }
@@ -166,12 +173,12 @@ public class Player {
     this.playerStats.newCurrGame(currGameID);
   }
 
-    /** Lets you update the player's current game session with a new game. */
+  /** Lets you update the player's current game session with a new game. */
   public void endCurrGame(boolean save) {
     this.playerStats.endCurrGame(save);
   }
 
-    /** Updates PlayerPreferences. */
+  /** Updates PlayerPreferences. */
   public void updatePreferences(String preferenceKey, String preferenceSetting) {
     this.playerPreferences.updatePreferences(preferenceKey, preferenceSetting);
   }
@@ -205,7 +212,6 @@ public class Player {
     this.playerStats.updateCurrGame(gameStatsMap);
   }
 
-    // TODO: DELETE THIS METHOD AND ITS USAGES
   public List<String> getGamesPlayed() {
     List<String> result = new ArrayList<>();
     for (String gameID : this.playerStats.getBestStats().keySet()) {

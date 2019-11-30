@@ -96,7 +96,7 @@ public class TapGameView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            this.tapGamePresenter.updateScore(event.getX(), event.getY());
+            this.tapGamePresenter.updateOnTouch(event.getX(), event.getY());
             return true;
         }
         return false;

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A scoreboard for the TapGame.
  */
-public class TapScoreBoard extends ScoreBoard implements Drawable {
+public class TapScoreBoard extends ScoreBoard {
     /**
      * Initializes the Tap Game scoreboard to fit on the top right of the screen.
      *
@@ -23,6 +23,22 @@ public class TapScoreBoard extends ScoreBoard implements Drawable {
     public TapScoreBoard(int screenWidth, int screenHeight) {
         super(screenWidth, screenHeight);
         this.getPaint().setColor(Color.BLACK);
+    }
+
+    /**
+     * Increments the points by five.
+     */
+    public void earnFivePoints() {
+        this.setScore(this.getScore() + 5);
+    }
+
+    /**
+     * Decrements the points by one.
+     */
+    public void losePoint() {
+        if (this.getScore() != 0) {
+            this.setScore(this.getScore() - 1);
+        }
     }
 
     @Override

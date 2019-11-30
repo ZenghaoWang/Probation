@@ -11,40 +11,39 @@ import java.util.Objects;
  */
 public class PlayerStats {
 
-    // A list of all the player's completed games.
-    private final ArrayList<PlayerGameStats> completedGames;
   private PlayerGameStats currGame;
   // A map of each type of game along with the player's best scores within that game.
   private Map<String, PlayerGameStats> bestGame = new HashMap<>();
-  private Map<String, PlayerGameStats> avgGame = new HashMap<>();
+  private Map<String, PlayerGameStats> totalGame = new HashMap<>();
 
-    /**
-     * Instantiates a PlayerStats object with an empty list of completed games.
-     */
+  /** Instantiates a PlayerStats object with an empty list of completed games. */
   PlayerStats() {
     currGame = new PlayerGameStats("");
     bestGame.put("", currGame);
-    avgGame.put("", currGame);
-    completedGames = new ArrayList<>();
+    totalGame.put("", currGame);
   }
 
   // ==== GETTER METHODS for Player when retrieving data to be saved into the JSON
 
-    /** @return ths player's current gameID */
+  /** @return ths player's current gameID */
   public String getCurrGameID() {
     return currGame.getGameID();
   }
 
-    /** @return a map of all the statistics of the current game along with their values */
+  /** @return a map of all the statistics of the current game along with their values */
   public Map<String, Map<String, Integer>> getCurrStats() {
     Map<String, Map<String, Integer>> currStats = new HashMap<>();
     currStats.put(currGame.getGameID(), currGame.getAllStats());
     return currStats;
   }
 
-    /** @return a map of all the statistics of a particular game */
+  /** @return a map of all the statistics of a particular game */
   public Map<String, Integer> getBestStats(String gameID) {
     return bestGame.get(gameID).getAllStats();
+  }
+
+  public Map<String, Integer> getTotalStats(String gameID) {
+    return totalGame.get(gameID).getAllStats();
   }
 
   /**
@@ -62,20 +61,38 @@ public class PlayerStats {
     return bestStats;
   }
 
+  public Map<String, Map<String, Integer>> getTotalStats() {
+    Map<String, Map<String, Integer>> totalStats = new HashMap<>();
+    for (String gameKey : this.totalGame.keySet()) {
+      if (!gameKey.equals("")) {
+        totalStats.put(gameKey, Objects.requireNonNull(this.totalGame.get(gameKey).getAllStats()));
+      }
+    }
+    return totalStats;
+  }
+
   // ==== SETTER METHODS
 
-    public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
-        for (String gameKey : bestGameStats.keySet()) {
-            PlayerGameStats gameStats = new PlayerGameStats(gameKey);
-            gameStats.update(bestGameStats.get(gameKey));
-            this.bestGame.put(gameKey, gameStats);
-        }
+  public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
+    for (String gameKey : bestGameStats.keySet()) {
+      PlayerGameStats gameStats = new PlayerGameStats(gameKey);
+      gameStats.update(bestGameStats.get(gameKey));
+      this.bestGame.put(gameKey, gameStats);
     }
+  }
 
-    public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
-        this.newCurrGame(currGameID);
-        this.updateCurrGame(currGameStats);
+  public void setTotalStats(Map<String, Map<String, Integer>> totalGameStats) {
+    for (String gameKey : totalGameStats.keySet()) {
+      PlayerGameStats gameStats = new PlayerGameStats(gameKey);
+      gameStats.update(totalGameStats.get(gameKey));
+      this.totalGame.put(gameKey, gameStats);
     }
+  }
+
+  public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
+    this.newCurrGame(currGameID);
+    this.updateCurrGame(currGameStats);
+  }
 
   // ==== UPDATE METHODS
 
@@ -88,17 +105,16 @@ public class PlayerStats {
     currGame = new PlayerGameStats(gameID);
   }
 
-    /** Occurs at the end of the current game session. */
+  /** Occurs at the end of the current game session. */
   public void endCurrGame(boolean save) {
     if (save) {
-      completedGames.add(currGame); // adds this game to the list of this player's completed games
-
       updateBestGame(currGame); // updates the player's best game statistics with this game in mind
+      updateTotalGame(currGame);
     }
 
-      currGame =
-              new PlayerGameStats(
-                      ""); // sets the current game to null (meaning there is currently no level being played)
+    currGame =
+        new PlayerGameStats(
+            ""); // sets the current game to null (meaning there is currently no level being played)
   }
 
   /**
@@ -135,5 +151,11 @@ public class PlayerStats {
     } else {
       bestGame.put(gameID, otherGameStats);
     }
+  }
+
+  private void updateTotalGame(PlayerGameStats newestGameStats) {
+    String gameID = newestGameStats.getGameID();
+    Map<String, Integer> newStats = newestGameStats.getAllStats();
+    totalGame.get(gameID).increment(newStats);
   }
 }

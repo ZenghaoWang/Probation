@@ -31,14 +31,12 @@ public class MoleCounterDrawer implements AndroidDrawer {
      *
      * @param x         The x coordinate of the start of the text.
      * @param y         The y coordinate of the start of the text.
-     * @param moleLimit The maximum limit of moles appearing.
-     * @param moleCount The current count of how many moles appeared.
      * @param paint     The style of the scoreboard.
      */
-    public MoleCounterDrawer(int x, int y, int moleLimit, int moleCount, Paint paint) {
+    public MoleCounterDrawer(int x, int y, int moleLeft, Paint paint) {
         this.x = x;
         this.y = y;
-        this.moleLeft = moleLimit - moleCount;
+        this.moleLeft = moleLeft;
         this.paint = paint;
     }
 

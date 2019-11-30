@@ -74,6 +74,22 @@ public class PlayerGameStats implements Comparable<PlayerGameStats> {
     }
   }
 
+    void increment(String statID, int newValue) {
+      int currValue = 0;
+        if (statsMap.containsKey(statID)) {
+            currValue = Objects.requireNonNull(statsMap.get(statID));
+        }
+        int incrementedValue = currValue + newValue;
+
+        statsMap.put(statID, incrementedValue);
+    }
+
+    void increment(Map<String, Integer> newStats) {
+        for (String statID : newStats.keySet()) {
+            this.increment(statID, Objects.requireNonNull(newStats.get(statID)));
+        }
+    }
+
   /**
    * Updates this game's total score by a given amount.
    *

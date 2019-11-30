@@ -3,8 +3,10 @@ package com.teamacademicprobation.probation.game;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.teamacademicprobation.probation.game.implementations.Drawable;
+
 /** An object that represents the scoreboard, to be drawn on the top right of the game. */
-public class ScoreBoard {
+public abstract class ScoreBoard implements Drawable {
   /** The current score. */
   private int score;
   /** The style of this scoreboard. */
@@ -53,19 +55,6 @@ public class ScoreBoard {
     this.score++;
   }
 
-    /**
-     * Increments the points by five.
-     */
-    public void earnFivePoints() {
-        this.score = this.score + 5;
-    }
-
-  /** Decrements the points by one. */
-  public void losePoint() {
-    if (score != 0) {
-      this.score--;
-    }
-  }
 
   protected int getX() {
     int charWidth = Math.toIntExact(Math.round(paint.measureText("0")));
