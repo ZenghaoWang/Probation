@@ -125,17 +125,19 @@ public class PlayerBuilder {
    */
   private void buildCurrGameStats(JSONObject currGameStats) {
     Iterator<String> gameIDs = currGameStats.keys();
+    Map<String, Map<String, Integer>> allCurrGameStats = new HashMap<>();
+
     while (gameIDs.hasNext()) {
-      String currGameID = gameIDs.next();
+      String totalGameID = gameIDs.next();
       Map<String, Integer> currGameStatsMap = null;
       try {
-        currGameStatsMap = buildGameStatMap(currGameStats.getJSONObject(currGameID));
+        currGameStatsMap = buildGameStatMap(currGameStats.getJSONObject(totalGameID));
       } catch (JSONException e) {
         Log.e(TAG, e.toString());
       }
-
-      this.player.setCurrStats(currGameID, currGameStatsMap);
+      allCurrGameStats.put(totalGameID, currGameStatsMap);
     }
+    player.setTotalStats(allCurrGameStats);
   }
 
   /**
