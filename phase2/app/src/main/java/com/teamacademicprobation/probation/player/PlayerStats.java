@@ -136,6 +136,9 @@ public class PlayerStats {
    * @param value the value we want associated with that statistic.
    */
   public void updateCurrGame(String gameID, String statID, int value) {
+    if (currGame.containsKey(gameID)){
+      newCurrGame(gameID);
+    }
     currGame.get(gameID).update(statID, value);
   }
 
@@ -145,7 +148,10 @@ public class PlayerStats {
    * @param newStats a map of statistics plus the values we want associated with them
    */
   public void updateCurrGame(String gameID, Map<String, Integer> newStats) {
-    newStats.forEach((k, v) -> currGame.get(gameID).update(k, v));
+    if (currGame.containsKey(gameID)){
+      newCurrGame(gameID);
+    }
+    currGame.get(gameID).update(newStats);
   }
 
   /**
