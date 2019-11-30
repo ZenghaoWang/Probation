@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The back-end for the high-score screen. Responsible for generation the strings to display.
+ */
 class HighScoresModel {
     private String playerID;
 
