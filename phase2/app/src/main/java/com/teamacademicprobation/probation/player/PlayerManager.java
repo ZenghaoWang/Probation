@@ -9,27 +9,25 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-/**
- * An implementation of PlayerAccess.
- */
+/** An implementation of PlayerAccess. */
 // TODO: IMPLEMENT THE THREE DIFFERENT PLAYERACCESS
 public class PlayerManager
-        implements PlayerLoginAccess,
+    implements PlayerLoginAccess,
         PlayerGameStatsAccess,
         PlayerPreferencesAccess,
         PlayerTotalStatsAccess {
 
-    /** The DataAccessObject that will be responsible for writing/reading from the database. */
+  /** The DataAccessObject that will be responsible for writing/reading from the database. */
   private static DataAccessObject dataAccess = new DataManager();
 
-    /**
-     * Sets the data file.
-     *
-     * @param dataFile
-     */
-    public static void setDataFile(File dataFile) {
-        dataAccess.setData(dataFile);
-    }
+  /**
+   * Sets the data file.
+   *
+   * @param dataFile
+   */
+  public static void setDataFile(File dataFile) {
+    dataAccess.setData(dataFile);
+  }
 
   /**
    * Creates a new player, and saves it into the database.
@@ -171,6 +169,12 @@ public class PlayerManager
   public Map<String, Integer> getBestStats(String playerID, String gameID) {
     Player currPlayer = getPlayer(playerID);
     return currPlayer.getBestStats(gameID);
+  }
+
+  @Override
+  public Map<String, Integer> getTotalStats(String playerID, String gameID) {
+    Player currPlayer = getPlayer(playerID);
+    return currPlayer.getTotalStats(gameID);
   }
 
   /**

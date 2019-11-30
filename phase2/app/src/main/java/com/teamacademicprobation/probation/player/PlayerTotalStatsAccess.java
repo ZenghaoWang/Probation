@@ -7,5 +7,7 @@ public interface PlayerTotalStatsAccess {
 
   Map<String, Integer> getBestStats(String playerID, String gameID);
 
+  Map<String, Integer> getTotalStats(String playerID, String gameID);
+
   List<String> getGamesPlayed(String playerID);
 }
