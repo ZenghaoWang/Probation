@@ -137,7 +137,7 @@ public class PlayerBuilder {
       }
       allCurrGameStats.put(totalGameID, currGameStatsMap);
     }
-    player.setTotalStats(allCurrGameStats);
+    player.setCurrStats(allCurrGameStats);
   }
 
   /**
