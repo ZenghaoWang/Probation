@@ -77,14 +77,22 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         presenter.updateView();
     }
 
-    /**
-     * Head to the score screen.
-     *
-     * @param scoreMessage The message that will appear on the score screen.
-     */
-    public void goToScoreScreen(String scoreMessage) {
+//    /**
+//     * Head to the score screen.
+//     *
+//     * @param scoreMessage The message that will appear on the score screen.
+//     */
+//    public void goToScoreScreen(String scoreMessage) {
+//        Intent intent = new Intent(this, ScoreScreenActivity.class);
+//        intent.putExtra(ScoreScreenActivity.SCORE_KEY, scoreMessage);
+//        startActivity(intent);
+//    }
+//
+    public void goToScoreScreen(String scoreMessage, String playerID,  String gameID) {
         Intent intent = new Intent(this, ScoreScreenActivity.class);
-        intent.putExtra(ScoreScreenActivity.SCORE_KEY, scoreMessage);
+        intent.putExtra(ScoreScreenActivity.SCORE_KEY, "You scored:" + scoreMessage);
+        intent.putExtra(ScoreScreenActivity.GAMEID_KEY, gameID);
+        intent.putExtra(ScoreScreenActivity.PLAYERID_KEY, playerID);
         startActivity(intent);
     }
 

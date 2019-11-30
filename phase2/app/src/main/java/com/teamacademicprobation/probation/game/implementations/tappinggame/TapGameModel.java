@@ -30,9 +30,7 @@ class TapGameModel implements Drawable {
     /**
      * The gameID of this game.
      */
-    private static final String GAMEID = "TapGameModel";
-    private static final String CURR_MOLE_COUNT = "CURRENT_MOLE_COUNT";
-    private static final String BIRD_TOUCHED = "BIRD_TOUCHED";
+    static final String GAMEID = "TapGameModel";
     private String currPlayerID;
     private Context context;
     private PlayerGameStatsAccess playerAccess;
@@ -44,14 +42,19 @@ class TapGameModel implements Drawable {
      * boolean to check if the bird has been touched in the game.
      */
     private boolean birdTouched;
+
     private Bird bird;
     private Mole currMole;
     private BackGround backGround;
     private TapScoreBoard scoreBoard;
     private NormalMoleCounter normalMoleCounter;
+
     private int screenWidth;
     private int screenHeight;
     private Random r = new Random();
+
+    private static final String CURR_MOLE_COUNT = "CURRENT_MOLE_COUNT";
+    private static final String BIRD_TOUCHED = "BIRD_TOUCHED";
 
     /**
      * Constructor for the TapGame Backend.
@@ -216,12 +219,6 @@ class TapGameModel implements Drawable {
     }
 
 
-    /**
-     * Ends the game and sends the statistics.
-     */
-    void endGame() {
-        this.playerAccess.endGame(currPlayerID, GAMEID, true);
-    }
 
     private void updatePlayerStats() {
         Map<String, Integer> statMap = new HashMap<>();
@@ -248,5 +245,9 @@ class TapGameModel implements Drawable {
             loadMetaData(statMap);
             System.out.println(statMap);
         }
+    }
+
+    String getPlayerID() {
+        return this.currPlayerID;
     }
 }

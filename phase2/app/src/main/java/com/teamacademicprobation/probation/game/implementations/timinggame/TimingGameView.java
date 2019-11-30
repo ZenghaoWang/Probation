@@ -101,9 +101,11 @@ public class TimingGameView extends SurfaceView implements Runnable, TimingGameV
     }
 
     @Override
-    public void goToScoreScreen(String score) {
+    public void goToScoreScreen(String score, String playerID,  String gameID) {
         Intent intent = new Intent(getContext(), ScoreScreenActivity.class);
         intent.putExtra(ScoreScreenActivity.SCORE_KEY, "You scored:" + score);
+        intent.putExtra(ScoreScreenActivity.GAMEID_KEY, gameID);
+        intent.putExtra(ScoreScreenActivity.PLAYERID_KEY, playerID);
         getContext().startActivity(intent);
   }
 }

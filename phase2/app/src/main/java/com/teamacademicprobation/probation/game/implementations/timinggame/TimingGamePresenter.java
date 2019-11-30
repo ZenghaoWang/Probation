@@ -39,9 +39,8 @@ class TimingGamePresenter {
     void update() {
         this.timingGameModel.update();
         if (this.timingGameModel.isCompleted()) {
-            this.timingGameModel.endGame();
             String score = "" + this.timingGameModel.getScore();
-            this.gameView.goToScoreScreen(score);
+            this.gameView.goToScoreScreen(score, this.timingGameModel.getPlayerID(), TimingGameModel.GAMEID);
         }
     }
 

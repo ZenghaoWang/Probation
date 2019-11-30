@@ -37,9 +37,8 @@ class TriviaGamePresenter {
 	void updateView() {
 		model.getRandomQuestion();
 		if (model.isCompleted()) {
-			model.endGame();
 			view.disableInput();
-			view.goToScoreScreen(model.generateScoreMessage());
+			view.goToScoreScreen(model.generateScoreMessage(),model.getPlayerID(), TriviaGameModel.GAMEID);
 		} else {
 			view.setQuestion(model.getCurrentQuestion());
 			view.setAnswer1(model.getAnswer1());

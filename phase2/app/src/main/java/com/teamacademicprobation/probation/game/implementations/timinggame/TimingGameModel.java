@@ -19,7 +19,7 @@ import java.util.Map;
 public class TimingGameModel implements Drawable, TimingGameListener {
 
     private static final int STAGES = 10;
-    private static final String GAMEID = "Timing Game";
+    static final String GAMEID = "Timing Game";
     private TimingGame timingGame;
     private PowerUpSelect powerUpSelect;
     private int currStage = 1;
@@ -118,6 +118,10 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         return timingGame.getScore();
     }
 
+    String getPlayerID() {
+        return this.currPlayerID;
+    }
+
     void onTouch(double touchX) {
         if (this.stageCompleted) {
             powerUpSelect.onTouch(touchX);
@@ -141,9 +145,6 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
     }
 
-    void endGame() {
-        this.playerAccess.endGame(currPlayerID, GAMEID, true);
-    }
 
     @Override
     public void updateListener() {

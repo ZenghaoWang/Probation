@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * An implementation of ScoreBoard for timing game.
  */
-class TimingGameScoreBoard extends ScoreBoard implements Drawable {
+class TimingGameScoreBoard extends ScoreBoard{
 
     /**
      * Initializes a new TiminGameScoreBoard.

@@ -9,11 +9,11 @@ import com.teamacademicprobation.probation.player.PlayerManager;
 
 /** The back-end for the trivia game. */
 class TriviaGameModel {
-  private static final String GAMEID = "TriviaGame";
+  static final String GAMEID = "TriviaGame";
   // For logging purposes
   private static final String TAG = "TriviaGameModel";
 
-  private String playerID;
+  private String currPlayerID;
   private QuestionSet questionSet;
   private PlayerGameStatsAccess playerAccess;
 
@@ -31,7 +31,7 @@ class TriviaGameModel {
    */
   TriviaGameModel(QuestionSet questionSet, String playerID) {
     this.questionSet = questionSet;
-    this.playerID = playerID;
+    this.currPlayerID = playerID;
     this.playerAccess = new PlayerManager();
 
     totalNumQuestionsAnswered = 0;
@@ -127,13 +127,12 @@ class TriviaGameModel {
 
   /** Send the percentage of correct answers for this game to the score tracker. */
   void updateStats() {
-    playerAccess.updateStats(playerID, GAMEID, "score", generateScorePercentage());
+    playerAccess.updateStats(currPlayerID, GAMEID, "score", generateScorePercentage());
   }
 
-  /** Ends the game */
-  void endGame() {
-    this.playerAccess.endGame(playerID, GAMEID,true);
+
+  String getPlayerID() {
+    return currPlayerID;
+
   }
-  
-  
 }

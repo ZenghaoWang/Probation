@@ -12,7 +12,7 @@ public interface TriviaView {
      *
      * @param scoreMessage the message to be displayed on the score screen.
      */
-    void goToScoreScreen(String scoreMessage);
+    void goToScoreScreen(String scoreMessage, String playerID, String gameID);
 
     /**
      * Show a toast pop-up.

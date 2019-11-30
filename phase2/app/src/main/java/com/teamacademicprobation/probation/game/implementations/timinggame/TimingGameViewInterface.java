@@ -8,6 +8,7 @@ public interface TimingGameViewInterface {
      * Goes the the score screen. This method is called once the game is over.
      *
      * @param score The score to be displayed.
+     * @param gameID
      */
-    void goToScoreScreen(String score);
+    void goToScoreScreen(String score, String playerID, String gameID);
 }
