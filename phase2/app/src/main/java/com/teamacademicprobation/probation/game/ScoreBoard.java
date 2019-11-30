@@ -3,7 +3,10 @@ package com.teamacademicprobation.probation.game;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
+
+import java.util.List;
 
 /** An object that represents the scoreboard, to be drawn on the top right of the game. */
 public abstract class ScoreBoard implements Drawable {
@@ -69,4 +72,7 @@ public abstract class ScoreBoard implements Drawable {
     protected Paint getPaint() {
     return paint;
   }
+
+  @Override
+  public abstract List<AndroidDrawer> getDrawers();
 }

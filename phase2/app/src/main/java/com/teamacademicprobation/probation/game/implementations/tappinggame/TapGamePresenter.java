@@ -51,5 +51,5 @@ class TapGamePresenter {
      */
     void updateOnTouch(double touchX, double touchY) {
         this.tapGameModel.updateOnTouch(touchX, touchY);
-  }
+    }
 }

@@ -20,5 +20,5 @@ public class NormalMole extends Mole {
     public NormalMole(Context context, int x, int y) {
         super(x, y);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.mole));
-  }
+    }
 }

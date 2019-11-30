@@ -20,5 +20,5 @@ public class BombMole extends Mole {
     public BombMole(Context context, int x, int y) {
         super(x, y);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.bomb_mole));
-  }
+    }
 }

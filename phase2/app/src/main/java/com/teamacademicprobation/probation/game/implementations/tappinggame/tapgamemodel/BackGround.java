@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+
 import com.teamacademicprobation.probation.R;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.BackGroundDrawer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +18,6 @@ import java.util.List;
  */
 public class BackGround implements Drawable {
     /**
-     * The bitmap of the background to be drawn/
-     */
-    private Bitmap backGroundBitmap;
-    /**
      * The x-coordinate of the background.
      */
     private final int x = 0;
@@ -27,6 +25,10 @@ public class BackGround implements Drawable {
      * The y-coordinate of the background.
      */
     private final int y = 0;
+    /**
+     * The bitmap of the background to be drawn/
+     */
+    private Bitmap backGroundBitmap;
     /**
      * The paint of the background for canvas drawing.
      */

@@ -47,5 +47,5 @@ public class TapScoreBoard extends ScoreBoard {
                 new TapScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
         drawers.add(drawer);
         return drawers;
-  }
+    }
 }

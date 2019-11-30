@@ -45,5 +45,5 @@ public class BackGroundDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);
-  }
+    }
 }

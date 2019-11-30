@@ -18,6 +18,15 @@ import java.util.List;
  */
 public class Bird extends TouchableObject implements Drawable {
     /**
+     * The speed of the bird which corresponds to the number of pixels it moves
+     * every time the game updates
+     */
+    private final int speed = 200;
+    /**
+     * The size of the bird for rescaling the bitmap image.
+     */
+    private final int birdSize = 250;
+    /**
      * The paint of the bird to be drawn.
      */
     private Paint paint = new Paint();
@@ -25,23 +34,13 @@ public class Bird extends TouchableObject implements Drawable {
      * The bitmap of the bird to be drawn.
      */
     private Bitmap bitmap;
-    /**
-     * The speed of the bird which corresponds to the number of pixels it moves
-     * every time the game updates
-     */
-    private final int speed = 200;
-
-    /**
-     * The size of the bird for rescaling the bitmap image.
-     */
-    private final int birdSize = 250;
 
     /**
      * Initializes the Bird Object.
      *
      * @param context The context for retrieving resources.
-     * @param x The x coordinate of Bird in pixels.
-     * @param y The y coordinate of Bird in pixels.
+     * @param x       The x coordinate of Bird in pixels.
+     * @param y       The y coordinate of Bird in pixels.
      */
     public Bird(Context context, int x, int y) {
         super(x, y);
@@ -51,17 +50,10 @@ public class Bird extends TouchableObject implements Drawable {
 
 
     /**
-     * @return the bitmap of the Bird Object
-     */
-    private Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    /**
      * Sets the input bitmap as the bird object's bitmap
      */
     public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+        this.bitmap = Bitmap.createScaledBitmap(bitmap, this.getSize(), this.getSize(), true);
     }
 
     /**
@@ -72,18 +64,12 @@ public class Bird extends TouchableObject implements Drawable {
         this.setX(newX);
     }
 
-    /**
-     * Get the resized bitmap of the desired size.
-     */
-    private Bitmap getResizedBitmap() {
-        return Bitmap.createScaledBitmap(getBitmap(), this.getSize(), this.getSize(), true);
-    }
 
     @Override
     public List<AndroidDrawer> getDrawers() {
         List<AndroidDrawer> drawers = new ArrayList<>();
         AndroidDrawer birdDrawer;
-        birdDrawer = new BirdDrawer(getResizedBitmap(), this.getX(), this.getY(), paint);
+        birdDrawer = new BirdDrawer(this.bitmap, this.getX(), this.getY(), paint);
         drawers.add(birdDrawer);
         return drawers;
     }

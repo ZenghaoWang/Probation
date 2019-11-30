@@ -29,9 +29,9 @@ public class MoleCounterDrawer implements AndroidDrawer {
     /**
      * Initializes a new MoleCounterDrawer.
      *
-     * @param x         The x coordinate of the start of the text.
-     * @param y         The y coordinate of the start of the text.
-     * @param paint     The style of the scoreboard.
+     * @param x     The x coordinate of the start of the text.
+     * @param y     The y coordinate of the start of the text.
+     * @param paint The style of the scoreboard.
      */
     public MoleCounterDrawer(int x, int y, int moleLeft, Paint paint) {
         this.x = x;

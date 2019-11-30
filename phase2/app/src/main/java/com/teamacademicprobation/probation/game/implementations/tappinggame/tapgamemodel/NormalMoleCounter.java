@@ -83,5 +83,5 @@ public class NormalMoleCounter implements Drawable {
                         this.x, this.y, this.normalMoleLeft, this.paint);
         drawers.add(drawer);
         return drawers;
-  }
+    }
 }

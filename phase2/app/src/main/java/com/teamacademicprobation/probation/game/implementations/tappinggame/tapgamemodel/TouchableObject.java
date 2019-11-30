@@ -9,8 +9,17 @@ import java.util.List;
  * Abstract class for all Touchable Objects in the tapping game. Implements Drawable.
  */
 public abstract class TouchableObject implements Drawable {
+    /**
+     * The x-coordinate of the TouchableObject.
+     */
     private int x;
+    /**
+     * The y-coordinate of the TouchableObject.
+     */
     private int y;
+    /**
+     * The size of the TouchableObject for rescaling.
+     */
     private int size;
 
     TouchableObject(int x, int y) {
@@ -26,13 +35,6 @@ public abstract class TouchableObject implements Drawable {
     }
 
     /**
-     * @return the y-coordinate of the touchable object
-     */
-    public int getY() {
-        return this.y;
-    }
-
-    /**
      * Sets the x-coordinate of the touchable object.
      */
     public void setX(int newX) {
@@ -40,10 +42,10 @@ public abstract class TouchableObject implements Drawable {
     }
 
     /**
-     * Sets the size of the touchable object.
+     * @return the y-coordinate of the touchable object
      */
-    public void setSize(int size) {
-        this.size = size;
+    public int getY() {
+        return this.y;
     }
 
     /**
@@ -51,6 +53,13 @@ public abstract class TouchableObject implements Drawable {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Sets the size of the touchable object.
+     */
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override
