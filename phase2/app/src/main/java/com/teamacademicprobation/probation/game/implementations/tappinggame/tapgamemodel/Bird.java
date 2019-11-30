@@ -13,52 +13,67 @@ import com.teamacademicprobation.probation.game.implementations.tappinggame.tapg
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Bird object that players can tap once in the game for extra mole counts.
+ */
 public class Bird extends TouchableObject implements Drawable {
     /**
-     * The paint of the mole to be drawn.
+     * The paint of the bird to be drawn.
      */
     private Paint paint = new Paint();
     /**
-     * The bitmap of the bole to be drawn.
+     * The bitmap of the bird to be drawn.
      */
     private Bitmap bitmap;
-
+    /**
+     * The speed of the bird which corresponds to the number of pixels it moves
+     * every time the game updates
+     */
     private final int speed = 200;
 
     /**
-     * Initializes the x and y coordinates of the Mole.
-     *
-     * @param x The x coordinate of Mole in pixels.
-     * @param y The y coordinate of Mole in pixels.
+     * The size of the bird for rescaling the bitmap image.
      */
-    public Bird(Context context, int x, int y, int size) {
-        super(x, y, size);
+    private final int birdSize = 250;
+
+    /**
+     * Initializes the Bird Object.
+     *
+     * @param context The context for retrieving resources.
+     * @param x The x coordinate of Bird in pixels.
+     * @param y The y coordinate of Bird in pixels.
+     */
+    public Bird(Context context, int x, int y) {
+        super(x, y);
+        this.setSize(birdSize);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.bird));
     }
 
 
     /**
-     * @return the bitmap of the Mole Object
+     * @return the bitmap of the Bird Object
      */
     private Bitmap getBitmap() {
         return bitmap;
     }
 
     /**
-     * Sets the input bitmap as the Mole object's bitmap
+     * Sets the input bitmap as the bird object's bitmap
      */
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
-
+    /**
+     * Moves the bird accordingly to it's speed.
+     */
     public void move() {
         int newX = this.getX() - speed;
         this.setX(newX);
     }
 
     /**
-     * Resize the bitmap to the desired size.
+     * Get the resized bitmap of the desired size.
      */
     private Bitmap getResizedBitmap() {
         return Bitmap.createScaledBitmap(getBitmap(), this.getSize(), this.getSize(), true);

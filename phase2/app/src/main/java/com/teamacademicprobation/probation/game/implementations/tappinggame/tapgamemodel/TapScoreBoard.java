@@ -4,7 +4,6 @@ import android.graphics.Color;
 
 import com.teamacademicprobation.probation.game.ScoreBoard;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.TapScoreBoardDrawer;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class TapScoreBoard extends ScoreBoard {
     }
 
     /**
-     * Decrements the points by one.
+     * Decrements the points by one if the score is not 0.
      */
     public void losePoint() {
         if (this.getScore() != 0) {

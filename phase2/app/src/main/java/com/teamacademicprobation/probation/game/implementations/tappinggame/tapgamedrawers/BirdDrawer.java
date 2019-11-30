@@ -8,7 +8,7 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
 public class BirdDrawer implements AndroidDrawer {
     /**
-     * The image of the mole to be drawn.
+     * The image of the Bird to be drawn.
      */
     private Bitmap state;
     /**
@@ -25,12 +25,12 @@ public class BirdDrawer implements AndroidDrawer {
     private Paint paint;
 
     /**
-     * Initializes a new ScoreBoardDrawer.
+     * Initializes a new BirdDrawer
      *
      * @param state The image of the mole to be drawn.
-     * @param x     The x coordinate of the start of the text
-     * @param y     The y coordinate of the start of the text.
-     * @param paint The style of the scoreboard.
+     * @param x     The x coordinate of the bitmap to be drawn.
+     * @param y     The y coordinate of the bitmap to be drawn.
+     * @param paint The paint for the bitmap to be drawn on canvas.
      */
     public BirdDrawer(Bitmap state, int x, int y, Paint paint) {
         this.state = state;
@@ -39,6 +39,9 @@ public class BirdDrawer implements AndroidDrawer {
         this.paint = paint;
     }
 
+    /**
+     * Draws the bird on canvas.
+     */
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);

@@ -19,6 +19,7 @@ class TapGamePresenter {
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         this.tapGameView = tapGameView;
         this.tapGameModel = new TapGameModel(tapGameView.getContext(), screenWidth, screenHeight, playerID);
+        this.tapGameModel.loadPlayerData();
     }
 
     /**

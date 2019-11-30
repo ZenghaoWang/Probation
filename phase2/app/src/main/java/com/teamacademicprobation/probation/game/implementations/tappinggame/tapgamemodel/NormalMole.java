@@ -11,14 +11,14 @@ import com.teamacademicprobation.probation.R;
 public class NormalMole extends Mole {
 
     /**
-     * Constructor for NormalMole,
+     * Initiates the NormalMole.
      *
      * @param context context to get the resources.
      * @param x       x-coordinate for NormalMole
      * @param y       y-coordinate for NormalMole
      */
-    public NormalMole(Context context, int x, int y, int size) {
-        super(x, y, size);
+    public NormalMole(Context context, int x, int y) {
+        super(x, y);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.mole));
   }
 }

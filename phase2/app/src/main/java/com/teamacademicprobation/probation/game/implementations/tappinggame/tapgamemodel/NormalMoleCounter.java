@@ -19,7 +19,9 @@ public class NormalMoleCounter implements Drawable {
      * The number of NormalMole in the game, game ends when 30 targets appear.
      */
     private int normalMoleLeft = 30;
-
+    /**
+     * The paint for the NormalMoleCounter to be drawn on canvas.
+     */
     private Paint paint;
     /**
      * x-coordinate for NormalMole counter
@@ -32,8 +34,7 @@ public class NormalMoleCounter implements Drawable {
 
 
     /**
-     * Initializes the x and y coordinates, normalMoleCount, paint. The x and y coordinates are in
-     * ratios of the screenWidth and screenHeight.
+     * Initializes the NormalMoleCounter.
      *
      * @param screenWidth  The width of the screen in pixels.
      * @param screenHeight The height of the screen in pixels.
@@ -47,8 +48,6 @@ public class NormalMoleCounter implements Drawable {
     }
 
     /**
-     * Returns the normalMoleLeft.
-     *
      * @return normalMoleLeft
      */
     public int getNormalMoleLeft() {
@@ -56,14 +55,21 @@ public class NormalMoleCounter implements Drawable {
     }
 
     /**
-     * Adds a count to the normalMoleCount
+     * Reduce the normalMolesLeft by 1
      */
     public void reduceOneMole() {
         this.normalMoleLeft--;
     }
 
     /**
-     * Adds a count to the normalMoleCount
+     * Sets the normalMoleLeft to a input number.
+     */
+    public void setLeft(int moleLeft) {
+        this.normalMoleLeft = moleLeft;
+    }
+
+    /**
+     * Increase the normalMoleLeft by five.
      */
     public void addFiveMoles() {
         this.normalMoleLeft = this.normalMoleLeft + 5;

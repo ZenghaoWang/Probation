@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 
 /**
- * An implementation of AndroidDrawer that draws the moles
+ * An implementation of AndroidDrawer that draws Moles
  */
 public class MoleDrawer implements AndroidDrawer {
     /**
@@ -33,7 +33,7 @@ public class MoleDrawer implements AndroidDrawer {
      * @param state The image of the mole to be drawn.
      * @param x     The x coordinate of the start of the text
      * @param y     The y coordinate of the start of the text.
-     * @param paint The style of the scoreboard.
+     * @param paint The paint for the mole to be drawn on canvas.
      */
     public MoleDrawer(Bitmap state, int x, int y, Paint paint) {
         this.state = state;
@@ -42,6 +42,9 @@ public class MoleDrawer implements AndroidDrawer {
         this.paint = paint;
     }
 
+    /**
+     * Draws the mole on canvas.
+     */
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);

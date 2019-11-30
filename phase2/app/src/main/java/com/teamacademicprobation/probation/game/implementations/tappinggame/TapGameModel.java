@@ -24,44 +24,49 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * A Tapping game where the player tries to tap the target object and avoid tapping non-target.
+ * A model for the Tapping Game. Contains the backend logic of the Tapping game. Implement drawable.
  */
 class TapGameModel implements Drawable {
     /**
      * The gameID of this game.
      */
     private static final String GAMEID = "TapGameModel";
+    private String currPlayerID;
+    private Context context;
+    private PlayerGameStatsAccess playerAccess;
     /**
      * Represents if the game is completed.
      */
-    private final int moleSize = 250;
-    private final int birdSize = 250;
-    private boolean birdTouched;
     private boolean gameComplete;
+    /**
+     * boolean to check if the bird has been touched in the game.
+     */
+    private boolean birdTouched;
+
     private Bird bird;
     private Mole currMole;
     private BackGround backGround;
     private TapScoreBoard scoreBoard;
-    private Random r = new Random();
     private NormalMoleCounter normalMoleCounter;
-    private int x;
-    private int y;
-    private String currPlayerID;
-    private Context context;
-    private PlayerGameStatsAccess playerAccess;
+
+    private int screenWidth;
+    private int screenHeight;
+    private Random r = new Random();
+
     private static final String CURR_MOLE_COUNT = "CURRENT_MOLE_COUNT";
+    private static final String BIRD_TOUCHED = "BIRD_TOUCHED";
 
     /**
-     * Constructor for the Tap game.
+     * Constructor for the TapGame Backend.
      */
-    TapGameModel(Context context, int x, int y, String currPlayerID) {
-        this.x = x;
-        this.y = y;
+    TapGameModel(Context context, int screenWidth, int screenHeight, String currPlayerID) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         this.context = context;
         this.gameComplete = false;
-        this.scoreBoard = new TapScoreBoard(x, y);
-        this.normalMoleCounter = new NormalMoleCounter(x, y);
-        this.backGround = new BackGround(context, x, y);
+        this.scoreBoard = new TapScoreBoard(screenWidth, screenHeight);
+        this.normalMoleCounter = new NormalMoleCounter(screenWidth, screenHeight);
+        this.backGround = new BackGround(context, screenWidth, screenHeight);
         this.currPlayerID = currPlayerID;
         this.playerAccess = new PlayerManager();
         this.birdTouched = false;
@@ -75,16 +80,16 @@ class TapGameModel implements Drawable {
     }
 
     /**
-     * Return the score of the game.
+     * Return the current score of the game.
      *
-     * @return score of the game.
+     * @return current score of the game.
      */
     int getScore() {
         return this.scoreBoard.getScore();
     }
 
     /**
-     * Updates the TapGameModel.
+     * Updates the TapGame.
      */
     void update() {
         randomCreateMole();
@@ -100,6 +105,9 @@ class TapGameModel implements Drawable {
         }
     }
 
+    /**
+     * Chooses a random mole type to be created and creates the selected mole.
+     */
     private void randomCreateMole() {
         double c = Math.random();
         if (c > 0.7) {
@@ -112,81 +120,82 @@ class TapGameModel implements Drawable {
         }
     }
 
+    /**
+     * Randomly creates a bird object.
+     */
     private void randomCreateBird() {
         double c = Math.random();
         if (c >= 0.9 && this.bird == null) {
-            this.bird = new Bird(context, this.x, 100, birdSize);
+            this.bird = new Bird(context, this.screenWidth, 100);
         }
     }
 
     /**
-     * Sets the current Mole to a KingMole.
+     * Creates and sets the current Mole to a KingMole.
      */
     private void createKingMole() {
         this.currMole =
                 new KingMole(
                         context,
-                        r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
+                        r.nextInt(((this.screenWidth - 200) - 150) + 150),
+                        r.nextInt((this.screenHeight - 150) - (this.screenHeight / 2 + 50)) + this.screenHeight / 2);
     }
 
     /**
-     * Sets the current Mole to a NormalMole.
+     * Creates and sets the current Mole to a NormalMole.
      */
     private void createNormalMole() {
         currMole =
                 new NormalMole(
                         context,
-                        r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
+                        r.nextInt(((this.screenWidth - 200) - 150) + 150),
+                        r.nextInt((this.screenHeight - 150) - (this.screenHeight / 2 + 50)) + this.screenHeight / 2);
     }
 
     /**
-     * Sets the current Mole to a BombMole.
+     * Creates and sets the current Mole to a BombMole.
      */
     private void createBombMole() {
         this.currMole =
                 new BombMole(
                         context,
-                        r.nextInt(((this.x - 200) - 150) + 150),
-                        r.nextInt((this.y - 150) - (this.y / 2 + 50)) + this.y / 2, moleSize);
+                        r.nextInt(((this.screenWidth - 200) - 150) + 150),
+                        r.nextInt((this.screenHeight - 150) - (this.screenHeight / 2 + 50)) + this.screenHeight / 2);
     }
 
     /**
-     * Sets the game to completed and sends the statistics.
+     * Sets the game to completed.
      */
     private void setCompleted() {
         this.gameComplete = true;
     }
 
     /**
-     * Updates the score accordingly to what type of mole the user tapped.
+     * Updates the game accordingly to the user's touch input.
      *
      * @param touchX the x-coordinate where the user touched.
-     * @param touchY the x-coordinate where the user touched
+     * @param touchY the y-coordinate where the user touched
      */
     void updateOnTouch(double touchX, double touchY) {
         if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof NormalMole) {
             this.scoreBoard.earnPoint();
-            updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof KingMole) {
             this.scoreBoard.earnFivePoints();
-            updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.currMole) && this.currMole instanceof BombMole) {
             this.scoreBoard.losePoint();
-            updatePlayerStats();
         } else if (checkTouch(touchX, touchY, this.bird) && !this.birdTouched) {
             this.birdTouched = true;
             this.normalMoleCounter.addFiveMoles();
         }
+        updatePlayerStats();
     }
 
 
     /**
-     * Checks if the user tapped on a mole.
+     * Checks if the user tapped on a touchableObject.
      *
      * @param touchX          the x-coordinate where the user touched.
-     * @param touchY          the x-coordinate where the user touched.
+     * @param touchY          the y-coordinate where the user touched.
      * @param touchableObject the touchableObject that the user tapped.
      */
     private boolean checkTouch(double touchX, double touchY, TouchableObject touchableObject) {
@@ -209,23 +218,38 @@ class TapGameModel implements Drawable {
         return drawers;
     }
 
+
+    /**
+     * Ends the game and sends the statistics.
+     */
+    void endGame() {
+        this.playerAccess.endGame(currPlayerID, GAMEID,true);
+    }
+
     private void updatePlayerStats() {
         Map<String, Integer> statMap = new HashMap<>();
-        statMap.put(ScoreScreenActivity.SCORE_KEY, scoreBoard.getScore());
+        statMap.put(ScoreScreenActivity.SCORE_KEY, this.scoreBoard.getScore());
         statMap.put(CURR_MOLE_COUNT, this.normalMoleCounter.getNormalMoleLeft());
-        this.playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
+        statMap.put(BIRD_TOUCHED, this.birdTouched ? 1 : 0);
+        this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
     }
 
 
     @SuppressWarnings("ConstantConditions")
-    private void loadMetaData(Map<String, Integer> statMap) {
+    void loadMetaData(Map<String, Integer> statMap) {
         int score = (statMap.get(ScoreScreenActivity.SCORE_KEY) != null) ? statMap.get(ScoreScreenActivity.SCORE_KEY) : 0;
+        int moleLeft = (statMap.get(CURR_MOLE_COUNT) != null) ? statMap.get(CURR_MOLE_COUNT) : 30;
+        int birdTouch = (statMap.get(BIRD_TOUCHED) != null) ? statMap.get(BIRD_TOUCHED) : 0;
         this.scoreBoard.setScore(score);
+        this.normalMoleCounter.setLeft(moleLeft);
+        this.birdTouched = (birdTouch == 1);
     }
-    /**
-     *
-     */
-    void endGame() {
-        this.playerAccess.endGame(currPlayerID, GAMEID,true);
+
+    void loadPlayerData() {
+        if (currPlayerID != null && this.playerAccess.isBeingPlayed(currPlayerID, GAMEID)) {
+            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID, GAMEID);
+            loadMetaData(statMap);
+            System.out.println(statMap);
+        }
     }
 }

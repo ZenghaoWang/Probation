@@ -11,14 +11,14 @@ import com.teamacademicprobation.probation.R;
 public class BombMole extends Mole {
 
     /**
-     * Initializes the paint and x and y coordinates of the BombMole Object.
+     * Initializes the BombMole Object.
      *
      * @param context The context to get resources.
-     * @param x       The x coordinate of Mole in pixels.
-     * @param y       The y coordinate of Mole in pixels.
+     * @param x       The x coordinate of BombMole in pixels.
+     * @param y       The y coordinate of BombMole in pixels.
      */
-    public BombMole(Context context, int x, int y, int size) {
-        super(x, y, size);
+    public BombMole(Context context, int x, int y) {
+        super(x, y);
         this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.bomb_mole));
   }
 }

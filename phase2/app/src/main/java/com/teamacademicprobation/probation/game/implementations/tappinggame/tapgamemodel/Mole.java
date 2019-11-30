@@ -2,35 +2,37 @@ package com.teamacademicprobation.probation.game.implementations.tappinggame.tap
 
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.MoleDrawer;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Mole object that the players will tap when playing the game.
+ * An abstract Mole object that the players will tap when playing the game. Extends TouchableObject.
  */
-public class Mole extends TouchableObject {
+public abstract class Mole extends TouchableObject {
     /**
      * The paint of the mole to be drawn.
      */
     private Paint paint = new Paint();
     /**
-     * The bitmap of the bole to be drawn.
+     * The bitmap of the mole to be drawn.
      */
     private Bitmap bitmap;
+    /**
+     * The size of the mole for the mole to be rescaled.
+     */
+    private final int moleSize = 250;
 
     /**
-     * Initializes the x and y coordinates of the Mole.
+     * Initializes the Mole object.
      *
      * @param x The x coordinate of Mole in pixels.
      * @param y The y coordinate of Mole in pixels.
      */
-    Mole(int x, int y, int size) {
-        super(x, y, size);
+    Mole(int x, int y) {
+        super(x, y);
+        this.setSize(moleSize);
     }
 
 
