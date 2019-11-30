@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * The front-end for the trivia game.
  */
 public class TriviaGameActivity extends AppCompatActivity implements TriviaView {
-    private TriviaGamePresenter triviaGamePresenter; // This was static.
+    private TriviaGamePresenter presenter;
     private Button answer1;
     private Button answer2;
     private Button answer3;
@@ -31,6 +31,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     private TextView score;
     private TextView questionsRemaining;
     private MediaPlayer incorrectSound;
+    private MediaPlayer correctSound;
 
 
     /**
@@ -55,10 +56,12 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
         score = findViewById(R.id.current_score);
         questionsRemaining = findViewById(R.id.questionsRemaining);
 
-        triviaGamePresenter = new TriviaGamePresenter(this, playerID, builderList);
-        triviaGamePresenter.updateView();
+        presenter = new TriviaGamePresenter(this, playerID, builderList);
+        presenter.updateView();
 
         incorrectSound = MediaPlayer.create(this, R.raw.bruh);
+        correctSound = MediaPlayer.create(this, R.raw.bruh);
+
 
     }
 
@@ -70,8 +73,8 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     public void onAnswer(View answerClicked) {
 
         String answer = ((Button) answerClicked).getText().toString();
-        triviaGamePresenter.answerQuestion(answer);
-        triviaGamePresenter.updateView();
+        presenter.answerQuestion(answer);
+        presenter.updateView();
     }
 
     /**
@@ -102,8 +105,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     @Override
     public void playSound(Boolean isCorrect) {
         if (isCorrect) {
-            // TODO: replace placeholder noise
-            incorrectSound.start();
+            correctSound.start();
         } else incorrectSound.start();
     }
 
@@ -144,7 +146,7 @@ public class TriviaGameActivity extends AppCompatActivity implements TriviaView 
     }
     
     @Override
-    public void disableInterface() {
+    public void disableInput() {
         this.answer1.setEnabled(false);
         this.answer2.setEnabled(false);
         this.answer3.setEnabled(false);

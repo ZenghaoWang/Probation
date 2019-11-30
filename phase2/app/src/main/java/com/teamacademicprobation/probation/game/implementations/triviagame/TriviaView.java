@@ -39,5 +39,5 @@ public interface TriviaView {
 
     void setQuestionsRemaining(String newText);
 
-    void disableInterface();
+    void disableInput();
 }
