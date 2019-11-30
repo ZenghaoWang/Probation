@@ -156,6 +156,10 @@ public class PlayerStats {
   private void updateTotalGame(PlayerGameStats newestGameStats) {
     String gameID = newestGameStats.getGameID();
     Map<String, Integer> newStats = newestGameStats.getAllStats();
-    totalGame.get(gameID).increment(newStats);
+    if (totalGame.containsKey(gameID)){
+      totalGame.get(gameID).increment(newStats);
+    } else {
+      totalGame.put(gameID, newestGameStats);
+      }
   }
 }
