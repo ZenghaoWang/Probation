@@ -13,7 +13,7 @@ import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 @SuppressLint("ViewConstructor")
 public class TapGameView extends SurfaceView implements Runnable {
-    volatile boolean playing;
+    private volatile boolean playing;
     private Thread gameThread = null;
     private SurfaceHolder surfaceHolder;
     private TapGamePresenter tapGamePresenter;
@@ -73,7 +73,7 @@ public class TapGameView extends SurfaceView implements Runnable {
         try {
             Thread.sleep(700);
         } catch (InterruptedException e) {
-            Log.e("TapGame", "Unexpected interruption.");
+            Log.e("TapGameModel", "Unexpected interruption.");
         }
     }
 
@@ -82,7 +82,7 @@ public class TapGameView extends SurfaceView implements Runnable {
         try {
             gameThread.join();
         } catch (InterruptedException e) {
-            Log.e("TapGame", "Unexpected interruption.");
+            Log.e("TapGameModel", "Unexpected interruption.");
         }
     }
 

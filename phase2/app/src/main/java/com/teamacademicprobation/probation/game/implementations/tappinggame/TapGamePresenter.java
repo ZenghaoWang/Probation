@@ -8,17 +8,17 @@ import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import java.util.List;
 
 /**
- * A presenter for the TapGame.
+ * A presenter for the TapGameModel.
  */
 class TapGamePresenter {
-    private TapGame tapGame;
+    private TapGameModel tapGameModel;
     private TapGameView tapGameView;
 
     TapGamePresenter(TapGameView tapGameView, String playerID) {
         int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         this.tapGameView = tapGameView;
-        this.tapGame = new TapGame(tapGameView.getContext(), screenWidth, screenHeight, playerID);
+        this.tapGameModel = new TapGameModel(tapGameView.getContext(), screenWidth, screenHeight, playerID);
     }
 
     /**
@@ -27,7 +27,7 @@ class TapGamePresenter {
      * @param canvas The canvas onto which to draw on.
      */
     void draw(Canvas canvas) {
-        List<AndroidDrawer> drawers = this.tapGame.getDrawers();
+        List<AndroidDrawer> drawers = this.tapGameModel.getDrawers();
         for (AndroidDrawer drawer : drawers) {
             drawer.draw(canvas);
         }
@@ -37,10 +37,10 @@ class TapGamePresenter {
      * Updates tap game, and goes to the score screen if completed.
      */
     void update() {
-        this.tapGame.update();
-        if (this.tapGame.getGameComplete()) {
-            this.tapGame.endGame();
-            String score = "" + this.tapGame.getScore();
+        this.tapGameModel.update();
+        if (this.tapGameModel.getGameComplete()) {
+            this.tapGameModel.endGame();
+            String score = "" + this.tapGameModel.getScore();
             this.tapGameView.goToScoreScreen(score);
         }
     }
@@ -49,6 +49,6 @@ class TapGamePresenter {
      * Updates the tap game score once a tap is detected.
      */
     void updateOnTouch(double touchX, double touchY) {
-        this.tapGame.updateOnTouch(touchX, touchY);
+        this.tapGameModel.updateOnTouch(touchX, touchY);
   }
 }

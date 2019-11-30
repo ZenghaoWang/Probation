@@ -1,6 +1,11 @@
 package com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel;
 
-public class TouchableObject {
+import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
+import com.teamacademicprobation.probation.game.implementations.Drawable;
+
+import java.util.List;
+
+public abstract class TouchableObject implements Drawable {
     private int x;
     private int y;
     private int size;
@@ -35,4 +40,7 @@ public class TouchableObject {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public abstract List<AndroidDrawer> getDrawers();
 }

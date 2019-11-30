@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A Mole object that the players will tap when playing the game.
  */
-public class Mole extends TouchableObject implements Drawable {
+public class Mole extends TouchableObject {
     /**
      * The paint of the mole to be drawn.
      */

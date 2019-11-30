@@ -15,19 +15,22 @@ import com.teamacademicprobation.probation.game.implementations.tappinggame.tapg
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamemodel.TouchableObject;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * A Tapping game where the player tries to tap the target object and avoid tapping non-target.
  */
-class TapGame implements Drawable {
+class TapGameModel implements Drawable {
     /**
      * The gameID of this game.
      */
-    private static final String GAMEID = "TapGame";
+    private static final String GAMEID = "TapGameModel";
     /**
      * Represents if the game is completed.
      */
@@ -46,11 +49,12 @@ class TapGame implements Drawable {
     private String currPlayerID;
     private Context context;
     private PlayerGameStatsAccess playerAccess;
+    private static final String CURR_MOLE_COUNT = "CURRENT_MOLE_COUNT";
 
     /**
      * Constructor for the Tap game.
      */
-    TapGame(Context context, int x, int y, String currPlayerID) {
+    TapGameModel(Context context, int x, int y, String currPlayerID) {
         this.x = x;
         this.y = y;
         this.context = context;
@@ -80,7 +84,7 @@ class TapGame implements Drawable {
     }
 
     /**
-     * Updates the TapGame.
+     * Updates the TapGameModel.
      */
     void update() {
         randomCreateMole();
@@ -174,7 +178,6 @@ class TapGame implements Drawable {
         } else if (checkTouch(touchX, touchY, this.bird) && !this.birdTouched) {
             this.birdTouched = true;
             this.normalMoleCounter.addFiveMoles();
-            System.out.println("im here");
         }
     }
 
@@ -184,13 +187,13 @@ class TapGame implements Drawable {
      *
      * @param touchX          the x-coordinate where the user touched.
      * @param touchY          the x-coordinate where the user touched.
-     * @param touchableObject the touchableOject that the user tapped.
+     * @param touchableObject the touchableObject that the user tapped.
      */
     private boolean checkTouch(double touchX, double touchY, TouchableObject touchableObject) {
-        return touchableObject.getX() < touchX
+        return (touchableObject != null) && (touchableObject.getX() < touchX
                 && touchX < touchableObject.getX() + touchableObject.getSize()
                 && touchableObject.getY() < touchY
-                && touchY < touchableObject.getY() + touchableObject.getSize();
+                && touchY < touchableObject.getY() + touchableObject.getSize());
     }
 
     @Override
@@ -207,9 +210,18 @@ class TapGame implements Drawable {
     }
 
     private void updatePlayerStats() {
+        Map<String, Integer> statMap = new HashMap<>();
+        statMap.put(ScoreScreenActivity.SCORE_KEY, scoreBoard.getScore());
+        statMap.put(CURR_MOLE_COUNT, this.normalMoleCounter.getNormalMoleLeft());
         this.playerAccess.updateStats(currPlayerID, GAMEID, "score", scoreBoard.getScore());
     }
 
+
+    @SuppressWarnings("ConstantConditions")
+    private void loadMetaData(Map<String, Integer> statMap) {
+        int score = (statMap.get(ScoreScreenActivity.SCORE_KEY) != null) ? statMap.get(ScoreScreenActivity.SCORE_KEY) : 0;
+        this.scoreBoard.setScore(score);
+    }
     /**
      *
      */
