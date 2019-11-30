@@ -8,9 +8,9 @@ public interface PlayerGameStatsAccess {
 
   void updateStats(String playerID, String gameID, Map<String, Integer> stats);
 
-  void endGame(String playerID, boolean save);
+  void endGame(String playerID,String gameID, boolean save);
 
-  String getCurrGameID(String playerID);
+  Map<String, Integer> getCurrStats(String playerID, String gameID);
 
-  Map<String, Integer> getCurrStats(String playerID);
+  boolean isBeingPlayed(String playerID, String gameID);
 }

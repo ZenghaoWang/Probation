@@ -37,8 +37,8 @@ public class Player {
 
   // ==== SETTER METHODS, CALLED WHEN PlayerBuilder PASSES INFO TO BUILD A PLAYER
 
-  public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
-    this.playerStats.setCurrStats(currGameID, currGameStats);
+  public void setCurrStats(Map<String, Map<String, Integer>> currGameStats) {
+    this.playerStats.setCurrStats(currGameStats);
   }
 
   public void setBestStats(Map<String, Map<String, Integer>> bestGameStats) {
@@ -89,8 +89,8 @@ public class Player {
     this.playerPreferences.setPreferences(playerPreferences);
   }
 
-  public String getCurrGameID() {
-    return this.playerStats.getCurrGameID();
+  public boolean isBeingPlayed(String gameID) {
+    return this.playerStats.isBeingPlayed(gameID);
   }
 
   /**
@@ -100,6 +100,10 @@ public class Player {
    */
   public Map<String, Map<String, Integer>> getCurrStats() {
     return this.playerStats.getCurrStats();
+  }
+
+  public Map<String, Integer> getCurrStats(String gameID) {
+    return this.playerStats.getCurrStats(gameID);
   }
 
   /**
@@ -178,8 +182,8 @@ public class Player {
   }
 
   /** Lets you update the player's current game session with a new game. */
-  public void endCurrGame(boolean save) {
-    this.playerStats.endCurrGame(save);
+  public void endCurrGame(String gameID, boolean save) {
+    this.playerStats.endCurrGame(gameID, save);
   }
 
   /** Updates PlayerPreferences. */
@@ -203,8 +207,8 @@ public class Player {
    * @param statID the statistic to be updated
    * @param value the new value of the statistic
    */
-  public void updateCurrStats(String statID, int value) {
-    this.playerStats.updateCurrGame(statID, value);
+  public void updateCurrStats(String gameID, String statID, int value) {
+    this.playerStats.updateCurrGame(gameID, statID, value);
   }
 
   /**
@@ -212,8 +216,8 @@ public class Player {
    *
    * @param gameStatsMap A map with the following format: {"Stat1": int}
    */
-  public void updateCurrStats(Map<String, Integer> gameStatsMap) {
-    this.playerStats.updateCurrGame(gameStatsMap);
+  public void updateCurrStats(String gameID, Map<String, Integer> gameStatsMap) {
+    this.playerStats.updateCurrGame(gameID, gameStatsMap);
   }
 
   public List<String> getGamesPlayed() {

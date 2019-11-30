@@ -11,30 +11,41 @@ import java.util.Objects;
  */
 public class PlayerStats {
 
-  private PlayerGameStats currGame;
+  private Map<String, PlayerGameStats> currGame = new HashMap<>();
   // A map of each type of game along with the player's best scores within that game.
   private Map<String, PlayerGameStats> bestGame = new HashMap<>();
   private Map<String, PlayerGameStats> totalGame = new HashMap<>();
 
   /** Instantiates a PlayerStats object with an empty list of completed games. */
   PlayerStats() {
-    currGame = new PlayerGameStats("");
-    bestGame.put("", currGame);
-    totalGame.put("", currGame);
+    PlayerGameStats emptyGame = new PlayerGameStats("");
+    currGame.put("", emptyGame);
+    bestGame.put("", emptyGame);
+    totalGame.put("", emptyGame);
   }
 
   // ==== GETTER METHODS for Player when retrieving data to be saved into the JSON
 
-  /** @return ths player's current gameID */
-  public String getCurrGameID() {
-    return currGame.getGameID();
+  public boolean isBeingPlayed(String gameID){
+    if (currGame.containsKey(gameID)){
+      return true;
+    }
+    return false;
   }
 
   /** @return a map of all the statistics of the current game along with their values */
   public Map<String, Map<String, Integer>> getCurrStats() {
     Map<String, Map<String, Integer>> currStats = new HashMap<>();
-    currStats.put(currGame.getGameID(), currGame.getAllStats());
+    for (String gameKey : this.currGame.keySet()) {
+      if (!gameKey.equals("")) {
+        currStats.put(gameKey, Objects.requireNonNull(this.currGame.get(gameKey).getAllStats()));
+      }
+    }
     return currStats;
+  }
+
+  public Map<String, Integer> getCurrStats(String gameID) {
+    return currGame.get(gameID).getAllStats();
   }
 
   /** @return a map of all the statistics of a particular game */
@@ -89,9 +100,12 @@ public class PlayerStats {
     }
   }
 
-  public void setCurrStats(String currGameID, Map<String, Integer> currGameStats) {
-    this.newCurrGame(currGameID);
-    this.updateCurrGame(currGameStats);
+  public void setCurrStats(Map<String, Map<String, Integer>> currGameStats) {
+    for (String gameKey : currGameStats.keySet()) {
+      PlayerGameStats gameStats = new PlayerGameStats(gameKey);
+      gameStats.update(currGameStats.get(gameKey));
+      this.currGame.put(gameKey, gameStats);
+    }
   }
 
   // ==== UPDATE METHODS
@@ -102,19 +116,17 @@ public class PlayerStats {
    * @param gameID which game the player is currently on.
    */
   public void newCurrGame(String gameID) {
-    currGame = new PlayerGameStats(gameID);
+    currGame.put(gameID, new PlayerGameStats(gameID));
   }
 
   /** Occurs at the end of the current game session. */
-  public void endCurrGame(boolean save) {
+  public void endCurrGame(String gameID, boolean save) {
     if (save) {
-      updateBestGame(currGame); // updates the player's best game statistics with this game in mind
+      updateBestGame(currGame.get(gameID)); // updates the player's best game statistics with this game in mind
 //      updateTotalGame(currGame);
     }
 
-    currGame =
-        new PlayerGameStats(
-            ""); // sets the current game to null (meaning there is currently no level being played)
+    currGame.remove(gameID); // sets the current game to null (meaning there is currently no level being played)
   }
 
   /**
@@ -123,8 +135,8 @@ public class PlayerStats {
    * @param statID the statistic to be updated.
    * @param value the value we want associated with that statistic.
    */
-  public void updateCurrGame(String statID, int value) {
-    currGame.update(statID, value);
+  public void updateCurrGame(String gameID, String statID, int value) {
+    currGame.get(gameID).update(statID, value);
   }
 
   /**
@@ -132,8 +144,8 @@ public class PlayerStats {
    *
    * @param newStats a map of statistics plus the values we want associated with them
    */
-  public void updateCurrGame(Map<String, Integer> newStats) {
-    newStats.forEach((k, v) -> currGame.update(k, v));
+  public void updateCurrGame(String gameID, Map<String, Integer> newStats) {
+    newStats.forEach((k, v) -> currGame.get(gameID).update(k, v));
   }
 
   /**
@@ -142,7 +154,6 @@ public class PlayerStats {
    * @param otherGameStats the statistics of the game to be compared with the best game statistics
    */
   private void updateBestGame(PlayerGameStats otherGameStats) {
-    bestGame.put(currGame.getGameID(), otherGameStats);
     String gameID = otherGameStats.getGameID();
 
     if (bestGame.containsKey(gameID)) {

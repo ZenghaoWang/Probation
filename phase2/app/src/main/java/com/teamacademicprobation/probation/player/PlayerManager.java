@@ -60,12 +60,12 @@ public class PlayerManager
 
     try {
       Player playerToUpdate = getPlayer(playerID);
-      if (!(playerToUpdate.getCurrGameID().equals(gameID))) {
+      if (!(playerToUpdate.isBeingPlayed(gameID))) {
 
         // pre-condition: the current game is none.
         playerToUpdate.newCurrGame(gameID);
       }
-      playerToUpdate.updateCurrStats(statID, stat);
+      playerToUpdate.updateCurrStats(gameID, statID, stat);
       dataAccess.save(playerToUpdate);
     } catch (NullPointerException e) {
       Log.e("PlayerManager", "No player with this playerID.");
@@ -86,12 +86,12 @@ public class PlayerManager
 
     try {
       Player playerToUpdate = getPlayer(playerID);
-      if (!(playerToUpdate.getCurrGameID().equals(gameID))) {
+      if (!(playerToUpdate.isBeingPlayed(gameID))) {
 
         // pre-condition: the current game is none.
         playerToUpdate.newCurrGame(gameID);
       }
-      playerToUpdate.updateCurrStats(stats);
+      playerToUpdate.updateCurrStats(gameID, stats);
       dataAccess.save(playerToUpdate);
     } catch (NullPointerException e) {
       Log.e("PlayerManager", "No player with this playerID.");
@@ -105,13 +105,13 @@ public class PlayerManager
    * @param save
    */
   @Override
-  public void endGame(String playerID, boolean save) {
+  public void endGame(String playerID, String gameID, boolean save) {
     try {
       Player playerToUpdate = getPlayer(playerID);
-      if (!(playerToUpdate.getCurrGameID().equals(""))) {
+      if (playerToUpdate.isBeingPlayed(gameID)) {
 
         // pre-condition: the current game is none.
-        playerToUpdate.endCurrGame(save);
+        playerToUpdate.endCurrGame(gameID, save);
       }
       dataAccess.save(playerToUpdate);
     } catch (NullPointerException e) {
@@ -146,16 +146,9 @@ public class PlayerManager
   }
 
   @Override
-  public String getCurrGameID(String playerID) {
+  public boolean isBeingPlayed(String playerID, String gameID) {
     Player currPlayer = getPlayer(playerID);
-    return currPlayer.getCurrGameID();
-  }
-
-  @Override
-  public Map<String, Integer> getCurrStats(String playerID) {
-    Player currPlayer = getPlayer(playerID);
-    String currGameID = currPlayer.getCurrGameID();
-    return currPlayer.getCurrStats().get(currGameID);
+    return currPlayer.isBeingPlayed(gameID);
   }
 
   /**
@@ -175,6 +168,12 @@ public class PlayerManager
   public Map<String, Integer> getTotalStats(String playerID, String gameID) {
     Player currPlayer = getPlayer(playerID);
     return currPlayer.getTotalStats(gameID);
+  }
+
+  @Override
+  public Map<String, Integer> getCurrStats(String playerID, String gameID){
+    Player currPlayer = getPlayer(playerID);
+    return currPlayer.getCurrStats(gameID);
   }
 
   /**
