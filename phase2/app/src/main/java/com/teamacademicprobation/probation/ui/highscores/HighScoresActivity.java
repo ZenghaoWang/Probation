@@ -2,8 +2,7 @@ package com.teamacademicprobation.probation.ui.highscores;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +11,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.player.PlayerManager;
-import com.teamacademicprobation.probation.player.PlayerTotalStatsAccess;
 import com.teamacademicprobation.probation.ui.login.LoginActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class HighScoresActivity extends AppCompatActivity {
 	private String playerID;

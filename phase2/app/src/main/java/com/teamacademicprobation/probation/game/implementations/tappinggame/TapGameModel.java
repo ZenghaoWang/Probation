@@ -26,12 +26,12 @@ import java.util.Random;
 /**
  * A model for the Tapping Game. Contains the backend logic of the Tapping game. Implement drawable.
  */
-class TapGameModel implements Drawable {
+public class TapGameModel implements Drawable {
     /**
      * The gameID of this game.
      */
-    static final String GAMEID = "TapGameModel";
-    private String currPlayerID;
+    public static final String GAMEID = "TapGameModel";
+    private String playerID;
     private Context context;
     private PlayerGameStatsAccess playerAccess;
     /**
@@ -59,7 +59,7 @@ class TapGameModel implements Drawable {
     /**
      * Constructor for the TapGame Backend.
      */
-    TapGameModel(Context context, int screenWidth, int screenHeight, String currPlayerID) {
+    TapGameModel(Context context, int screenWidth, int screenHeight, String playerID) {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.context = context;
@@ -67,7 +67,7 @@ class TapGameModel implements Drawable {
         this.scoreBoard = new TapScoreBoard(screenWidth, screenHeight);
         this.normalMoleCounter = new NormalMoleCounter(screenWidth, screenHeight);
         this.backGround = new BackGround(context, screenWidth, screenHeight);
-        this.currPlayerID = currPlayerID;
+        this.playerID = playerID;
         this.playerAccess = new PlayerManager();
         this.birdTouched = false;
     }
@@ -225,7 +225,7 @@ class TapGameModel implements Drawable {
         statMap.put(ScoreScreenActivity.SCORE_KEY, this.scoreBoard.getScore());
         statMap.put(CURR_MOLE_COUNT, this.normalMoleCounter.getNormalMoleLeft());
         statMap.put(BIRD_TOUCHED, this.birdTouched ? 1 : 0);
-        this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
+        this.playerAccess.updateStats(playerID, GAMEID, statMap);
     }
 
 
@@ -240,14 +240,14 @@ class TapGameModel implements Drawable {
     }
 
     void loadPlayerData() {
-        if (currPlayerID != null && this.playerAccess.isBeingPlayed(currPlayerID, GAMEID)) {
-            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID, GAMEID);
+        if (playerID != null && this.playerAccess.isBeingPlayed(playerID, GAMEID)) {
+            Map<String, Integer> statMap = this.playerAccess.getCurrStats(playerID, GAMEID);
             loadMetaData(statMap);
             System.out.println(statMap);
         }
     }
 
     String getPlayerID() {
-        return this.currPlayerID;
+        return this.playerID;
     }
 }

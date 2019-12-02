@@ -85,7 +85,7 @@ class TargetZone implements Drawable {
     }
 
     // ====== GETTERS =====
-    Paint getPaint() {
+    private Paint getPaint() {
         return this.paint;
     }
 

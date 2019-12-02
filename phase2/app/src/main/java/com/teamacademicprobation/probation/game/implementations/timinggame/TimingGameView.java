@@ -91,6 +91,7 @@ public class TimingGameView extends SurfaceView implements Runnable, TimingGameV
         gameThread.start();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {

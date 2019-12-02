@@ -9,9 +9,6 @@ import com.teamacademicprobation.probation.game.implementations.timinggame.Timin
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: IMPLEMENT BONUS BOX
-// TODO: IMPLEMENT SAVE / PREFERENCES
-// TODO: CLEAN UP THE CODE
 
 /**
  * Timing game version 2! When the cursor is at the area, tap to shoot a bullet. Each enemy's health
@@ -45,9 +42,9 @@ public class TimingGame implements Drawable {
     private Bullet currBullet;
 
     /**
-     * Represents if the stage has been completed or not.
+     * Represents if the level has been completed or not.
      */
-    private boolean stageCompleted;
+    private boolean levelCompleted;
 
     private int screenWidth;
     private int screenHeight;
@@ -140,7 +137,7 @@ public class TimingGame implements Drawable {
     private void updatePlayer() {
         if (this.playerShip.isDestroyed()) {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
-                this.stageCompleted = true;
+                this.levelCompleted = true;
                 this.listener.notifyComplete();
             }
             this.currWaitingFrame++;
@@ -190,23 +187,23 @@ public class TimingGame implements Drawable {
     }
 
     /**
-     * Updates the scoreboard, and sets to complete if the game has been stageCompleted.
+     * Updates the scoreboard, and sets to complete if the game has been levelCompleted.
      */
     private void updateScore() {
         this.scoreBoard.earnPoint();
         if (this.scoreBoard.getScore() % BOSS_LEVEL == 0) {
-            this.stageCompleted = true;
+            this.levelCompleted = true;
             this.listener.notifyComplete();
         }
     }
 
     // ===== GETTERS ======
     public boolean isCompleted() {
-        return this.stageCompleted;
+        return this.levelCompleted;
     }
 
     public void setCompleted(boolean completed) {
-        this.stageCompleted = completed;
+        this.levelCompleted = completed;
     }
 
     public int getScore() {

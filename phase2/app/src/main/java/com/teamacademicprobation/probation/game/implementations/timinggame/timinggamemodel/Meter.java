@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * A Meter object that has a Cursor, a target zone and a bonus zone for TimingGame.
  */
-public class Meter implements Drawable {
+class Meter implements Drawable {
 
     /**
      * The width of the meter.
@@ -156,8 +156,7 @@ public class Meter implements Drawable {
 
     @Override
     public List<AndroidDrawer> getDrawers() {
-        List<AndroidDrawer> drawers = new ArrayList<>();
-        drawers.addAll(targetZone.getDrawers());
+        List<AndroidDrawer> drawers = new ArrayList<>(targetZone.getDrawers());
         AndroidDrawer meterDrawer =
                 new MeterDrawer(getMeterRect(), paint, this.cursor.getCoordinates(), this.cursor.paint);
         drawers.add(meterDrawer);

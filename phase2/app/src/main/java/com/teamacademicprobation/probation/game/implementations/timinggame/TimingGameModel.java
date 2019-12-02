@@ -31,7 +31,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     /**
      * The ID of this game.
      */
-    static final String GAMEID = "Timing Game";
+    public static final String GAMEID = "TimingGame";
     private TimingGame timingGame;
     private PowerUpSelect powerUpSelect;
     /**
@@ -50,7 +50,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     /**
      * The player ID of the player currently playing this game.
      */
-    private String currPlayerID;
+    private String playerID;
 
     private static final String CURR_STAGE = "CURR_STAGE";
     private static final String CURR_LEVEL = "CURRENT_LEVEL";
@@ -61,12 +61,13 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Initializes a new timing game model.
-     * @param screenWidth The width of the screen, in pixels.
+     *
+     * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
-     * @param playerID The ID of the player playing this game.
+     * @param playerID     The ID of the player playing this game.
      */
     TimingGameModel(int screenWidth, int screenHeight, String playerID) {
-        this.currPlayerID = playerID;
+        this.playerID = playerID;
         this.playerAccess = new PlayerManager();
         TimingGameStyle gameStyle = generateGameStyle();
         this.timingGame = new TimingGame(screenWidth, screenHeight, gameStyle, this);
@@ -79,12 +80,13 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Generates a gameStyle that depending on the playerID.
+     *
      * @return TimingGameStyle.
      */
     private TimingGameStyle generateGameStyle() {
-        if (Pattern.matches("^[a-iA-i].*$", currPlayerID)) {
+        if (Pattern.matches("^[a-iA-i].*$", playerID)) {
             return new TimingGameStyle(TimingGameStyles.STYLE1);
-        } else if (Pattern.matches("^[j-sJ-s].*$", currPlayerID)) {
+        } else if (Pattern.matches("^[j-sJ-s].*$", playerID)) {
             return new TimingGameStyle(TimingGameStyles.STYLE2);
         } else {
             return new TimingGameStyle(TimingGameStyles.STYLE3);
@@ -96,8 +98,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
      * Loads the player data into timing game.
      */
     void loadPlayerData() {
-        if (currPlayerID != null && this.playerAccess.isBeingPlayed(currPlayerID, GAMEID)) {
-            Map<String, Integer> statMap = this.playerAccess.getCurrStats(currPlayerID, GAMEID);
+        if (playerID != null && this.playerAccess.isBeingPlayed(playerID, GAMEID)) {
+            Map<String, Integer> statMap = this.playerAccess.getCurrStats(playerID, GAMEID);
             loadMetaData(statMap);
             loadPlayerShipData(statMap);
             loadEnemyShipData(statMap);
@@ -108,7 +110,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Loads the stage, score, and current level.
-     * @param statMap
+     *
+     * @param statMap The data to be loaded.
      */
     @SuppressWarnings("ConstantConditions")
     private void loadMetaData(Map<String, Integer> statMap) {
@@ -121,7 +124,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Loads the recent enemy, and rebuilds them.
-     * @param statMap
+     *
+     * @param statMap The data to be loaded.
      */
     @SuppressWarnings("ConstantConditions")
     private void loadEnemyShipData(Map<String, Integer> statMap) {
@@ -132,7 +136,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Loads the player ship data.
-     * @param statMap
+     *
+     * @param statMap The data to be loaded.
      */
     @SuppressWarnings("ConstantConditions")
     private void loadPlayerShipData(Map<String, Integer> statMap) {
@@ -157,7 +162,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Builds the ships in the timing game.
-     * @param resources
+     *
+     * @param resources The resources to get images from.
      */
     void buildShips(Resources resources) {
         timingGame.buildShips(resources);
@@ -165,7 +171,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Builds the power up selection screen.
-     * @param resources
+     *
+     * @param resources The resources to get images from.
      */
     void buildPowerUpSelect(Resources resources) {
         this.powerUpSelect.buildPowerUpImages(resources);
@@ -174,6 +181,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     /**
      * Returns true if the game has been completed. A game is completed once all stages are cleared,
      * or once the player is defeated.
+     *
      * @return True if complete.
      */
     boolean isCompleted() {
@@ -182,7 +190,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Returns the score of the game.
-     * @return
+     *
+     * @return The score of the game.
      */
     int getScore() {
         return timingGame.getScore();
@@ -190,14 +199,16 @@ public class TimingGameModel implements Drawable, TimingGameListener {
 
     /**
      * Returns the playerID that is playing the game
-     * @return
+     *
+     * @return The playerID
      */
     String getPlayerID() {
-        return this.currPlayerID;
+        return this.playerID;
     }
 
     /**
      * Updates the game accordingly to the touch.
+     *
      * @param touchX The x coordinate of the tap. Used for the power up selection screen.
      */
     void onTouch(double touchX) {
@@ -223,7 +234,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         statMap.put(PLAYER_CURR_DAMAGE, timingGame.getPlayerDamage());
         statMap.put(ENEMY_CURR_HEALTH, timingGame.getEnemyHealth());
 
-        this.playerAccess.updateStats(currPlayerID, GAMEID, statMap);
+        this.playerAccess.updateStats(playerID, GAMEID, statMap);
     }
 
 

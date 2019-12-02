@@ -1,6 +1,5 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -2,7 +2,7 @@ package com.teamacademicprobation.probation.game.implementations.tappinggame.tap
 
 import android.graphics.Color;
 
-import com.teamacademicprobation.probation.game.ScoreBoard;
+import com.teamacademicprobation.probation.game.implementations.ScoreBoard;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
 import com.teamacademicprobation.probation.game.implementations.tappinggame.tapgamedrawers.TapScoreBoardDrawer;
 

@@ -17,9 +17,9 @@ import java.io.File;
  * A login activity.
  */
 public class LoginActivity extends AppCompatActivity implements LoginView {
-    public static final String FILE_PATH = "PlayerData.txt";
-    public static final String PLAYER_ID_KEY = "PlayerID";
-  public static final String PLAYER_USERNAME_KEY = "PlayerUsername";
+  private static final String FILE_PATH = "PlayerData.txt";
+  public static final String PLAYER_ID_KEY = "PLAYERID";
+  public static final String PLAYER_USERNAME_KEY = "PLAYER_USERNAME";
   private EditText username;
   private EditText password;
   private TextView error;
@@ -38,8 +38,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
   /**
    * Method that is called when the login button is clicked.
-   *
-   * @param view
    */
   public void loginClick(View view) {
     loginPresenter.login(username.getText().toString(), password.getText().toString());
@@ -47,8 +45,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
   /**
    * Method that is called when the register button is called.
-   *
-   * @param view
    */
   public void registerClick(View view) {
 

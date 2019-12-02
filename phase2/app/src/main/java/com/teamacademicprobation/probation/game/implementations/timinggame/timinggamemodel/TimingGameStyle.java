@@ -30,7 +30,6 @@ public class TimingGameStyle {
                 meterColor = STYLE1_ACCENT;
                 cursorColor = STYLE1_ACCENT;
                 targetZoneColor = STYLE1_ACCENT;
-                bonusZoneColor = Color.rgb(255, 227, 115);
                 bulletColor = STYLE1_ACCENT;
                 healthBarColor = STYLE1_ACCENT;
                 healthFrameColor = STYLE1_ACCENT;
@@ -40,7 +39,6 @@ public class TimingGameStyle {
                 meterColor = STYLE2_ACCENT;
                 cursorColor = STYLE2_ACCENT;
                 targetZoneColor = STYLE2_ACCENT;
-                bonusZoneColor = Color.rgb(255, 227, 115);
                 bulletColor = STYLE2_ACCENT;
                 healthBarColor = STYLE2_ACCENT;
                 healthFrameColor = STYLE2_ACCENT;
@@ -49,8 +47,6 @@ public class TimingGameStyle {
                 meterColor = STYLE3_ACCENT;
                 cursorColor = STYLE3_ACCENT;
                 targetZoneColor = STYLE3_ACCENT;
-                bonusZoneColor = Color.rgb(255, 227, 115);
-
                 bulletColor = STYLE3_ACCENT;
                 healthBarColor = STYLE3_ACCENT;
                 healthFrameColor = STYLE3_ACCENT;
@@ -61,9 +57,6 @@ public class TimingGameStyle {
     }
 
     // ====== GETTERS ======
-    int getBonusZoneColor() {
-        return bonusZoneColor;
-    }
 
     int getMeterColor() {
         return meterColor;

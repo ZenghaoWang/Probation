@@ -1,10 +1,8 @@
-package com.teamacademicprobation.probation.game;
+package com.teamacademicprobation.probation.game.implementations;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.Drawable;
 
 import java.util.List;
 
@@ -31,11 +29,10 @@ public abstract class ScoreBoard implements Drawable {
 
     /**
      * Initializes the scoreboard to fit on the top right of the screen.
-     *
-     * @param screenWidth  The width of the screen, in pixels.
+     *  @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
      */
-    public ScoreBoard(int screenWidth, int screenHeight) {
+    protected ScoreBoard(int screenWidth, int screenHeight) {
         this.score = 0;
         // These are just nice ratios.
         this.x = (int) (screenWidth * 0.81);

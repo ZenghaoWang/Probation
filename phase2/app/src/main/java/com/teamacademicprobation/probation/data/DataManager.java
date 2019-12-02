@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,9 +22,10 @@ import java.util.Map;
  *
  * <p>Each player is stored in a .txt file containing a JSON Object with the following structure:
  *
- * <p>{"PlayerID": {"Username": "playerUsername, "Password": "playerPassword", "Preferences" :
- * {"PreferenceKey" : "thisPreference"}, "CurrentSession" : {"GameID" : { "StatID" : "statistic" }},
- * "BestSession": {"GameID": {"StatID" : "statistic"}}}
+ * <p>{"PlayerID": {"Username": "playerUsername, "Password": "playerPassword",
+ * "Current Session" : {"GameID1" : { "StatID" : "statistic" }, "GameID2 : {"StatID": statistic}},
+ * "Best Session": {"GameID1" : { "StatID" : "statistic" }, "GameID2 : {"StatID": statistic}},
+ * "Total Session": {"GameID1" : { "StatID" : "statistic" }, "GameID2 : {"StatID": statistic}}}
  */
 public class DataManager implements DataAccessObject {
     private static final String TAG = "DataManager";

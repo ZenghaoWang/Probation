@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.teamacademicprobation.probation.R;
-import com.teamacademicprobation.probation.player.PlayerGameStats;
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
 

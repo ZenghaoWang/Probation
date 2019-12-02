@@ -1,10 +1,9 @@
 package com.teamacademicprobation.probation.ui.highscores;
 
-import android.content.Intent;
 import com.teamacademicprobation.probation.player.PlayerManager;
 import com.teamacademicprobation.probation.player.PlayerTotalStatsAccess;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,12 +43,7 @@ class HighScoresModel {
 		List<String> gameIDs = playerTotalStatsAccess.getGamesPlayed(playerID);
 		for (String gameID : gameIDs) {
 			Map<String, Integer> gameStatMap = playerTotalStatsAccess.getBestStats(playerID, gameID);
-			int score;
-			if (gameStatMap.containsKey("score")) {
-				score = gameStatMap.get("score");
-			} else {
-				score = gameStatMap.get("SCORE"); //TODO make SCORE all caps for all games
-			}
+			int score = gameStatMap.get(ScoreScreenActivity.SCORE_KEY); //TODO make SCORE all caps for all games
 			scores.put(gameID, Integer.toString(score));
 		}
 		return scores;
@@ -61,12 +55,7 @@ class HighScoresModel {
 		List<String> gameIDs = playerTotalStatsAccess.getGamesPlayed(playerID);
 		for (String gameID : gameIDs) {
 			Map<String, Integer> gameStatMap = playerTotalStatsAccess.getTotalStats(playerID, gameID);
-			int score;
-			if (gameStatMap.containsKey("score")) {
-				score = gameStatMap.get("score");
-			} else {
-				score = gameStatMap.get("SCORE"); //TODO make SCORE all caps for all games
-			}
+			int score = gameStatMap.get(ScoreScreenActivity.SCORE_KEY); //TODO make SCORE all caps for all games
 			scores.put(gameID, Integer.toString(score));
 		}
 		return scores;

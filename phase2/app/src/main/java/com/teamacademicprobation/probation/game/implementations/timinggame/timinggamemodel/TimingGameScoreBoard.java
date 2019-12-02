@@ -1,8 +1,7 @@
 package com.teamacademicprobation.probation.game.implementations.timinggame.timinggamemodel;
 
-import com.teamacademicprobation.probation.game.ScoreBoard;
+import com.teamacademicprobation.probation.game.implementations.ScoreBoard;
 import com.teamacademicprobation.probation.game.implementations.AndroidDrawer;
-import com.teamacademicprobation.probation.game.implementations.Drawable;
 import com.teamacademicprobation.probation.game.implementations.timinggame.drawers.ScoreBoardDrawer;
 
 import java.util.ArrayList;

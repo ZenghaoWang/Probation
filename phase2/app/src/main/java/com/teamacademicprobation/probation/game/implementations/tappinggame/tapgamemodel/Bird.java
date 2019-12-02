@@ -52,7 +52,7 @@ public class Bird extends TouchableObject implements Drawable {
     /**
      * Sets the input bitmap as the bird object's bitmap
      */
-    public void setBitmap(Bitmap bitmap) {
+    private void setBitmap(Bitmap bitmap) {
         this.bitmap = Bitmap.createScaledBitmap(bitmap, this.getSize(), this.getSize(), true);
     }
 

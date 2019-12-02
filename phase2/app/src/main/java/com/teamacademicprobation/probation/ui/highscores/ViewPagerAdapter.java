@@ -6,13 +6,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 	
-	private String playerId;
+	private String playerID;
 	
-	public ViewPagerAdapter(@NonNull FragmentManager fm, String playerId) {
+	public ViewPagerAdapter(@NonNull FragmentManager fm, String playerID) {
 		super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-		this.playerId = playerId;
+		this.playerID = playerID;
 	}
 	
 	@NonNull
@@ -26,7 +29,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 			fragment = new TotalScoresFragment();
 		}
 		Bundle bundle = new Bundle();
-		bundle.putString("playerid", playerId);
+		bundle.putString(ScoreScreenActivity.PLAYERID_KEY, playerID);
 		fragment.setArguments(bundle);
 		return fragment;
 	}

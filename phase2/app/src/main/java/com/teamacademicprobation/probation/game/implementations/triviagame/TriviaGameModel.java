@@ -4,16 +4,17 @@ import android.util.Log;
 
 import com.teamacademicprobation.probation.player.PlayerGameStatsAccess;
 import com.teamacademicprobation.probation.player.PlayerManager;
+import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
 // MVP structure from https://github.com/antoniolg/androidmvp
 
 /** The back-end for the trivia game. */
-class TriviaGameModel {
-  static final String GAMEID = "TriviaGame";
+public class TriviaGameModel {
+  public static final String GAMEID = "TriviaGame";
   // For logging purposes
   private static final String TAG = "TriviaGameModel";
 
-  private String currPlayerID;
+  private String playerID;
   private QuestionSet questionSet;
   private PlayerGameStatsAccess playerAccess;
 
@@ -21,7 +22,7 @@ class TriviaGameModel {
   private int totalNumQuestionsAnswered;
   private int numQuestionsRemaining;
   private Question currentQuestion;
-  private boolean completed;
+  private boolean gameComplete;
 
   /**
    * * Construct a new TriviaGameModel.
@@ -31,14 +32,14 @@ class TriviaGameModel {
    */
   TriviaGameModel(QuestionSet questionSet, String playerID) {
     this.questionSet = questionSet;
-    this.currPlayerID = playerID;
+    this.playerID = playerID;
     this.playerAccess = new PlayerManager();
 
     totalNumQuestionsAnswered = 0;
     numQuestionsAnsweredCorrectly = 0;
     numQuestionsRemaining = questionSet.getNumQuestions();
 
-    this.completed = false;
+    this.gameComplete = false;
   }
 
   // Start of Getters
@@ -63,14 +64,14 @@ class TriviaGameModel {
   }
   // End of Getters
 
-  /** Grabs a new question if possible. If out of questions, the game is completed. */
+  /** Grabs a new question if possible. If out of questions, the game is gameComplete. */
   void getRandomQuestion() {
     try {
       currentQuestion = questionSet.getRandomQuestion();
       numQuestionsRemaining = questionSet.getNumQuestions();
     } catch (OutOfQuestionsException e) {
       Log.e(TAG, "Out of questions!");
-      completed = true;
+      gameComplete = true;
     }
   }
 
@@ -90,9 +91,9 @@ class TriviaGameModel {
     return answerCorrect;
   }
 
-  /** @return Whether the game is completed. */
+  /** @return Whether the game is gameComplete. */
   boolean isCompleted() {
-    return completed;
+    return gameComplete;
   }
 
   /** @return A string with information about the current score. */
@@ -127,12 +128,12 @@ class TriviaGameModel {
 
   /** Send the percentage of correct answers for this game to the score tracker. */
   void updateStats() {
-    playerAccess.updateStats(currPlayerID, GAMEID, "score", generateScorePercentage());
+    playerAccess.updateStats(playerID, GAMEID, ScoreScreenActivity.SCORE_KEY, generateScorePercentage());
   }
 
 
   String getPlayerID() {
-    return currPlayerID;
+    return playerID;
 
   }
 }
