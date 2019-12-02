@@ -9,10 +9,18 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.teamacademicprobation.probation.ui.ScoreScreenActivity;
 
+/**
+ * Adapter for player's score pages (fragments)
+ */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 	
 	private String playerID;
 	
+	/**
+	 * Initializes the ViewPagerAdapter
+	 * @param fm activity's fragment manager
+	 * @param playerID ID of the player
+	 */
 	public ViewPagerAdapter(@NonNull FragmentManager fm, String playerID) {
 		super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 		this.playerID = playerID;

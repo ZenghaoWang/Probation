@@ -35,7 +35,7 @@ public class TotalScoresFragment extends Fragment {
 		// Inflate the layout for this fragment
 		String playerid = getArguments().getString(ScoreScreenActivity.PLAYERID_KEY);
 		HighScoresModel model = new HighScoresModel(playerid);
-		Map<String, String> scores = model.getTotalScores(playerid);
+		Map<String, String> scores = model.getTotalScores();
 		
 		tapScore = view.findViewById(R.id.txtTapTotalScore);
 		triviaScore = view.findViewById(R.id.txtTriviaTotalScore);

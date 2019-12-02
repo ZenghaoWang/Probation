@@ -35,7 +35,7 @@ public class HighScoresFragment extends Fragment {
 		// Inflate the layout for this fragment
 		String playerid = getArguments().getString(ScoreScreenActivity.PLAYERID_KEY);
 		HighScoresModel model = new HighScoresModel(playerid);
-		Map<String, String> scores = model.getBestScores(playerid);
+		Map<String, String> scores = model.getBestScores();
 		
 		tapScore = view.findViewById(R.id.txtTapHighScore);
 		triviaScore = view.findViewById(R.id.txtTriviaHighScore);
