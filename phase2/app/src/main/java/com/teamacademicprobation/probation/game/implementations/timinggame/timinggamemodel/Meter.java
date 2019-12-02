@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A Meter object that has a Cursor, a target zone and a bonus zone for TimingGame.
+ * A Meter object that has a Cursor and a target zone for TimingGame.
  */
 class Meter implements Drawable {
 

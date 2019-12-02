@@ -12,7 +12,6 @@ public class TimingGameStyle {
     private static final int STYLE2_ACCENT = Color.rgb(255, 31, 31);
     private static final int STYLE3_ACCENT = Color.rgb(11, 222, 0);
     private int meterColor;
-    private int bonusZoneColor;
     private int cursorColor;
     private int targetZoneColor;
     private int bulletColor;

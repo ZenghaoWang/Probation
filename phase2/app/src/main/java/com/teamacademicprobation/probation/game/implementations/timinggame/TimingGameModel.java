@@ -58,6 +58,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
     private static final String PLAYER_CURR_DAMAGE = "PLAYER_CURRENT_DAMAGE";
     private static final String PLAYER_MAX_HEALTH = "PLAYER_MAX_HEALTH";
     private static final String ENEMY_CURR_HEALTH = "ENEMY_CURRENT_HEALTH";
+    private static final String ON_SELECT_SCREEN = "SELECT_SCREEN";
+
 
     /**
      * Initializes a new timing game model.
@@ -103,7 +105,6 @@ public class TimingGameModel implements Drawable, TimingGameListener {
             loadMetaData(statMap);
             loadPlayerShipData(statMap);
             loadEnemyShipData(statMap);
-            System.out.println(statMap);
         }
 
     }
@@ -120,6 +121,7 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         this.timingGame.setLevel((statMap.get(CURR_LEVEL) != null) ? statMap.get(CURR_LEVEL) : 1);
         int score = (statMap.get(ScoreScreenActivity.SCORE_KEY) != null) ? statMap.get(ScoreScreenActivity.SCORE_KEY) : 0;
         this.timingGame.setScore(score);
+        this.stageCompleted = (statMap.get(ON_SELECT_SCREEN) != null) && (statMap.get(ON_SELECT_SCREEN) == 1);
     }
 
     /**
@@ -233,6 +235,8 @@ public class TimingGameModel implements Drawable, TimingGameListener {
         statMap.put(PLAYER_MAX_HEALTH, timingGame.getPlayerMaxHealth());
         statMap.put(PLAYER_CURR_DAMAGE, timingGame.getPlayerDamage());
         statMap.put(ENEMY_CURR_HEALTH, timingGame.getEnemyHealth());
+        statMap.put(ON_SELECT_SCREEN, stageCompleted ? 1 : 0);
+
 
         this.playerAccess.updateStats(playerID, GAMEID, statMap);
     }
