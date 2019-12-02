@@ -16,7 +16,9 @@ out of HP or have defeated 30 enemies.
 In the tapping game, your objective is to hit as many moles as you can. There are three different
 types of moles: A bomb mole, which will cause you to lose points, a regular mole which grants you
 a point for each tap, and a king mole which will grant you 5 points for each tap. 
-You can tap them as fast as you want for additional points! 
+You can tap them as fast as you want for additional points! There's also a hidden secret in the
+game if you're lucky enough!
+
 The game ends once 30 normal moles have showed up. 
 
 ##Setup
@@ -32,13 +34,14 @@ If the project gradle fails to run or shows an error, try the following steps:
 ##Authors and Acknowledgement
 
 Thank you to the following group members who helped make this project a reality:
-Samuel Vedrik
-Zenghao Wang
-Sean Gong
-Jennifer Ruan
-Victor Gasnikov
+Samuel Vedrik - DataManager, TimingGame
+Zenghao Wang - TriviaGame, ScoreScreen
+Sean Gong - TappingGame, ScoreBoard
+Jennifer Ruan - PlayerManager
+Victor Gasnikov - LoginActivity, HighScoreActivity
 
-And thank you to the TAs and Paul Gries for guiding us through out the process.
+And thank you to the TAs and Professor Paul Gries for guiding us through out the process. 
+We couldn't have done this without your help.
 
 ##License 
 

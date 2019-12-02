@@ -59,8 +59,11 @@ class TimingGamePresenter {
 
     /**
      * Updates the timing game once a tap is detected.
+     *
+     * @param touchX the x coordinate of where the tap.
      */
     void onTouch(double touchX) {
         this.timingGameModel.onTouch(touchX);
-  }
+    }
+
 }

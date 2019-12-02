@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * An implementation of ScoreBoard for timing game.
  */
-class TimingGameScoreBoard extends ScoreBoard{
+class TimingGameScoreBoard extends ScoreBoard {
 
     /**
      * Initializes a new TiminGameScoreBoard.
@@ -30,5 +30,5 @@ class TimingGameScoreBoard extends ScoreBoard{
                 new ScoreBoardDrawer(super.getX(), super.getY(), this.getScore(), super.getPaint());
         drawers.add(drawer);
         return drawers;
-  }
+    }
 }

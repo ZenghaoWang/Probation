@@ -18,5 +18,5 @@ class PlayerShip extends Ship {
      */
     PlayerShip(int screenWidth, int screenHeight) {
         super(screenWidth, screenHeight, WIDTHRATIO);
-  }
+    }
 }

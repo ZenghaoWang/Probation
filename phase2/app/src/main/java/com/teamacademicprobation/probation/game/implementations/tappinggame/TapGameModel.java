@@ -125,7 +125,7 @@ class TapGameModel implements Drawable {
      */
     private void randomCreateBird() {
         double c = Math.random();
-        if (c >= 0.9 && this.bird == null) {
+        if (c >= 0.95 && this.bird == null) {
             this.bird = new Bird(context, this.screenWidth, 100);
         }
     }

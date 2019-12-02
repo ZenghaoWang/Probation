@@ -47,5 +47,5 @@ public class TimingGameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         timingGameView.resume();
-  }
+    }
 }

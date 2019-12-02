@@ -61,16 +61,17 @@ public class TimingGame implements Drawable {
      * @param screenWidth  The width of the screen, in pixels.
      * @param screenHeight The height of the screen, in pixels.
      */
-    public TimingGame(int screenWidth, int screenHeight) {
+    public TimingGame(int screenWidth, int screenHeight, TimingGameStyle gameStyle, TimingGameListener listener) {
 
-        // Change for preferences
-        this.gameStyle = new TimingGameStyle(TimingGameStyles.STYLE3); // CHANGE THIS FOR DIFF COLOR
+        this.gameStyle = gameStyle;
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 
         this.meter = new Meter(screenWidth, screenHeight, gameStyle);
         this.scoreBoard = new TimingGameScoreBoard(screenWidth, screenHeight);
+
+        this.listener = listener;
     }
 
     /**
@@ -125,7 +126,7 @@ public class TimingGame implements Drawable {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
                 this.enemyShip = shipFactory.createEnemyShip(screenWidth, screenHeight, ++this.currLevel);
                 this.currWaitingFrame = 0;
-                this.listener.updateListener();
+                this.listener.notifyChange();
             } else {
                 this.currWaitingFrame++;
             }
@@ -140,6 +141,7 @@ public class TimingGame implements Drawable {
         if (this.playerShip.isDestroyed()) {
             if (this.currWaitingFrame >= WAITING_FRAMES) {
                 this.stageCompleted = true;
+                this.listener.notifyComplete();
             }
             this.currWaitingFrame++;
         }
@@ -164,17 +166,16 @@ public class TimingGame implements Drawable {
         if (target.getHealth() == 0) {
             target.setDestroyed(true);
         }
-        this.listener.updateListener();
+        this.listener.notifyChange();
     }
 
     /**
      * The action performed once the player has tapped the screen.
      */
-    public void onTouch(TimingGameListener listener) {
+    public void onTouch() {
         if (isAnimating()) {
             return;
         }
-        this.listener = listener;
         if (this.meter.cursorInTarget()) {
             this.currBullet = new PlayerBullet(this.screenWidth, this.screenHeight, gameStyle);
         } else {
@@ -195,6 +196,7 @@ public class TimingGame implements Drawable {
         this.scoreBoard.earnPoint();
         if (this.scoreBoard.getScore() % BOSS_LEVEL == 0) {
             this.stageCompleted = true;
+            this.listener.notifyComplete();
         }
     }
 
@@ -231,7 +233,7 @@ public class TimingGame implements Drawable {
         } else {
             this.playerShip.setHealth(this.playerShip.getMaxHealth() + 1);
         }
-        this.listener.updateListener();
+        this.listener.notifyChange();
     }
 
     public boolean playerDestroyed() {

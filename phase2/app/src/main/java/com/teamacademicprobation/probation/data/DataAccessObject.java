@@ -13,8 +13,9 @@ public interface DataAccessObject {
      * Saves the username, password, stats, preferences of the given player.
      *
      * @param player The player object that we want to save.
+     * @param playerID The player ID of the player being saved.
      */
-    void save(Player player);
+    void save(Player player, String playerID);
 
     /**
      * Instantiates a player object that specifies to the data stored for playerID

@@ -47,5 +47,5 @@ public class ShipDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(state, x, y, paint);
-  }
+    }
 }

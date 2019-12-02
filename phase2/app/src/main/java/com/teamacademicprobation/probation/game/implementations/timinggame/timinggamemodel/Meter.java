@@ -171,11 +171,17 @@ public class Meter implements Drawable {
      * The cursor of this object.
      */
     private class Cursor {
-        /** The x position of this cursor in relation to the meter. */
+        /**
+         * The x position of this cursor in relation to the meter.
+         */
         private int cursorPosition;
-        /** The velocity of the cusor. */
+        /**
+         * The velocity of the cusor.
+         */
         private int cursorVelocity;
-        /** The paint object that describes the style of the score. */
+        /**
+         * The paint object that describes the style of the score.
+         */
         private Paint paint;
 
         /**
@@ -230,5 +236,5 @@ public class Meter implements Drawable {
 
             return new int[]{currX, topY, currX, bottomY};
         }
-  }
+    }
 }

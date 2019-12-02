@@ -30,20 +30,20 @@ import java.util.Map;
 public class DataManager implements DataAccessObject {
     private static final String TAG = "DataManager";
     /**
-     * The DataFile for reading and writing.
+     * The data file for reading and writing.
      */
-    private File DataFile;
+    private File dataFile;
 
     @Override
     public void setData(File dataFile) {
-        this.DataFile = dataFile;
+        this.dataFile = dataFile;
     }
 
     @Override
-    public void save(Player player) {
+    public void save(Player player, String playerID) {
         Map<String, Object> playerDataMap = player.getData();
         JSONObject playerData = new JSONObject(playerDataMap);
-        updateFile(playerData, player.getPlayerID());
+        updateFile(playerData, playerID);
     }
 
     /**
@@ -55,16 +55,14 @@ public class DataManager implements DataAccessObject {
     private void updateFile(JSONObject playerData, String playerID) {
 
         JSONObject JSONdata = readJSON(); // Get the old JSON.
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(DataFile))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile))) {
             if (JSONdata == null) {
                 JSONdata = new JSONObject();
             }
             JSONdata.put(playerID, playerData); // Replaces data for playerID
             writer.write(JSONdata.toString());
-        } catch (IOException e) {
-            Log.e(TAG, "File not found.");
-        } catch (JSONException e) {
-            Log.e(TAG, "JSON reading failed.");
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, e.toString());
         }
     }
 
@@ -77,10 +75,8 @@ public class DataManager implements DataAccessObject {
             playerBuilder.buildPlayer(playerData, playerID);
             return playerBuilder.getPlayer();
 
-        } catch (JSONException e) {
-            Log.e(TAG, "No player with this playerID");
-        } catch (NullPointerException e) {
-            Log.e(TAG, "Null players.");
+        } catch (JSONException | NullPointerException e) {
+            Log.e(TAG, e.toString());
         }
 
         return null;
@@ -97,28 +93,26 @@ public class DataManager implements DataAccessObject {
         try {
             result = new JSONObject(oldData);
         } catch (JSONException e) {
-            Log.e(TAG, "No data found.");
+            Log.e(TAG, e.toString());
         }
         return result;
     }
 
     /**
-     * Returns a string from the file specified in DataFile.
+     * Returns a string from the file specified in dataFile.
      *
      * @return String representation of the file.
      */
     private String readFile() {
         StringBuilder result = new StringBuilder();
-        try (FileReader reader = new FileReader(this.DataFile)) {
+        try (FileReader reader = new FileReader(this.dataFile)) {
             BufferedReader br = new BufferedReader(reader);
             String newLine;
             while ((newLine = br.readLine()) != null) {
                 result.append(newLine);
             }
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "File not found,");
         } catch (IOException e) {
-            Log.e(TAG, "Something wrong happened.");
+            Log.e(TAG, e.toString());
         }
         return result.toString();
     }
@@ -135,10 +129,8 @@ public class DataManager implements DataAccessObject {
                     return currPlayerID;
                 }
             }
-        } catch (JSONException e) {
-            Log.e(TAG, "Error during parsing JSON");
-        } catch (NullPointerException e) {
-            Log.e(TAG, "No Data.");
+        } catch (JSONException | NullPointerException e) {
+            Log.e(TAG, e.toString());
         }
 
         return null;
@@ -160,7 +152,7 @@ public class DataManager implements DataAccessObject {
                 }
             }
         } catch (JSONException e) {
-            Log.e(TAG, "Error during parsing JSON");
+            Log.e(TAG, e.toString());
         }
         return false;
     }

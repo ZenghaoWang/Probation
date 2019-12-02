@@ -18,5 +18,5 @@ class PlayerBullet extends Bullet {
                 Math.toIntExact(
                         Math.round(
                                 screenWidth * (EnemyShip.WIDTHRATIO - PlayerShip.WIDTHRATIO) / Bullet.FRAMES)));
-  }
+    }
 }

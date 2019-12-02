@@ -33,5 +33,5 @@ public class ZoneDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawRect(this.zoneRect, this.paint);
-  }
+    }
 }

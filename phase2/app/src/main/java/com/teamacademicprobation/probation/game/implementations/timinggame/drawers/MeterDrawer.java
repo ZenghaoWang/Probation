@@ -73,5 +73,5 @@ public class MeterDrawer implements AndroidDrawer {
                 cursorCoordinates[2],
                 cursorCoordinates[3],
                 cursorPaint);
-  }
+    }
 }

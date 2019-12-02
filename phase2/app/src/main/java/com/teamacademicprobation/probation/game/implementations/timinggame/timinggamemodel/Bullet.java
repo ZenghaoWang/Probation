@@ -94,5 +94,5 @@ class Bullet implements Drawable {
             drawers.add(drawer);
         }
         return drawers;
-  }
+    }
 }

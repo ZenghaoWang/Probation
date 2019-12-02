@@ -45,5 +45,5 @@ public class BulletDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawCircle(x, y, radius, paint);
-  }
+    }
 }

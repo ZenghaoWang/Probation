@@ -45,5 +45,5 @@ public class ScoreBoardDrawer implements AndroidDrawer {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawText("Score: " + this.score, x, y, paint);
-  }
+    }
 }
