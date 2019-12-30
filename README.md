@@ -1,5 +1,4 @@
 # Probation Team
-
 This game was made by the probation team. You can register/login with a username and password. There are three games to select from: A trivia game, a timing game and a tapping game.
 
 In the trivia game, you can select from different categories of questions, or you can choose to play through all the questions.
@@ -10,21 +9,21 @@ In the tapping game, your objective is to hit as many moles as you can. There ar
 
 The game ends once 30 normal moles have showed up.
 
-##Setup (For the TAs and CSC207 team) If the project gradle fails to run or shows an error, try the following steps:
-
+## Setup 
+(For the TAs and CSC207 team) If the project gradle fails to run or shows an error, try the following steps:
 Checkout from version control, and load it as normal
 Close the file
 Open your file manager, and go to the group_0552 folder
 Open phase1, and copy paste everything that isn't the app folder.
 Paste into the phase 2 folder.
 Open the phase 2 folder again.
-##Authors and Acknowledgement
 
+## Authors and Acknowledgement
 Thank you to the following group members who helped make this project a reality: Samuel Vedrik - DataManager, TimingGame Zenghao Wang - TriviaGame, ScoreScreen Sean Gong - TappingGame, ScoreBoard Jennifer Ruan - PlayerManager Victor Gasnikov - LoginActivity, HighScoreActivity
 
 And thank you to the TAs and Professor Paul Gries for guiding us through out the process. We couldn't have done this without your help.
 
-##License
+## License
 
 MIT License
 
