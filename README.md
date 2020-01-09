@@ -10,6 +10,10 @@ In the tapping game, your objective is to hit as many moles as you can. There ar
 The game ends once 30 normal moles have showed up.
 
 ## Setup 
+1. Download v0.1.apk.
+2. On your android device, enable the setting to install apps from external sources.
+3. Install the apk.
+
 (For the TAs and CSC207 team) If the project gradle fails to run or shows an error, try the following steps:
 Checkout from version control, and load it as normal
 Close the file
