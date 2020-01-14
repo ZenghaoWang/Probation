@@ -22,6 +22,20 @@ Open phase1, and copy paste everything that isn't the app folder.
 Paste into the phase 2 folder.
 Open the phase 2 folder again.
 
+## Screenshots
+What you see when you open the app:
+![Log-in Screen](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Login.jpg)
+Main Menu:
+![Main Menu](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Main_menu.jpg)
+High scores for each game are tracked:
+![High score screen](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/HighScore_Screen.jpg)
+The trivia game lets you choose the category of questions to play with; while there are not many questions at the moment, this is easily expandable thanks to the builder design-pattern used to implement the game.
+![Trivia menu](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Trivia_menu.jpg)
+Here are some gameplay screenshots:
+![Trivia game](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Trivia.jpg)
+![Tapping game](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Tap.jpg)
+![Timing game](https://github.com/ZenghaoWang/Probation/blob/master/Screenshots/Timing.jpg)
+
 ## Authors and Acknowledgement
 Thank you to the following group members who helped make this project a reality: Samuel Vedrik - DataManager, TimingGame Zenghao Wang - TriviaGame, ScoreScreen Sean Gong - TappingGame, ScoreBoard Jennifer Ruan - PlayerManager Victor Gasnikov - LoginActivity, HighScoreActivity
 
